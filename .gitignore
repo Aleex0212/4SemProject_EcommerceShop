@@ -1,5 +1,5 @@
 # Ignore EcommerceShop.Blazor
-EcommerceShop.Blazor/
+EcommerceShop.FrontEnd/
 
 # Ignore build directories
 bin/
