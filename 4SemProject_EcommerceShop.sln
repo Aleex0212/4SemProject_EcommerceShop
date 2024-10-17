@@ -71,8 +71,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductService.Application"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductService.Persistence", "ProductService.Persistence\ProductService.Persistence.csproj", "{44B33C8A-A5E6-47B4-B55C-B3BEA91D9341}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EcommerceShop.FrontEnd", "EcommerceShop.FrontEnd\EcommerceShop.FrontEnd.csproj", "{D35C3DA3-A3BF-48B2-8301-F25F73AA1FB7}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -187,10 +185,6 @@ Global
 		{44B33C8A-A5E6-47B4-B55C-B3BEA91D9341}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{44B33C8A-A5E6-47B4-B55C-B3BEA91D9341}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{44B33C8A-A5E6-47B4-B55C-B3BEA91D9341}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D35C3DA3-A3BF-48B2-8301-F25F73AA1FB7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D35C3DA3-A3BF-48B2-8301-F25F73AA1FB7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D35C3DA3-A3BF-48B2-8301-F25F73AA1FB7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D35C3DA3-A3BF-48B2-8301-F25F73AA1FB7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -229,7 +223,6 @@ Global
 		{7DEABD97-7FA7-41C0-9E14-23CD17C2FCE6} = {5960A9A1-EA15-4ED0-8665-C98065CF3740}
 		{21F361C0-8873-4D23-8E3B-68A96C326606} = {2F84A18C-92FD-49EE-867A-F07F0242A387}
 		{44B33C8A-A5E6-47B4-B55C-B3BEA91D9341} = {2F84A18C-92FD-49EE-867A-F07F0242A387}
-		{D35C3DA3-A3BF-48B2-8301-F25F73AA1FB7} = {5750D40C-DECC-47AA-A9F3-446DCC544D00}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D1985305-46CA-4D9E-B112-8B60040DACC3}
