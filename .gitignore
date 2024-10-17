@@ -1,0 +1,19 @@
+# Ignore EcommerceShop.Blazor
+EcommerceShop.Blazor/
+
+# Ignore build directories
+bin/
+obj/
+
+# Ignore Visual Studio specific files
+.vs/
+
+# Ignore user-specific files
+*.user
+*.suo
+
+# Ignore other common files
+*.db
+*.log
+*.tmp
+*.zip
