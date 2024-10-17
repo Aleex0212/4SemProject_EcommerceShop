@@ -1,21 +1,9 @@
-using Projects;
-
 var builder = DistributedApplication.CreateBuilder(args);
 
-// Projects with Dapr sidecar
-builder.AddProject<EcommerceShop_Blazor>("ecommerceshop-blazor")
-    .WithDaprSidecar("ecommerce-shop");
+builder.AddProject<Projects.EcommerceShop_Blazor>("ecommerceshop-blazor");
 
-builder.AddProject<SagaOrchestrator>("sagaorchestrator")
-    .WithDaprSidecar("saga-orchestrator");
+builder.AddProject<Projects.SagaOrchestrator>("sagaorchestrator");
 
-var.AddProject<Projects.EcommerceShop_FrontEnd>("ecommerceshop-frontend");
+builder.AddProject<Projects.EcommerceShop_FrontEnd>("ecommerceshop-frontend");
 
-var app = builder.Build();
-
-app.UseRouting();
-app.UseCloudEvents(); 
-app.MapControllers(); 
-
-app.Run();
-
+builder.Build().Run();
