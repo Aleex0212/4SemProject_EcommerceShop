@@ -11,3 +11,4 @@ namespace CustomerService.Test.BaseTest
         protected static readonly Assembly PresentationAssembly = typeof(BoardMemberController).Assembly;
     }
 }
+
