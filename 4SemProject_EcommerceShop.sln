@@ -9,67 +9,69 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "services", "services", "{A3
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CustomerService", "CustomerService", "{23A493F1-6687-4F1B-9399-EE2BC4B14895}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomerService.Api", "CustomerService.Api\CustomerService.Api.csproj", "{14FB385F-7781-4863-9991-3FC8B97ED9AB}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomerService.Infrastructure", "CustomerService.Infrastructure\CustomerService.Infrastructure.csproj", "{6F9C9402-3EDA-400B-AEFD-3E383CE99078}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomerService.Domain", "CustomerService.Domain\CustomerService.Domain.csproj", "{3C2FBC7F-CD07-41AD-8AF4-67D9A8923348}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ProductService", "ProductService", "{2F84A18C-92FD-49EE-867A-F07F0242A387}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProductService.Api", "ProductService.Api\ProductService.Api.csproj", "{6639A13E-5B31-46F2-AAAC-BAE07F428399}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProductService.Domain", "ProductService.Domain\ProductService.Domain.csproj", "{67DABE0B-C41B-4818-8F10-24338EC9154A}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProductService.Infrastructure", "ProductService.Infrastructure\ProductService.Infrastructure.csproj", "{0A9C9469-4D22-4156-8189-38D0AB564E7C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CartService", "CartService", "{04708509-AEC2-4468-AE3D-8B66C2025073}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CartService.Api", "CartService.Api\CartService.Api.csproj", "{874BD4F7-CF47-426F-B3BA-E7E35EE769A3}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CartService.Domain", "CartService.Domain\CartService.Domain.csproj", "{A04AC4CC-6971-4041-8A39-7E81458DE4B2}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CartService.Infrastructure", "CartService.Infrastructure\CartService.Infrastructure.csproj", "{65692F9C-D1AF-489B-945E-9D6147E28A7D}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "OrderService", "OrderService", "{5960A9A1-EA15-4ED0-8665-C98065CF3740}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OrderService.Infrastructure", "OrderService.Infrastructure\OrderService.Infrastructure.csproj", "{D3147419-4A2E-42FC-ABF1-D980EECCA9B0}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OrderService.Api", "OrderService.Api\OrderService.Api.csproj", "{15F3AC02-71E7-407D-89BF-07B64B851614}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OrderService.Domain", "OrderService.Domain\OrderService.Domain.csproj", "{1585FD15-8E0F-4B4D-839E-E14CDAF5FC44}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EcommerceShop.AppHost", "EcommerceShop.AppHost\EcommerceShop.AppHost.csproj", "{1362F7A3-1864-4E19-AB1A-F557B1A34B25}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EcommerceShop.Common", "EcommerceShop.Common\EcommerceShop.Common.csproj", "{73BF6BC7-C615-48E4-A07E-8D0415025405}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ServiceOrchestrator", "ServiceOrchestrator", "{8DA1D17D-1A98-4F03-8165-AAC0A86F3811}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SagaOrchestrator", "SagaOrchestrator\SagaOrchestrator.csproj", "{25635521-FF2E-485F-A7F3-DA9AF21596DB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomerService.Api", "src\services\CustomerService\CustomerService.Api\CustomerService.Api.csproj", "{14FB385F-7781-4863-9991-3FC8B97ED9AB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductService.Test", "ProductService.Test\ProductService.Test.csproj", "{D6FCDF43-BD2A-4E06-8D92-088D593F78BA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomerService.Infrastructure", "src\services\CustomerService\CustomerService.Infrastructure\CustomerService.Infrastructure.csproj", "{6F9C9402-3EDA-400B-AEFD-3E383CE99078}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderService.Test", "OrderService.Test\OrderService.Test.csproj", "{791C40C7-C33F-4BEE-AF11-3B1930884DDD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomerService.Domain", "src\services\CustomerService\CustomerService.Domain\CustomerService.Domain.csproj", "{3C2FBC7F-CD07-41AD-8AF4-67D9A8923348}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomerService.Test", "CustomerService.Test\CustomerService.Test.csproj", "{584DCD6E-22FC-4A67-97B4-D01D6516918F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProductService.Api", "src\services\ProductService\ProductService.Api\ProductService.Api.csproj", "{6639A13E-5B31-46F2-AAAC-BAE07F428399}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CartService.Test", "CartService.Test\CartService.Test.csproj", "{72DC652B-A4B6-4CC4-AB9B-65FA539BF21E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProductService.Domain", "src\services\ProductService\ProductService.Domain\ProductService.Domain.csproj", "{67DABE0B-C41B-4818-8F10-24338EC9154A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CartService.Application", "CartService.Application\CartService.Application.csproj", "{7D8C6027-915B-4C55-8079-7E96B27CC073}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProductService.Infrastructure", "src\services\ProductService\ProductService.Infrastructure\ProductService.Infrastructure.csproj", "{0A9C9469-4D22-4156-8189-38D0AB564E7C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CartService.Persistence", "CartService.Persistence\CartService.Persistence.csproj", "{18DAC61E-36FF-49EB-9364-646AD0040BEA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CartService.Api", "src\services\CartService\CartService.Api\CartService.Api.csproj", "{874BD4F7-CF47-426F-B3BA-E7E35EE769A3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomerService.Application", "CustomerService.Application\CustomerService.Application.csproj", "{CEDDD284-14D6-4C8E-8A24-72CE3C35FAD4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CartService.Domain", "src\services\CartService\CartService.Domain\CartService.Domain.csproj", "{A04AC4CC-6971-4041-8A39-7E81458DE4B2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomerService.Persistence", "CustomerService.Persistence\CustomerService.Persistence.csproj", "{E35AA23D-1F3A-4A89-A44A-E3A083C8E15E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CartService.Infrastructure", "src\services\CartService\CartService.Infrastructure\CartService.Infrastructure.csproj", "{65692F9C-D1AF-489B-945E-9D6147E28A7D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderService.Application", "OrderService.Application\OrderService.Application.csproj", "{970F81FA-5411-45C1-A130-A4CBE3A18802}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OrderService.Infrastructure", "src\services\OrderService\OrderService.Infrastructure\OrderService.Infrastructure.csproj", "{D3147419-4A2E-42FC-ABF1-D980EECCA9B0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderService.Persistence", "OrderService.Persistence\OrderService.Persistence.csproj", "{7DEABD97-7FA7-41C0-9E14-23CD17C2FCE6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OrderService.Api", "src\services\OrderService\OrderService.Api\OrderService.Api.csproj", "{15F3AC02-71E7-407D-89BF-07B64B851614}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductService.Application", "ProductService.Application\ProductService.Application.csproj", "{21F361C0-8873-4D23-8E3B-68A96C326606}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OrderService.Domain", "src\services\OrderService\OrderService.Domain\OrderService.Domain.csproj", "{1585FD15-8E0F-4B4D-839E-E14CDAF5FC44}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductService.Persistence", "ProductService.Persistence\ProductService.Persistence.csproj", "{44B33C8A-A5E6-47B4-B55C-B3BEA91D9341}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EcommerceShop.AppHost", "src\EcommerceShop.AppHost\EcommerceShop.AppHost.csproj", "{1362F7A3-1864-4E19-AB1A-F557B1A34B25}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EcommerceShop.Common", "src\EcommerceShop.Common\EcommerceShop.Common.csproj", "{73BF6BC7-C615-48E4-A07E-8D0415025405}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SagaOrchestrator", "src\ServiceOrhestrator\SagaOrchestrator\SagaOrchestrator.csproj", "{25635521-FF2E-485F-A7F3-DA9AF21596DB}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProductService.Test", "src\services\ProductService\ProductService.Test\ProductService.Test.csproj", "{D6FCDF43-BD2A-4E06-8D92-088D593F78BA}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OrderService.Test", "src\services\OrderService\OrderService.Test\OrderService.Test.csproj", "{791C40C7-C33F-4BEE-AF11-3B1930884DDD}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomerService.Test", "src\services\CustomerService\CustomerService.Test\CustomerService.Test.csproj", "{584DCD6E-22FC-4A67-97B4-D01D6516918F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CartService.Test", "src\services\CartService\CartService.Test\CartService.Test.csproj", "{72DC652B-A4B6-4CC4-AB9B-65FA539BF21E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CartService.Application", "src\services\CartService\CartService.Application\CartService.Application.csproj", "{7D8C6027-915B-4C55-8079-7E96B27CC073}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CartService.Persistence", "src\services\CartService\CartService.Persistence\CartService.Persistence.csproj", "{18DAC61E-36FF-49EB-9364-646AD0040BEA}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomerService.Application", "src\services\CustomerService\CustomerService.Application\CustomerService.Application.csproj", "{CEDDD284-14D6-4C8E-8A24-72CE3C35FAD4}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomerService.Persistence", "src\services\CustomerService\CustomerService.Persistence\CustomerService.Persistence.csproj", "{E35AA23D-1F3A-4A89-A44A-E3A083C8E15E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OrderService.Application", "src\services\OrderService\OrderService.Application\OrderService.Application.csproj", "{970F81FA-5411-45C1-A130-A4CBE3A18802}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OrderService.Persistence", "src\services\OrderService\OrderService.Persistence\OrderService.Persistence.csproj", "{7DEABD97-7FA7-41C0-9E14-23CD17C2FCE6}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProductService.Application", "src\services\ProductService\ProductService.Application\ProductService.Application.csproj", "{21F361C0-8873-4D23-8E3B-68A96C326606}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProductService.Persistence", "src\services\ProductService\ProductService.Persistence\ProductService.Persistence.csproj", "{44B33C8A-A5E6-47B4-B55C-B3BEA91D9341}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EcommerceShop.FrontEnd", "EcommerceShop.FrontEnd\EcommerceShop.FrontEnd.csproj", "{D35C3DA3-A3BF-48B2-8301-F25F73AA1FB7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -192,24 +194,24 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{A38701EE-85A2-4EF1-96A8-A3D8C7BFA935} = {5750D40C-DECC-47AA-A9F3-446DCC544D00}
 		{23A493F1-6687-4F1B-9399-EE2BC4B14895} = {A38701EE-85A2-4EF1-96A8-A3D8C7BFA935}
+		{2F84A18C-92FD-49EE-867A-F07F0242A387} = {A38701EE-85A2-4EF1-96A8-A3D8C7BFA935}
+		{04708509-AEC2-4468-AE3D-8B66C2025073} = {A38701EE-85A2-4EF1-96A8-A3D8C7BFA935}
+		{5960A9A1-EA15-4ED0-8665-C98065CF3740} = {A38701EE-85A2-4EF1-96A8-A3D8C7BFA935}
+		{8DA1D17D-1A98-4F03-8165-AAC0A86F3811} = {5750D40C-DECC-47AA-A9F3-446DCC544D00}
 		{14FB385F-7781-4863-9991-3FC8B97ED9AB} = {23A493F1-6687-4F1B-9399-EE2BC4B14895}
 		{6F9C9402-3EDA-400B-AEFD-3E383CE99078} = {23A493F1-6687-4F1B-9399-EE2BC4B14895}
 		{3C2FBC7F-CD07-41AD-8AF4-67D9A8923348} = {23A493F1-6687-4F1B-9399-EE2BC4B14895}
-		{2F84A18C-92FD-49EE-867A-F07F0242A387} = {A38701EE-85A2-4EF1-96A8-A3D8C7BFA935}
 		{6639A13E-5B31-46F2-AAAC-BAE07F428399} = {2F84A18C-92FD-49EE-867A-F07F0242A387}
 		{67DABE0B-C41B-4818-8F10-24338EC9154A} = {2F84A18C-92FD-49EE-867A-F07F0242A387}
 		{0A9C9469-4D22-4156-8189-38D0AB564E7C} = {2F84A18C-92FD-49EE-867A-F07F0242A387}
-		{04708509-AEC2-4468-AE3D-8B66C2025073} = {A38701EE-85A2-4EF1-96A8-A3D8C7BFA935}
 		{874BD4F7-CF47-426F-B3BA-E7E35EE769A3} = {04708509-AEC2-4468-AE3D-8B66C2025073}
 		{A04AC4CC-6971-4041-8A39-7E81458DE4B2} = {04708509-AEC2-4468-AE3D-8B66C2025073}
 		{65692F9C-D1AF-489B-945E-9D6147E28A7D} = {04708509-AEC2-4468-AE3D-8B66C2025073}
-		{5960A9A1-EA15-4ED0-8665-C98065CF3740} = {A38701EE-85A2-4EF1-96A8-A3D8C7BFA935}
 		{D3147419-4A2E-42FC-ABF1-D980EECCA9B0} = {5960A9A1-EA15-4ED0-8665-C98065CF3740}
 		{15F3AC02-71E7-407D-89BF-07B64B851614} = {5960A9A1-EA15-4ED0-8665-C98065CF3740}
 		{1585FD15-8E0F-4B4D-839E-E14CDAF5FC44} = {5960A9A1-EA15-4ED0-8665-C98065CF3740}
 		{1362F7A3-1864-4E19-AB1A-F557B1A34B25} = {5750D40C-DECC-47AA-A9F3-446DCC544D00}
 		{73BF6BC7-C615-48E4-A07E-8D0415025405} = {5750D40C-DECC-47AA-A9F3-446DCC544D00}
-		{8DA1D17D-1A98-4F03-8165-AAC0A86F3811} = {5750D40C-DECC-47AA-A9F3-446DCC544D00}
 		{25635521-FF2E-485F-A7F3-DA9AF21596DB} = {8DA1D17D-1A98-4F03-8165-AAC0A86F3811}
 		{D6FCDF43-BD2A-4E06-8D92-088D593F78BA} = {2F84A18C-92FD-49EE-867A-F07F0242A387}
 		{791C40C7-C33F-4BEE-AF11-3B1930884DDD} = {5960A9A1-EA15-4ED0-8665-C98065CF3740}

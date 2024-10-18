@@ -1,0 +1,13 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Aspire Launch",
+      "type": "coreclr",
+      "request": "launch",
+      "program": "${workspaceFolder}/SagaOrchestrator/bin/Debug/net8.0/SagaOrchestrator.dll",
+      "requireExactSource": false
+    }
+  ],
+  "compounds": []
+}
