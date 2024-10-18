@@ -71,7 +71,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProductService.Application"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProductService.Persistence", "src\services\ProductService\ProductService.Persistence\ProductService.Persistence.csproj", "{44B33C8A-A5E6-47B4-B55C-B3BEA91D9341}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EcommerceShop.FrontEnd", "EcommerceShop.FrontEnd\EcommerceShop.FrontEnd.csproj", "{D35C3DA3-A3BF-48B2-8301-F25F73AA1FB7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EcommerceShop.FrontEnd", "src\EcommerceShop.FrontEnd", "{D35C3DA3-A3BF-48B2-8301-F25F73AA1FB7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
