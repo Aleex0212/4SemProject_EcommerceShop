@@ -12,16 +12,17 @@
   <ItemGroup>
     <PackageReference Include="coverlet.collector" Version="6.0.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.8.0" />
+    <PackageReference Include="TngTech.ArchUnitNET" Version="0.11.0" />
     <PackageReference Include="xunit" Version="2.5.3" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.5.3" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\OrderService.Api\OrderService.Api.csproj" />
-    <ProjectReference Include="..\OrderService.Application\OrderService.Application.csproj" />
-    <ProjectReference Include="..\OrderService.Domain\OrderService.Domain.csproj" />
-    <ProjectReference Include="..\OrderService.Infrastructure\OrderService.Infrastructure.csproj" />
-    <ProjectReference Include="..\OrderService.Persistence\OrderService.Persistence.csproj" />
+    <ProjectReference Include="..\CustomerService.Api\CustomerService.Api.csproj" />
+    <ProjectReference Include="..\CustomerService.Application\CustomerService.Application.csproj" />
+    <ProjectReference Include="..\CustomerService.Domain\CustomerService.Domain.csproj" />
+    <ProjectReference Include="..\CustomerService.Infrastructure\CustomerService.Infrastructure.csproj" />
+    <ProjectReference Include="..\CustomerService.Persistence\CustomerService.Persistence.csproj" />
   </ItemGroup>
 
   <ItemGroup>
