@@ -2,6 +2,7 @@
 using EcommerceShop.Common.Dto;
 using Microsoft.AspNetCore.Mvc;
 using ProductService.Application.Interfaces;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace ProductService.Api.Controllers
 {
@@ -18,6 +19,10 @@ namespace ProductService.Api.Controllers
 
         [Topic("pubsub", "product-reservation")]
         [HttpPost("reserve")]
+        [SwaggerOperation(
+            Summary = "Reserves a product",
+            Description = "Reserves the specified quantity of a product",
+            Tags = new[] { "Product Reservations" })]
         public async Task<IActionResult> ReserveProduct([FromBody] ReserveProductMessageDto request)
         {
             try
@@ -32,6 +37,10 @@ namespace ProductService.Api.Controllers
         }
 
         [HttpGet]
+        [SwaggerOperation(
+            Summary = "Gets all products",
+            Description = "Retrieves a list of all available products",
+            Tags = new[] { "Products" })]
         public async Task<IActionResult> GetAllProducts()
         {
             var products = await _productService.GetAllProductsAsync();
@@ -42,6 +51,10 @@ namespace ProductService.Api.Controllers
         }
 
         [HttpGet("{id}")]
+        [SwaggerOperation(
+            Summary = "Gets a product by ID",
+            Description = "Retrieves the details of a product by its unique ID",
+            Tags = new[] { "Products" })]
         public async Task<IActionResult> GetProductById(Guid id)
         {
             var product = await _productService.GetProductByIdAsync(id);

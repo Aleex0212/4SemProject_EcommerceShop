@@ -22,6 +22,7 @@ namespace ProductService.Api.ServiceCollectionExtensions
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<IUnitOfWork<ProductDbContext>, UnitOfWork<ProductDbContext>>();
 
+            //EF Core DB Context
             services.AddDbContext<ProductDbContext>(options =>
                 options.UseSqlServer(configuration.GetConnectionString("ProductDefaultConnection")));
         }

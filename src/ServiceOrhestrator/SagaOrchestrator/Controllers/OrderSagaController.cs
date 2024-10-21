@@ -3,6 +3,7 @@ using EcommerceShop.Common.Dto;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 using SagaOrchestrator.SignalR.Interfaces;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace SagaOrchestrator.Controllers
 {
@@ -20,6 +21,12 @@ namespace SagaOrchestrator.Controllers
         }
 
         [HttpPost("create-order")]
+        [SwaggerOperation(
+            Summary = "Creates a new order",
+            Description = "Reserves a product for a customer and publishes an event for order processing",
+            Tags = new[] { "Orders" })]
+        [SwaggerResponse(200, "Order processing started.")]
+        [SwaggerResponse(404, "Product or Customer not found.")]
         public async Task<IActionResult> CreateOrder([FromBody] ProductReservationRequestDto request)
         {
             try
@@ -29,13 +36,13 @@ namespace SagaOrchestrator.Controllers
 
                 if (product == null)
                 {
-                    await _signalRHub.Clients.All.SendStatusUpdateAsync("Product not found.");
-                    return NotFound("Product not found.");
+                    await _signalRHub.Clients.All.SendStatusUpdateAsync($"Product not found. ProductId:{product?.Id}");
+                    return NotFound($"Product not found.ProductId:{product?.Id}");
                 }
                 if (string.IsNullOrEmpty(customerId.ToString()))
                 {
-                    await _signalRHub.Clients.All.SendStatusUpdateAsync("Customer not found.");
-                    return NotFound("Customer not found.");
+                    await _signalRHub.Clients.All.SendStatusUpdateAsync($"Customer not found.CustomerId:{customerId}");
+                    return NotFound($"Customer not found.CustomerId:{customerId}");
                 }
 
                 var reservationMessage = new ReserveProductMessageDto
