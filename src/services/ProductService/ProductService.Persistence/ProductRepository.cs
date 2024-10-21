@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using ProductService.Domain.Interfaces;
+using ProductService.Application.Interfaces;
 using ProductService.Domain.Models;
 
 namespace ProductService.Persistence

@@ -67,12 +67,14 @@ namespace SagaOrchestrator.Controllers
 
         private async Task<ProductDto> GetProductAsync(Guid productId)
         {
-            return await _daprClient.InvokeMethodAsync<ProductDto>("ProductService", $"api/products/{productId}");
+            var product =  await _daprClient.InvokeMethodAsync<ProductDto>("ProductService", $"api/products/{productId}");
+            return product;
         }
 
         private async Task<Guid> GetCustomerIdAsync(Guid customerId)
         {
-            return await _daprClient.InvokeMethodAsync<Guid>("CustomerService", $"api/customers/{customerId}");
+            var customer = await _daprClient.InvokeMethodAsync<Guid>("CustomerService", $"api/customers/{customerId}");
+            return customer;
         }
     }
 }
