@@ -24,7 +24,7 @@ namespace ProductService.Persistence
         {
             var product = await _context.Products.FindAsync(id);
             if (product == null || product.IsDeleted)
-                throw new KeyNotFoundException("Product not found or has been deleted.");
+                throw new KeyNotFoundException($"Product not found or has been deleted. ProductId:{id}");
 
             return product;
         }
@@ -38,7 +38,7 @@ namespace ProductService.Persistence
             }
             catch (Exception ex)
             {
-                throw new Exception("An error occurred while adding the product.", ex);
+                throw new Exception($"An error occurred while adding the product. with productId : {product.Id}", ex);
             }
         }
 
@@ -54,12 +54,12 @@ namespace ProductService.Persistence
                 }
                 else
                 {
-                    throw new KeyNotFoundException("Product not found.");
+                    throw new KeyNotFoundException($"Product with productId: {id} not found.");
                 }
             }
             catch (Exception ex)
             {
-                throw new Exception("An error occurred while deleting the product.", ex);
+                throw new Exception($"An error occurred while deleting the product. with productId:{id}", ex);
             }
         }
 
@@ -69,14 +69,14 @@ namespace ProductService.Persistence
             {
                 var existingProduct = await _context.Products.FindAsync(product.Id);
                 if (existingProduct == null || existingProduct.IsDeleted)
-                    throw new KeyNotFoundException("Product not found or has been deleted.");
+                    throw new KeyNotFoundException($"Product not found or has been deleted. ProductId: {product.Id}");
 
                 _context.Products.Update(product);
                 await _context.SaveChangesAsync();
             }
             catch (Exception ex)
             {
-                throw new Exception("An error occurred while updating the product.", ex);
+                throw new Exception($"An error occurred while updating the product. ProductId:{product.Id} ", ex);
             }
         }
     }

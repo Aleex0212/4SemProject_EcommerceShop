@@ -2,7 +2,6 @@
 using ProductService.Application.Interfaces;
 using ProductService.Domain.Interfaces;
 using ProductService.Domain.Models;
-using System.ComponentModel.DataAnnotations;
 using System.Data;
 using Microsoft.Extensions.Logging;
 using EcommerceShop.Common.UnitOfWork.Interfaces;
@@ -37,7 +36,6 @@ namespace ProductService.Application.Services
             {
                 _unitOfWork.Rollback();
                 _logger.LogError("Error creating product with request. Exception: {Message}", ex.Message);
-                throw new ValidationException("Validation failed on product");
             }
         }
 
@@ -48,8 +46,7 @@ namespace ProductService.Application.Services
                 _unitOfWork.BeginTransaction(IsolationLevel.Serializable);
 
                 var product = await _productRepository.GetProductByIdAsync(productDto.Id);
-                if (product == null)
-                    throw new KeyNotFoundException("Product not found.");
+                if (product == null) throw new KeyNotFoundException($"Product not found.ProductId:{productDto.Id}");
 
                 product.Name = productDto.Name;
                 product.Quantity = productDto.Quantity;
@@ -62,7 +59,6 @@ namespace ProductService.Application.Services
             {
                 _unitOfWork.Rollback();
                 _logger.LogError("Error updating product with request. Exception: {Message}", ex.Message);
-                throw new DBConcurrencyException();
             }
         }
 
@@ -73,10 +69,9 @@ namespace ProductService.Application.Services
                 _unitOfWork.BeginTransaction(IsolationLevel.Serializable);
 
                 var product = await _productRepository.GetProductByIdAsync(productDto.Id);
-                if (product == null)
-                    throw new KeyNotFoundException("Product not found.");
+                if (product == null) throw new KeyNotFoundException($"Product not found.ProductId:{product?.Id}");
 
-                await _productRepository.DeleteProductAsync(product);
+                await _productRepository.DeleteProductAsync(product.Id);
 
                 _unitOfWork.Commit();
             }
@@ -101,8 +96,7 @@ namespace ProductService.Application.Services
         public async Task<ProductDto> GetProductByIdAsync(Guid id)
         {
             var product = await _productRepository.GetProductByIdAsync(id);
-            if (product == null)
-                throw new KeyNotFoundException("Product not found.");
+            if (product == null) throw new KeyNotFoundException($"Product not found.ProductId:{id}");
 
             return new ProductDto
             {
@@ -115,8 +109,7 @@ namespace ProductService.Application.Services
         public async Task ReserveProductAsync(Guid productId, int quantity)
         {
             var product = await _productRepository.GetProductByIdAsync(productId);
-            if (product == null)
-                throw new InvalidOperationException("Product not found.");
+            if (product == null) throw new KeyNotFoundException($"Product not found.ProductId:{productId}");
 
             product.Reserve(quantity);
             await _productRepository.UpdateProductAsync(product);
