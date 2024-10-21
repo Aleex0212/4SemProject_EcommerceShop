@@ -6,6 +6,7 @@
         public string Name { get; set; }
         public decimal Price { get; set; }
         public int Quantity { get; set; }
+        public bool IsDeleted { get; set; }
 
         public Product(Guid id, string name, decimal price, int quantity)
         {

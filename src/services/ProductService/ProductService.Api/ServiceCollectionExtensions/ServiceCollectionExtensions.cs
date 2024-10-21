@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using EcommerceShop.Common.UnitOfWork.Interfaces;
+using EcommerceShop.Common.UnitOfWork;
+using Microsoft.EntityFrameworkCore;
 using ProductService.Application.Interfaces;
 using ProductService.Domain.Interfaces;
 using ProductService.Persistence;
@@ -12,8 +14,13 @@ namespace ProductService.Api.ServiceCollectionExtensions
         {
             services.AddDaprClient();
             services.AddSignalR();
+            
+            //Application Services
             services.AddScoped<IProductService, Application.Services.ProductService>();
+            
+            //Persistence Services
             services.AddScoped<IProductRepository, ProductRepository>();
+            services.AddScoped<IUnitOfWork<ProductDbContext>, UnitOfWork<ProductDbContext>>();
 
             services.AddDbContext<ProductDbContext>(options =>
                 options.UseSqlServer(configuration.GetConnectionString("ProductDefaultConnection")));
