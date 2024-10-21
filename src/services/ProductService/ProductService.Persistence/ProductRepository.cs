@@ -1,13 +1,14 @@
-﻿using ProductService.Domain.Interfaces;
+﻿using Microsoft.EntityFrameworkCore;
+using ProductService.Domain.Interfaces;
 using ProductService.Domain.Models;
 
 namespace ProductService.Persistence
 {
     public class ProductRepository : IProductRepository
     {
-        /*private readonly ProductDbContext _context;
+        private readonly ProductDbContext.ProductDbContext _context;
 
-        public ProductRepository(ProductDbContext context)
+        public ProductRepository(ProductDbContext.ProductDbContext context)
         {
             _context = context;
         }
@@ -32,25 +33,6 @@ namespace ProductService.Persistence
         {
             _context.Products.Update(product);
             await _context.SaveChangesAsync();
-        }*/
-        public Task<IEnumerable<Product>> GetAllProductsAsync()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<Product> GetProductByIdAsync(Guid id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task AddProductAsync(Product product)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task UpdateProductAsync(Product product)
-        {
-            throw new NotImplementedException();
         }
     }
 }

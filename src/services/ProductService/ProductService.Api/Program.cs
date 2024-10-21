@@ -2,7 +2,7 @@ using ProductService.Api.ServiceCollectionExtensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.ServiceRegistration();
+builder.Services.ServiceRegistration(builder.Configuration);
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
