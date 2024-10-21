@@ -14,9 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\EcommerceShop.Blazor\EcommerceShop.Blazor.csproj" />
-    <ProjectReference Include="..\EcommerceShop.FrontEnd\EcommerceShop.FrontEnd.csproj" />
-    <ProjectReference Include="..\SagaOrchestrator\SagaOrchestrator.csproj" />
+    <ProjectReference Include="..\ServiceOrhestrator\SagaOrchestrator\SagaOrchestrator.csproj" />
   </ItemGroup>
 
 </Project>

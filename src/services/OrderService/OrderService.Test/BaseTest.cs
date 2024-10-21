@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
 
-namespace CustomerService.Test
+namespace OrderService.Test
 {
     public abstract class BaseTest
     {

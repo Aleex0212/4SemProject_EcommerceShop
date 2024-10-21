@@ -7,14 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Dapr.AspNetCore" Version="1.14.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
 	<ItemGroup>
+		<ProjectReference Include="..\..\..\EcommerceShop.Common\EcommerceShop.Common.csproj" />
 		<ProjectReference Include="..\ProductService.Application\ProductService.Application.csproj" />
 		<ProjectReference Include="..\ProductService.Domain\ProductService.Domain.csproj" />
 	</ItemGroup>

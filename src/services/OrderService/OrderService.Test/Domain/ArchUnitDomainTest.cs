@@ -1,8 +1,4 @@
-﻿using ArchUnitNET.Domain;
-using ArchUnitNET.Domain.Extensions;
-using ArchUnitNET.Fluent;
-using ArchUnitNET.xUnit;
-using OrderService.Test;
+﻿using ArchUnitNET.Fluent;
 
 namespace OrderService.Test.Domain
 {
