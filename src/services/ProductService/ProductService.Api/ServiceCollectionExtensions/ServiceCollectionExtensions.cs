@@ -1,5 +1,5 @@
-﻿using EcommerceShop.Common.UnitOfWork.Interfaces;
-using EcommerceShop.Common.UnitOfWork;
+﻿using EcommerceShop.Common.UnitOfWork;
+using EcommerceShop.Common.UnitOfWork.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using ProductService.Application.Interfaces;
 using ProductService.Domain.Interfaces;
@@ -14,10 +14,10 @@ namespace ProductService.Api.ServiceCollectionExtensions
         {
             services.AddDaprClient();
             services.AddSignalR();
-            
+
             //Application Services
             services.AddScoped<IProductService, Application.Services.ProductService>();
-            
+
             //Persistence Services
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<IUnitOfWork<ProductDbContext>, UnitOfWork<ProductDbContext>>();

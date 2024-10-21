@@ -1,10 +1,10 @@
 ﻿using EcommerceShop.Common.Dto;
+using EcommerceShop.Common.UnitOfWork.Interfaces;
+using Microsoft.Extensions.Logging;
 using ProductService.Application.Interfaces;
 using ProductService.Domain.Interfaces;
 using ProductService.Domain.Models;
 using System.Data;
-using Microsoft.Extensions.Logging;
-using EcommerceShop.Common.UnitOfWork.Interfaces;
 
 namespace ProductService.Application.Services
 {

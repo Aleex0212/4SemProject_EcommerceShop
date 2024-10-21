@@ -1,7 +1,7 @@
-﻿using System.Data;
-using EcommerceShop.Common.UnitOfWork.Interfaces;
+﻿using EcommerceShop.Common.UnitOfWork.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
+using System.Data;
 
 namespace EcommerceShop.Common.UnitOfWork
 {
