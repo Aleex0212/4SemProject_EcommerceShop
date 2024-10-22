@@ -2,8 +2,7 @@
 using ArchUnitNET.Fluent;
 using ArchUnitNET.Loader;
 
-
-namespace CustomerService.Test
+namespace OrderService.Test
 {
     public abstract class ArchUnitBaseTest : BaseTest
     {
