@@ -1,10 +1,12 @@
-﻿namespace EcommerceShop.Common.Dto
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace EcommerceShop.Common.Dto
 {
     public class ProductDto
     {
-        public Guid Id { get; set; }
-        public string Name { get; set; }
-        public decimal Price { get; set; }
-        public int Quantity { get; set; }
+        [Required] public Guid Id { get; set; }
+        [Required] public string? Name { get; set; }
+        [Required] public decimal Price { get; set; }
+        [Required] public int Quantity { get; set; }
     }
 }

@@ -1,21 +1,21 @@
-﻿using EcommerceShop.Common.UnitOfWork.Interfaces;
+﻿using System.Data;
+using EcommerceShop.Common.UnitOfWork.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
-using System.Data;
+using ProductService.Persistence.Context;
 
-namespace EcommerceShop.Common.UnitOfWork
+namespace ProductService.Persistence
 {
-    public class UnitOfWork<TContext> : IUnitOfWork<TContext> where TContext : DbContext
+    public class UnitOfWork : IUnitOfWork 
     {
-        private readonly TContext _context;
+        private readonly ProductDbContext _context;
         private IDbContextTransaction _transaction;
 
-        public UnitOfWork(TContext context)
+        public UnitOfWork(ProductDbContext context, IDbContextTransaction transaction)
         {
             _context = context;
+            _transaction = transaction;
         }
-
-        public TContext Context => _context;
 
         public void Commit()
         {

@@ -14,8 +14,6 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.UseAuthorization();
-
 app.MapControllers();
 
 app.Run();
@@ -24,6 +22,7 @@ return;
 void Configure(IApplicationBuilder app, IWebHostEnvironment env)
 {
     app.UseRouting();
+    app.UseAuthorization();
 
     app.UseEndpoints(endpoints =>
     {

@@ -1,10 +1,12 @@
-﻿namespace EcommerceShop.Common.Dto
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace EcommerceShop.Common.Dto
 {
     public class ProductReservationRequestDto
     {
-        public Guid CustomerId { get; set; }
-        public Guid OrderId { get; set; }
-        public Guid ProductId { get; set; }
-        public int Quantity { get; set; }
+        [Required] public Guid CustomerId { get; set; }
+        [Required] public Guid OrderId { get; set; }
+        [Required] public Guid ProductId { get; set; }
+        [Required] public int Quantity { get; set; }
     }
 }
