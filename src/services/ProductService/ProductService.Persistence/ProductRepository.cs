@@ -1,14 +1,15 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ProductService.Application.Interfaces;
 using ProductService.Domain.Models;
+using ProductService.Persistence.Context;
 
 namespace ProductService.Persistence
 {
     public class ProductRepository : IProductRepository
     {
-        private readonly ProductDbContext.ProductDbContext _context;
+        private readonly ProductDbContext _context;
 
-        public ProductRepository(ProductDbContext.ProductDbContext context)
+        public ProductRepository(ProductDbContext context)
         {
             _context = context;
         }

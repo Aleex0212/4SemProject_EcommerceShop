@@ -5,7 +5,7 @@ using ProductService.Application.Interfaces;
 using ProductService.Application.Services.Command;
 using ProductService.Application.Services.Query;
 using ProductService.Persistence;
-using ProductService.Persistence.ProductDbContext;
+using ProductService.Persistence.Context;
 
 namespace ProductService.Api.ServiceCollectionExtensions
 {
@@ -22,7 +22,7 @@ namespace ProductService.Api.ServiceCollectionExtensions
 
             // Persistence Services
             services.AddScoped<IProductRepository, ProductRepository>();
-            services.AddScoped<IUnitOfWork<ProductDbContext>, UnitOfWork<ProductDbContext>>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             // EF Core DB Context
             services.AddDbContext<ProductDbContext>(options =>

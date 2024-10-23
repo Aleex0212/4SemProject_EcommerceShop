@@ -10,10 +10,10 @@ namespace ProductService.Application.Services.Command
     public class ProductCommandService : IProductCommandService
     {
         private readonly IProductRepository _productRepository;
-        private readonly IUnitOfWork<ProductDbContext> _unitOfWork; 
+        private readonly IUnitOfWork _unitOfWork; 
         private readonly ILogger<IProductCommandService> _logger;
 
-        public ProductCommandService(IProductRepository productRepository, IUnitOfWork<ProductDbContext> unitOfWork, ILogger<IProductCommandService> logger)
+        public ProductCommandService(IProductRepository productRepository, IUnitOfWork unitOfWork, ILogger<IProductCommandService> logger)
         {
             _productRepository = productRepository;
             _unitOfWork = unitOfWork;
@@ -92,7 +92,7 @@ namespace ProductService.Application.Services.Command
             catch (Exception ex)
             {
                 _unitOfWork.Rollback();
-                _logger.LogError("Error reserving product, productId: {productId}. Exception: {Message}", ex.Message);
+                _logger.LogError($"Error reserving product, productId: {productId}. Exception: {ex.Message}");
             }
         }
     }

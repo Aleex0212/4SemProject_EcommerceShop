@@ -5,13 +5,13 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using ProductService.Persistence.ProductDbContext;
+using ProductService.Persistence.Context;
 
 #nullable disable
 
 namespace ProductService.Persistence.Migrations
 {
-    [DbContext(typeof(ProductDbContext.ProductDbContext))]
+    [DbContext(typeof(ProductDbContext))]
     [Migration("20241021120726_InitialCreate")]
     partial class InitialCreate
     {
