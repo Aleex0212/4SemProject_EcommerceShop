@@ -6,7 +6,7 @@ using ProductService.Persistence.Context;
 
 namespace ProductService.Persistence
 {
-    public class UnitOfWork : IUnitOfWork 
+    public class UnitOfWork : IUnitOfWork
     {
         private readonly ProductDbContext _context;
         private IDbContextTransaction _transaction;
@@ -19,15 +19,29 @@ namespace ProductService.Persistence
 
         public void Commit()
         {
-            _context.SaveChanges();
-            _transaction?.Commit();
-            _transaction?.Dispose();
+            try
+            {
+                _context.SaveChanges();
+                _transaction?.Commit();
+            }
+            finally
+            {
+                _transaction?.Dispose();
+                _transaction = null;
+            }
         }
 
         public void Rollback()
         {
-            _transaction?.Rollback();
-            _transaction?.Dispose();
+            try
+            {
+                _transaction?.Rollback();
+            }
+            finally
+            {
+                _transaction?.Dispose();
+                _transaction = null;
+            }
         }
 
         public void BeginTransaction(IsolationLevel isolationLevel)

@@ -16,6 +16,10 @@ namespace ProductService.Api.ServiceCollectionExtensions
             services.AddDaprClient();
             services.AddSignalR();
 
+            // EF Core DB Context
+            services.AddDbContext<ProductDbContext>(options =>
+                options.UseSqlServer(configuration.GetConnectionString("ProductDefaultConnection")));
+
             // Application Services
             services.AddScoped<IProductQueryService, ProductQueryService>();
             services.AddScoped<IProductCommandService, ProductCommandService>();
