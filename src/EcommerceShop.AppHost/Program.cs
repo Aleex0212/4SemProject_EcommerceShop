@@ -5,10 +5,10 @@ var builder = DistributedApplication.CreateBuilder(args);
 
 // PubSub Channels 
 var daprStateStore = builder.AddDaprStateStore("daprStateStore");
-var CustomerChannel = builder.AddDaprPubSub("CustomerChannel");
-var OrderChannel = builder.AddDaprPubSub("OrderChannel");
-var ProductChannel = builder.AddDaprPubSub("ProductChannel");
-var CartChannel = builder.AddDaprPubSub("CartChannel");
+var customerChannel = builder.AddDaprPubSub("CustomerChannel");
+var orderChannel = builder.AddDaprPubSub("OrderChannel");
+var productChannel = builder.AddDaprPubSub("ProductChannel");
+var cartChannel = builder.AddDaprPubSub("CartChannel");
 
 // Project References
 builder
@@ -19,10 +19,10 @@ builder
         DaprHttpPort = 3500
     })
     .WithReference(daprStateStore)
-    .WithReference(CustomerChannel)
-    .WithReference(OrderChannel)
-    .WithReference(ProductChannel)
-    .WithReference(CartChannel);
+    .WithReference(customerChannel)
+    .WithReference(orderChannel)
+    .WithReference(productChannel)
+    .WithReference(cartChannel);
 
 builder
     .AddProject<ProductService_Api>("ProductService")
@@ -31,8 +31,8 @@ builder
         DaprGrpcPort = 50006,
         DaprHttpPort = 3501
     })
-    .WithReference(ProductChannel)
-    .WithReference(OrderChannel);
+    .WithReference(productChannel)
+    .WithReference(orderChannel);
 
 builder
     .AddProject<CustomerService_Api>("CustomerService")
@@ -41,8 +41,8 @@ builder
         DaprGrpcPort = 50007,
         DaprHttpPort = 3502
     })
-    .WithReference(CustomerChannel)
-    .WithReference(ProductChannel);
+    .WithReference(customerChannel)
+    .WithReference(productChannel);
 
 builder
     .AddProject<CartService_Api>("CartService")
@@ -51,9 +51,9 @@ builder
         DaprGrpcPort = 50008,
         DaprHttpPort = 3503
     })
-    .WithReference(CartChannel)
-    .WithReference(ProductChannel)
-    .WithReference(OrderChannel);
+    .WithReference(cartChannel)
+    .WithReference(productChannel)
+    .WithReference(orderChannel);
 
 string? daprPath = Environment.GetEnvironmentVariable("DAPR_PATH", EnvironmentVariableTarget.User);
 builder.AddDapr(opts => opts.DaprPath = daprPath ?? "default/dapr/path");
