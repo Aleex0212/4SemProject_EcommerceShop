@@ -10,11 +10,13 @@ namespace ProductService.Api.Controllers
     [ApiController]
     public class ProductController : ControllerBase
     {
-        private readonly IProductService _productService;
+        private readonly IProductCommandService _productCommandService;
+        private readonly IProductQueryService _productQueryService;
 
-        public ProductController(IProductService productService)
+        public ProductController(IProductCommandService productCommandService, IProductQueryService productQueryService)
         {
-            _productService = productService;
+            _productCommandService = productCommandService;
+            _productQueryService = productQueryService;
         }
 
         [Topic("pubsub", "product-reservation")]
@@ -27,7 +29,7 @@ namespace ProductService.Api.Controllers
         {
             try
             {
-                await _productService.ReserveProductAsync(request.ProductId, request.Quantity);
+                await _productCommandService.ReserveProductAsync(request.ProductId, request.Quantity);
                 return Ok("Product reservation processed successfully.");
             }
             catch (Exception ex)
@@ -43,7 +45,7 @@ namespace ProductService.Api.Controllers
             Tags = new[] { "Products" })]
         public async Task<IActionResult> GetAllProducts()
         {
-            var products = await _productService.GetAllProductsAsync();
+            var products = await _productQueryService.GetAllProductsAsync();
             if (products == null || !products.Any())
                 return NotFound("No products found.");
 
@@ -57,7 +59,7 @@ namespace ProductService.Api.Controllers
             Tags = new[] { "Products" })]
         public async Task<IActionResult> GetProductById(Guid id)
         {
-            var product = await _productService.GetProductByIdAsync(id);
+            var product = await _productQueryService.GetProductByIdAsync(id);
             if (product == null)
                 return NotFound($"Product with ID {id} not found.");
 
