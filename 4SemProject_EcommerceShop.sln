@@ -59,7 +59,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProductService.Persistence"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Gateway", "Gateway", "{4AABB9F1-6209-441E-B6D7-4D3E70E9F63B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GatewayApi", "GatewayApi\GatewayApi.csproj", "{6A7D1173-0163-4615-9EEB-16F3EDDF78D3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GatewayApi", "src\Gateway\Gateway.Api\Gateway.Api.csproj", "{6A7D1173-0163-4615-9EEB-16F3EDDF78D3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
