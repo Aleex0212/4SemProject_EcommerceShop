@@ -21,3 +21,4 @@ obj/
 *.log
 *.tmp
 *.zip
+/EcommerceShop.FrontEnd
