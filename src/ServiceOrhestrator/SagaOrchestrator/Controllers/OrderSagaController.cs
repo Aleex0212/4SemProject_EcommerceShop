@@ -56,6 +56,7 @@ namespace SagaOrchestrator.Controllers
                 await _daprClient.PublishEventAsync("pubsub", "product-reservation", reservationMessage);
                 await _signalRHub.Clients.All.SendStatusUpdateAsync($"Product Id : {reservationMessage.ProductId} reserved for Customer Id: {customerId}.");
 
+                
                 return Ok("Order processing started.");
             }
             catch (Exception ex)
