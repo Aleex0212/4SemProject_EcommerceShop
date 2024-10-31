@@ -1,5 +1,4 @@
-﻿using EcommerceShop.Common.UnitOfWork;
-using EcommerceShop.Common.UnitOfWork.Interfaces;
+﻿using EcommerceShop.Common.UnitOfWork.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using ProductService.Application.Interfaces;
 using ProductService.Application.Services.Command;
@@ -9,28 +8,28 @@ using ProductService.Persistence.Context;
 
 namespace ProductService.Api.ServiceCollectionExtensions
 {
-    internal static class ServiceCollectionExtensions
+  internal static class ServiceCollectionExtensions
+  {
+    internal static void ServiceRegistration(this IServiceCollection services, IConfiguration configuration)
     {
-        internal static void ServiceRegistration(this IServiceCollection services, IConfiguration configuration)
-        {
-            services.AddDaprClient();
-            services.AddSignalR();
+      services.AddDaprClient();
+      services.AddSignalR();
 
-            // EF Core DB Context
-            services.AddDbContext<ProductDbContext>(options =>
-                options.UseSqlServer(configuration.GetConnectionString("ProductDefaultConnection")));
+      // EF Core DB Context
+      services.AddDbContext<ProductDbContext>(options =>
+          options.UseSqlServer(configuration.GetConnectionString("ProductDefaultConnection")));
 
-            // Application Services
-            services.AddScoped<IProductQueryService, ProductQueryService>();
-            services.AddScoped<IProductCommandService, ProductCommandService>();
+      // Application Services
+      services.AddScoped<IQueryService, QueryService>();
+      services.AddScoped<ICommandService, CommandService>();
 
-            // Persistence Services
-            services.AddScoped<IProductRepository, ProductRepository>();
-            services.AddScoped<IUnitOfWork, UnitOfWork>();
+      // Persistence Services
+      services.AddScoped<IRepository, Repository>();
+      services.AddScoped<IUnitOfWork, UnitOfWork>();
 
-            // EF Core DB Context
-            services.AddDbContext<ProductDbContext>(options =>
-                options.UseSqlServer(configuration.GetConnectionString("ProductDefaultConnection")));
-        }
+      // EF Core DB Context
+      services.AddDbContext<ProductDbContext>(options =>
+          options.UseSqlServer(configuration.GetConnectionString("ProductDefaultConnection")));
     }
+  }
 }

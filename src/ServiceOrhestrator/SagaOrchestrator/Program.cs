@@ -8,8 +8,8 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+  app.UseSwagger();
+  app.UseSwaggerUI();
 }
 
 app.UseHttpsRedirection();
@@ -21,12 +21,12 @@ return;
 
 void Configure(IApplicationBuilder app, IWebHostEnvironment env)
 {
-    app.UseRouting();
-    app.UseAuthorization();
+  app.UseRouting();
+  app.UseAuthorization();
 
-    app.UseEndpoints(endpoints =>
-    {
-        endpoints.MapHub<StatusUpdateHub>("/statusUpdateHub");
-        endpoints.MapControllers();
-    });
+  app.UseEndpoints(endpoints =>
+  {
+    endpoints.MapHub<StatusUpdateHub>("/statusUpdateHub");
+    endpoints.MapControllers();
+  });
 }

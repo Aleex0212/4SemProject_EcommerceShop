@@ -11,12 +11,24 @@ var productChannel = builder.AddDaprPubSub("ProductChannel");
 var cartChannel = builder.AddDaprPubSub("CartChannel");
 
 // Project References
+builder.AddProject<GatewayApi>("gateway")
+    .WithDaprSidecar(new DaprSidecarOptions
+    {
+      DaprGrpcPort = 50004,
+      DaprHttpPort = 3501
+    })
+    .WithReference(daprStateStore)
+    .WithReference(customerChannel)
+    .WithReference(orderChannel)
+    .WithReference(productChannel)
+    .WithReference(cartChannel);
+
 builder
     .AddProject<OrderService_Api>("OrderService")
     .WithDaprSidecar(new DaprSidecarOptions
     {
-        DaprGrpcPort = 50005,
-        DaprHttpPort = 3500
+      DaprGrpcPort = 50005,
+      DaprHttpPort = 3502
     })
     .WithReference(daprStateStore)
     .WithReference(customerChannel)
@@ -28,8 +40,8 @@ builder
     .AddProject<ProductService_Api>("ProductService")
     .WithDaprSidecar(new DaprSidecarOptions
     {
-        DaprGrpcPort = 50006,
-        DaprHttpPort = 3501
+      DaprGrpcPort = 50006,
+      DaprHttpPort = 3503
     })
     .WithReference(productChannel)
     .WithReference(orderChannel);
@@ -38,22 +50,11 @@ builder
     .AddProject<CustomerService_Api>("CustomerService")
     .WithDaprSidecar(new DaprSidecarOptions
     {
-        DaprGrpcPort = 50007,
-        DaprHttpPort = 3502
+      DaprGrpcPort = 50007,
+      DaprHttpPort = 3504
     })
     .WithReference(customerChannel)
     .WithReference(productChannel);
-
-builder
-    .AddProject<CartService_Api>("CartService")
-    .WithDaprSidecar(new DaprSidecarOptions
-    {
-        DaprGrpcPort = 50008,
-        DaprHttpPort = 3503
-    })
-    .WithReference(cartChannel)
-    .WithReference(productChannel)
-    .WithReference(orderChannel);
 
 string? daprPath = Environment.GetEnvironmentVariable("DAPR_PATH", EnvironmentVariableTarget.User);
 builder.AddDapr(opts => opts.DaprPath = daprPath ?? "default/dapr/path");

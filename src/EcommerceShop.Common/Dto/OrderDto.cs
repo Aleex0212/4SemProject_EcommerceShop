@@ -1,6 +1,6 @@
 ﻿namespace EcommerceShop.Common.Dto
 {
-    public class OrderDto
-    {
-    }
+  public class OrderDto
+  {
+  }
 }
