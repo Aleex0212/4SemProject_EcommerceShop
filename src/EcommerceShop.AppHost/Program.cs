@@ -11,17 +11,17 @@ var productChannel = builder.AddDaprPubSub("ProductChannel");
 var cartChannel = builder.AddDaprPubSub("CartChannel");
 
 // Project References
-builder.AddProject<GatewayApi>("gateway")
-    .WithDaprSidecar(new DaprSidecarOptions
-    {
-      DaprGrpcPort = 50004,
-      DaprHttpPort = 3501
-    })
-    .WithReference(daprStateStore)
-    .WithReference(customerChannel)
-    .WithReference(orderChannel)
-    .WithReference(productChannel)
-    .WithReference(cartChannel);
+//builder.AddProject<GatewayApi>("gateway")
+//    .WithDaprSidecar(new DaprSidecarOptions
+//    {
+//      DaprGrpcPort = 50004,
+//      DaprHttpPort = 3501
+//    })
+//    .WithReference(daprStateStore)
+//    .WithReference(customerChannel)
+//    .WithReference(orderChannel)
+//    .WithReference(productChannel)
+//    .WithReference(cartChannel);
 
 builder
     .AddProject<OrderService_Api>("OrderService")
