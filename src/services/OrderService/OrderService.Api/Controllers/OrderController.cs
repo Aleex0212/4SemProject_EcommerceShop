@@ -1,12 +1,11 @@
-﻿using System.Threading.Channels;
-using Dapr;
+﻿using Dapr;
 using Dapr.Client;
+using Dapr.Workflow;
 using EcommerceShop.Common.Dto;
 using EcommerceShop.Common.Queues;
 using EcommerceShop.Common.Routes;
 using Microsoft.AspNetCore.Mvc;
-using OrderService.Api.Workflow.Activities.OrderActivity;
-using OrderService.Domain.Models;
+using OrderService.Api.Workflow;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace OrderService.Api.Controllers
@@ -16,11 +15,11 @@ namespace OrderService.Api.Controllers
   public class OrderController : ControllerBase
   {
     private readonly ILogger<OrderController> _logger;
-    private readonly DaprClient _daprClient;
+    private readonly DaprWorkflowClient _workflowDaprClient;
 
-    public OrderController(DaprClient daprClient, ILogger<OrderController> logger)
+    public OrderController(DaprWorkflowClient workflowDaprClient, ILogger<OrderController> logger)
     {
-      _daprClient = daprClient;
+      _workflowDaprClient = workflowDaprClient;
       _logger = logger;
     }
 
@@ -32,15 +31,16 @@ namespace OrderService.Api.Controllers
       Tags = new[] { "Orders" })]
     public async Task<IActionResult> Post([FromBody] OrderDto order)
     {
-      var correlationId = Guid.NewGuid().ToString();
-      var workflowComponentName = "dapr";
-      var workflowName = nameof(CreateOrderFlow);
+      var instanceId = Guid.NewGuid().ToString();
+      const string workflowName = nameof(CreateOrderWorkflow);
 
       try
       {
         var startResponse =
-          await _daprClient.StartWorkflowAsync(workflowComponentName, workflowName, correlationId, order);
-        return Ok(startResponse);
+          await _workflowDaprClient.ScheduleNewWorkflowAsync(workflowName, instanceId, order);
+
+        var response = _workflowDaprClient.WaitForWorkflowCompletionAsync(startResponse);
+        return Ok(response.Result);
       }
       catch (Exception ex)
       {
