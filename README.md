@@ -1,20 +1,24 @@
-4SemProject_EcommerceShop
-Projekt TO-DO
+# 4SemProject_EcommerceShop : **TO-DO**
 
-- Implementer GatewayApi Rigtigt
-- Lav Activities og Komensating activities på CreateOrderWorkflow
-- Tilføj JWT-Tokens til API-Gateway
-- Tilføj Database.EnsureCreated på DBContext
-- Tilføj IdentityId på CustomerId - Identity håndteres på Microservice
-___________________________________________________________
-(OK)-  Lav productservice om til at den følger rest niveau 2
-(OK)-  Implementer som et Dapr-WorkFlow 
-(OK) - Flyt ansvaret for OrdreOrhestrator til Ordre Service
-(OK) - Få Services til at komminikere gennem Dapr
-___________________________________________________________
-DAGBOG: 
-31.10 : Forventningsafstem, lave arkitetturen til projektet, Domain-Driven-Design. enighed om Services og Projekt Scope.
-02.10 : Udfordringer : SAGA hvordan implementerer man en saga i microservices? Hvad er en SAGA.
-03.10 : Udfordringer : DaprClient/DaprWorkFlowClient ?? Hvorfor er de forskellige? Hvordan for man services til at snakke sammen? 
-        RabbitMq? Redis? Lave Dapr Workflow, CreateOrderDaprWorkflow. og flytte SAGA til OrderService - Implementer som et workflow.
-04.10 : Arbejde med Activities og Kompenstating Transactions.
+- Implementer GatewayApi korrekt
+- Lav Activities og kompensationsaktiviteter på `CreateOrderWorkflow`
+- Tilføj JWT-tokens til API-gatewayen
+- Tilføj `Database.EnsureCreated` på `DbContext`
+- Tilføj `IdentityId` på `CustomerId` - Identity håndteres af Microservice
+
+---
+
+**Done:**
+- ✅ Lav `ProductService` om, så den følger REST niveau 2
+- ✅ Implementer som et Dapr-workflow
+- ✅ Flyt ansvaret for `OrderOrchestrator` til `OrderService`
+- ✅ Få services til at kommunikere gennem Dapr
+
+---
+
+# DAGBOG:
+
+- **31.10:** Forventningsafstemning, opbygning af arkitektur til projektet og arbejde med Domain-Driven Design. Enighed om services og projektets scope.
+- **02.10:** Udfordringer: Hvordan implementerer man en Saga i microservices? Hvad er en Saga?
+- **03.10:** Udfordringer: Forskel på `DaprClient` og `DaprWorkflowClient`? Hvordan får man services til at kommunikere? Overvejelser om RabbitMQ og Redis. Arbejde med `CreateOrderDaprWorkflow` og flytte Saga til `OrderService` som et workflow.
+- **04.10:** Arbejde med Activities og kompensationstransaktioner.
