@@ -75,7 +75,6 @@ namespace ProductService.Application.Services.Command
         _logger.LogError("Error deleting product. Exception: {Message}", ex.Message);
       }
     }
-
     public async Task ReserveProductAsync(Guid productId, int quantity)
     {
       try

@@ -45,7 +45,7 @@ namespace SagaOrchestrator.Controllers
           return NotFound($"Customer not found.CustomerId:{customerId}");
         }
 
-        var reservationMessage = new ReserveProductMessageDto
+        var reservationMessage = new ReserveProductDto
         {
           OrderId = Guid.NewGuid(),
           CustomerId = customerId,

@@ -11,7 +11,7 @@ var productChannel = builder.AddDaprPubSub("ProductChannel");
 var cartChannel = builder.AddDaprPubSub("CartChannel");
 
 //Project References
-builder.AddProject<Gateway_Api>("gateway")
+builder.AddProject<Gateway_Api>("OrderGateway")
     .WithDaprSidecar(new DaprSidecarOptions
     {
       DaprGrpcPort = 50004,
