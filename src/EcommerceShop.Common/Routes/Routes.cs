@@ -5,6 +5,11 @@
     public static class GatewayRoutes
     {
       public const string BaseUrl = "Gateway";
+
+      public static class OrderGatewayRoutes
+      {
+        public const string Order = BaseUrl + "/Order";
+      }
     }
 
     public static class OrderRoutes

@@ -24,5 +24,12 @@ namespace ProductService.Application.Interfaces
     /// </summary>
     /// <param name="productDto">The product to delete.</param>
     Task DeleteProductAsync(ProductDto productDto);
+
+    /// <summary>
+    /// Reserves a product.
+    /// </summary>
+    /// <param name="productDto">The product to reserve.</param>
+    /// /// <param name="quantity">quantity to reserve</param>
+    Task ReserveProductAsync(Guid productId, int quantity);
   }
 }

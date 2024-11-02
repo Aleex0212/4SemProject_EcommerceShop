@@ -19,4 +19,8 @@
 		<ProjectReference Include="..\OrderService.Domain\OrderService.Domain.csproj" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Folder Include="Workflow\Activities\CompensationActivity\" />
+	</ItemGroup>
+
 </Project>

@@ -1,4 +1,7 @@
-﻿using EcommerceShop.Common.Routes;
+﻿using Dapr;
+using EcommerceShop.Common.IntegrationEvents;
+using EcommerceShop.Common.Queues;
+using EcommerceShop.Common.Routes;
 using Microsoft.AspNetCore.Mvc;
 using ProductService.Application.Interfaces;
 using Swashbuckle.AspNetCore.Annotations;
@@ -16,6 +19,23 @@ namespace ProductService.Api.Controllers
     {
       _commandService = commandService;
       _queryService = queryService;
+    }
+
+
+    [Topic(ProductChannel.Channel, ProductChannel.Topics.ReserveProduct)]
+    [HttpPut("reserve")]
+    public async Task<IActionResult> ReserveProduct([FromBody] ReserveProductDto request)
+    {
+      try
+      {
+        //await _commandService.ReserveProductAsync(request.ProductId, request.Quantity);
+        return Ok("Product reservation processed successfully.");
+      }
+      catch (Exception ex)
+      {
+        //return StatusCode(500, $"Error processing product reservation: {ex.Message} for product {request.ProductId}");
+        return null;
+      }
     }
 
     [HttpGet]
