@@ -18,7 +18,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\Gateway\Gateway.Api\Gateway.Api.csproj" />
+		<ProjectReference Include="..\..\Gateway.Api\Gateway.Api.csproj" />
 		<ProjectReference Include="..\services\CustomerService\CustomerService.Api\CustomerService.Api.csproj" />
 		<ProjectReference Include="..\services\OrderService\OrderService.Api\OrderService.Api.csproj" />
 		<ProjectReference Include="..\services\ProductService\ProductService.Api\ProductService.Api.csproj" />

@@ -1,6 +1,11 @@
 @Gateway.Api_HostAddress = http://localhost:5126
 
+Post {{Gateway.Api_HostAddress}}/Gateway/Order/
+
+
 GET {{Gateway.Api_HostAddress}}/weatherforecast/
+
+Post {{Gateway.Api_HostAddress}}/Gateway/Order/
 Accept: application/json
 
 ###
