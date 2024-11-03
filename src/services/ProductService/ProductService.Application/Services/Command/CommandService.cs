@@ -4,6 +4,7 @@ using Microsoft.Extensions.Logging;
 using ProductService.Application.Interfaces;
 using ProductService.Domain.Models;
 using System.Data;
+using EcommerceShop.Common.IntegrationEvents;
 
 namespace ProductService.Application.Services.Command
 {
@@ -12,27 +13,57 @@ namespace ProductService.Application.Services.Command
     private readonly IRepository _repository;
     private readonly IUnitOfWork _unitOfWork;
     private readonly ILogger<ICommandService> _logger;
+    private readonly IProductMapper _productMapper;
 
-    public CommandService(IRepository repository, IUnitOfWork unitOfWork, ILogger<ICommandService> logger)
+    public CommandService(IRepository repository, IUnitOfWork unitOfWork, ILogger<ICommandService> logger, IProductMapper productMapper)
     {
       _repository = repository;
       _unitOfWork = unitOfWork;
       _logger = logger;
+      _productMapper = productMapper;
     }
 
-    public async Task AddProductAsync(ProductDto productDto)
+    public async Task ReserveProductAsync(ReserveProductDto productDtos)
     {
       try
       {
         _unitOfWork.BeginTransaction(IsolationLevel.Serializable);
-        var product = new Product(Guid.NewGuid(), productDto.Name, productDto.Price, productDto.Quantity);
+
+        foreach (var productDto in productDtos.Products)
+        {
+          var product = await _repository.GetProductByIdAsync(productDto.ProductDto.Id);
+
+          product.Quantity = Product.Reserve(product.Quantity, productDto.Quantity);
+
+          await _repository.UpdateProductAsync(product);
+        }
+        _unitOfWork.Commit();
+      }
+      catch (Exception ex)
+      {
+        _unitOfWork.Rollback();
+        _logger.LogError($"Error reserving product(s) with CorrelationId {productDtos.CorrelationId}: {ex.Message}");
+        throw; 
+      }
+    }
+
+
+
+
+    public async Task AddProductAsync(ProductDto productDto)
+    {
+      Product? product = null;
+      try
+      {
+        _unitOfWork.BeginTransaction(IsolationLevel.Serializable);
+        product = _productMapper.MapToDomainModel(productDto);
         await _repository.AddProductAsync(product);
         _unitOfWork.Commit();
       }
       catch (Exception ex)
       {
         _unitOfWork.Rollback();
-        _logger.LogError("Error creating product. Exception: {Message}", ex.Message);
+        _logger.LogError($"Error creating product with Id: {product!.Id}. Exception: {ex.Message}");
       }
     }
 
@@ -73,25 +104,6 @@ namespace ProductService.Application.Services.Command
       {
         _unitOfWork.Rollback();
         _logger.LogError("Error deleting product. Exception: {Message}", ex.Message);
-      }
-    }
-    public async Task ReserveProductAsync(Guid productId, int quantity)
-    {
-      try
-      {
-        _unitOfWork.BeginTransaction(IsolationLevel.Serializable);
-        var product = await _repository.GetProductByIdAsync(productId);
-
-        if (product == null) throw new KeyNotFoundException($"Product not found, productId: {productId}. ProductId:{productId}");
-
-        product.Reserve(quantity);
-        await _repository.UpdateProductAsync(product);
-        _unitOfWork.Commit();
-      }
-      catch (Exception ex)
-      {
-        _unitOfWork.Rollback();
-        _logger.LogError($"Error reserving product, productId: {productId}. Exception: {ex.Message}");
       }
     }
   }

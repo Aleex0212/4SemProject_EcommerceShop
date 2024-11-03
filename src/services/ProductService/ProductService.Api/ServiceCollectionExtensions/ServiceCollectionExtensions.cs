@@ -1,6 +1,7 @@
 ﻿using EcommerceShop.Common.UnitOfWork.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using ProductService.Application.Interfaces;
+using ProductService.Application.Services;
 using ProductService.Application.Services.Command;
 using ProductService.Application.Services.Query;
 using ProductService.Persistence;
@@ -22,6 +23,7 @@ namespace ProductService.Api.ServiceCollectionExtensions
       // Application Services
       services.AddScoped<IQueryService, QueryService>();
       services.AddScoped<ICommandService, CommandService>();
+      services.AddScoped<IProductMapper, ProductMapper>();
 
       // Persistence Services
       services.AddScoped<IRepository, Repository>();
