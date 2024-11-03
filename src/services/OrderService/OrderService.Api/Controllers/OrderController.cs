@@ -38,7 +38,7 @@ namespace OrderService.Api.Controllers
       {
         var startResponse =
           await _daprWorkflowClient.ScheduleNewWorkflowAsync(workflowName, instanceId, order);
-        Console.WriteLine("DET LYKKEDES");
+
         var workflowStateAsync = await _daprWorkflowClient.WaitForWorkflowCompletionAsync(startResponse);
         return Ok(workflowStateAsync);
       }
