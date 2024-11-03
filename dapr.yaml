@@ -1,0 +1,34 @@
+apps:
+- appDirPath: src\services\ProductService\ProductService.Api
+  appID: productservice-api
+  appPort: 5142
+  command:
+  - dotnet
+  - run
+- appDirPath: Gateway.Api
+  appID: gateway-api
+  appPort: 5019
+  command:
+  - dotnet
+  - run
+- appDirPath: src\EcommerceShop.AppHost
+  appID: ecommerceshop-apphost
+  command:
+  - dotnet
+  - run
+- appDirPath: src\services\CustomerService\CustomerService.Api
+  appID: customerservice-api
+  appPort: 5210
+  command:
+  - dotnet
+  - run
+- appDirPath: src\services\OrderService\OrderService.Api
+  appID: orderservice-api
+  appPort: 5024
+  command:
+  - dotnet
+  - run
+common:
+  resourcesPaths:
+  - ./components
+version: 1

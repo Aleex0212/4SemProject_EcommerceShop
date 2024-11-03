@@ -4,11 +4,11 @@ using Projects;
 var builder = DistributedApplication.CreateBuilder(args);
 
 // PubSub Channels 
-var daprStateStore = builder.AddDaprStateStore("daprStateStore");
-var customerChannel = builder.AddDaprPubSub("CustomerChannel");
+//var customerChannel = builder.AddDaprPubSub("OrderChannel");
+//var daprStateStore = builder.AddDaprStateStore("daprStateStore");
 var orderChannel = builder.AddDaprPubSub("OrderChannel");
-var productChannel = builder.AddDaprPubSub("ProductChannel");
-var cartChannel = builder.AddDaprPubSub("CartChannel");
+//var productChannel = builder.AddDaprPubSub("ProductChannel");
+//var cartChannel = builder.AddDaprPubSub("CartChannel");
 
 //Project References
 builder.AddProject<Gateway_Api>("OrderGateway")
@@ -17,11 +17,7 @@ builder.AddProject<Gateway_Api>("OrderGateway")
       DaprGrpcPort = 50004,
       DaprHttpPort = 3501
     })
-    .WithReference(daprStateStore)
-    .WithReference(customerChannel)
-    .WithReference(orderChannel)
-    .WithReference(productChannel)
-    .WithReference(cartChannel);
+    .WithReference(orderChannel);
 
 builder
     .AddProject<OrderService_Api>("OrderService")
@@ -30,11 +26,7 @@ builder
       DaprGrpcPort = 50005,
       DaprHttpPort = 3502
     })
-    .WithReference(daprStateStore)
-    .WithReference(customerChannel)
-    .WithReference(orderChannel)
-    .WithReference(productChannel)
-    .WithReference(cartChannel);
+    .WithReference(orderChannel);
 
 builder
     .AddProject<ProductService_Api>("ProductService")
@@ -43,7 +35,6 @@ builder
       DaprGrpcPort = 50006,
       DaprHttpPort = 3503
     })
-    .WithReference(productChannel)
     .WithReference(orderChannel);
 
 builder
@@ -52,9 +43,7 @@ builder
     {
       DaprGrpcPort = 50007,
       DaprHttpPort = 3504
-    })
-    .WithReference(customerChannel)
-    .WithReference(productChannel);
+    });
 
 string? daprPath = Environment.GetEnvironmentVariable("DAPR_PATH", EnvironmentVariableTarget.User);
 builder.AddDapr(opts => opts.DaprPath = daprPath ?? "default/dapr/path");
