@@ -10,41 +10,25 @@ var pubSub = builder.AddDaprPubSub("PubSub");
 
 //Project References
 builder.AddProject<Gateway_Api>("OrderGateway")
-    .WithDaprSidecar(new DaprSidecarOptions
-    {
-      DaprGrpcPort = 50004,
-      DaprHttpPort = 3501
-    })
+    .WithDaprSidecar()
     .WithReference(daprStateStore)
     .WithReference(pubSub);
 
 
 builder
     .AddProject<OrderService_Api>("OrderService")
-    .WithDaprSidecar(new DaprSidecarOptions
-    {
-      DaprGrpcPort = 50005,
-      DaprHttpPort = 3502
-    })
+    .WithDaprSidecar()
     .WithReference(daprStateStore)
     .WithReference(pubSub);
 
 builder
     .AddProject<ProductService_Api>("ProductService")
-    .WithDaprSidecar(new DaprSidecarOptions
-    {
-      DaprGrpcPort = 50006,
-      DaprHttpPort = 3503
-    })
+    .WithDaprSidecar()
     .WithReference(pubSub);
 
 builder
     .AddProject<CustomerService_Api>("CustomerService")
-    .WithDaprSidecar(new DaprSidecarOptions
-    {
-      DaprGrpcPort = 50007,
-      DaprHttpPort = 3504
-    })
+    .WithDaprSidecar()
     .WithReference(pubSub);
 
 string? daprPath = Environment.GetEnvironmentVariable("DAPR_PATH", EnvironmentVariableTarget.User);
