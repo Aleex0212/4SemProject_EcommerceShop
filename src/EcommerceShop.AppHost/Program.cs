@@ -5,10 +5,8 @@ var builder = DistributedApplication.CreateBuilder(args);
 
 // PubSub Channels 
 var daprStateStore = builder.AddDaprStateStore("daprStateStore");
-var customerChannel = builder.AddDaprPubSub("CustomerChannel");
-var orderChannel = builder.AddDaprPubSub("OrderChannel");
-var productChannel = builder.AddDaprPubSub("ProductChannel");
-var cartChannel = builder.AddDaprPubSub("CartChannel");
+var pubSub = builder.AddDaprPubSub("PubSub");
+
 
 //Project References
 builder.AddProject<Gateway_Api>("OrderGateway")
@@ -18,10 +16,8 @@ builder.AddProject<Gateway_Api>("OrderGateway")
       DaprHttpPort = 3501
     })
     .WithReference(daprStateStore)
-    .WithReference(customerChannel)
-    .WithReference(orderChannel)
-    .WithReference(productChannel)
-    .WithReference(cartChannel);
+    .WithReference(pubSub);
+
 
 builder
     .AddProject<OrderService_Api>("OrderService")
@@ -31,10 +27,7 @@ builder
       DaprHttpPort = 3502
     })
     .WithReference(daprStateStore)
-    .WithReference(customerChannel)
-    .WithReference(orderChannel)
-    .WithReference(productChannel)
-    .WithReference(cartChannel);
+    .WithReference(pubSub);
 
 builder
     .AddProject<ProductService_Api>("ProductService")
@@ -43,8 +36,7 @@ builder
       DaprGrpcPort = 50006,
       DaprHttpPort = 3503
     })
-    .WithReference(productChannel)
-    .WithReference(orderChannel);
+    .WithReference(pubSub);
 
 builder
     .AddProject<CustomerService_Api>("CustomerService")
@@ -53,8 +45,7 @@ builder
       DaprGrpcPort = 50007,
       DaprHttpPort = 3504
     })
-    .WithReference(customerChannel)
-    .WithReference(productChannel);
+    .WithReference(pubSub);
 
 string? daprPath = Environment.GetEnvironmentVariable("DAPR_PATH", EnvironmentVariableTarget.User);
 builder.AddDapr(opts => opts.DaprPath = daprPath ?? "default/dapr/path");

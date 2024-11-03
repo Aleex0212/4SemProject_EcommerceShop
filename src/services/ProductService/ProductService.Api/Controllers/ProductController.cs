@@ -22,7 +22,7 @@ namespace ProductService.Api.Controllers
     }
 
 
-    [Topic(ProductChannel.Channel, ProductChannel.Topics.ReserveProduct)]
+    [Topic(PubSub.Base, PubSub.ProductTopic.Reserve)]
     [HttpPut("reserve")]
     public async Task<IActionResult> ReserveProduct([FromBody] ReserveProductDto request)
     {
