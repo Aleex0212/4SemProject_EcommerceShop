@@ -24,7 +24,7 @@ namespace OrderService.Api.Controllers
     }
 
     [HttpPost]
-    [Topic(OrderChannel.Channel, OrderChannel.Topics.CreateOrder)]
+    [Topic(PubSub.Base, PubSub.OrderTopic.CreateOrder)]
     [SwaggerOperation(
       Summary = "Creates a new order",
       Description = "Initiate a new order and starts the workflow",
@@ -36,6 +36,7 @@ namespace OrderService.Api.Controllers
 
       try
       {
+        Console.WriteLine("subscribe event received");
         var startResponse =
           await _daprWorkflowClient.ScheduleNewWorkflowAsync(workflowName, instanceId, order);
 

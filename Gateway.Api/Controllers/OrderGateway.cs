@@ -28,7 +28,9 @@ namespace Gateway.Api.Controllers
     {
       try
       {        
-        await _daprClient.PublishEventAsync(OrderChannel.Channel, OrderChannel.Topics.CreateOrder, order);
+        await _daprClient.PublishEventAsync(PubSub.Base, PubSub.OrderTopic.CreateOrder, order);
+        
+        Console.WriteLine("publish event sent");
         return Ok();
       }
       catch (Exception ex)

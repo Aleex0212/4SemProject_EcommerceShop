@@ -27,7 +27,7 @@ namespace OrderService.Api.Workflow.Activities.ExternalActivities
         Products = new List<ProductLineDto>(),
       };
 
-      await _daprClient.PublishEventAsync(ProductChannel.Channel, ProductChannel.Topics.ReserveProduct);
+      await _daprClient.PublishEventAsync(PubSub.Base, PubSub.ProductTopic.Reserve);
       return reserveProductDto;
     }
   }

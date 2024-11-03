@@ -1,18 +1,28 @@
 apps:
+- appDirPath: src\services\OrderService\OrderService.Api
+  appID: orderservice-api
+  appPort: 5024
+  command:
+  - dotnet
+  - run
+- appDirPath: src\services\OrderService\OrderService.Test
+  appID: orderservice-test
+  command:
+  - dotnet
+  - run
+- appDirPath: src\services\ProductService\ProductService.Test
+  appID: productservice-test
+  command:
+  - dotnet
+  - run
 - appDirPath: src\services\ProductService\ProductService.Api
   appID: productservice-api
   appPort: 5142
   command:
   - dotnet
   - run
-- appDirPath: Gateway.Api
-  appID: gateway-api
-  appPort: 5019
-  command:
-  - dotnet
-  - run
-- appDirPath: src\EcommerceShop.AppHost
-  appID: ecommerceshop-apphost
+- appDirPath: src\services\CustomerService\CustomerService.Test
+  appID: customerservice-test
   command:
   - dotnet
   - run
@@ -22,13 +32,15 @@ apps:
   command:
   - dotnet
   - run
-- appDirPath: src\services\OrderService\OrderService.Api
-  appID: orderservice-api
-  appPort: 5024
+- appDirPath: src\EcommerceShop.AppHost
+  appID: ecommerceshop-apphost
   command:
   - dotnet
   - run
-common:
-  resourcesPaths:
-  - ./components
+- appDirPath: Gateway.Api
+  appID: gateway-api
+  appPort: 5019
+  command:
+  - dotnet
+  - run
 version: 1
