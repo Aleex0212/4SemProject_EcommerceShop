@@ -28,12 +28,12 @@ namespace ProductService.Api.Controllers
     {
       try
       {
-        //await _commandService.ReserveProductAsync(request.ProductId, request.Quantity);
+        await _commandService.ReserveProductAsync(request);
         return Ok("Product reservation processed successfully.");
       }
       catch (Exception ex)
       {
-        //return StatusCode(500, $"Error processing product reservation: {ex.Message} for product {request.ProductId}");
+        return StatusCode(500);
         return null;
       }
     }

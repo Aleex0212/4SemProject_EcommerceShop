@@ -15,11 +15,11 @@ namespace OrderService.Api.Controllers
   public class OrderController : ControllerBase
   {
     private readonly ILogger<OrderController> _logger;
-    private readonly DaprWorkflowClient _workflowDaprClient;
+    private readonly DaprWorkflowClient _daprWorkflowClient;
 
-    public OrderController(DaprWorkflowClient workflowDaprClient, ILogger<OrderController> logger)
+    public OrderController(DaprWorkflowClient daprWorkflowClient, ILogger<OrderController> logger)
     {
-      _workflowDaprClient = workflowDaprClient;
+      _daprWorkflowClient = daprWorkflowClient;
       _logger = logger;
     }
 
@@ -37,10 +37,10 @@ namespace OrderService.Api.Controllers
       try
       {
         var startResponse =
-          await _workflowDaprClient.ScheduleNewWorkflowAsync(workflowName, instanceId, order);
+          await _daprWorkflowClient.ScheduleNewWorkflowAsync(workflowName, instanceId, order);
 
-        var response = _workflowDaprClient.WaitForWorkflowCompletionAsync(startResponse);
-        return Ok(response.Result);
+        var workflowStateAsync = _daprWorkflowClient.WaitForWorkflowCompletionAsync(startResponse);
+        return Ok(workflowStateAsync.Result);
       }
       catch (Exception ex)
       {

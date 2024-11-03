@@ -1,4 +1,5 @@
 ﻿using EcommerceShop.Common.Dto;
+using EcommerceShop.Common.IntegrationEvents;
 
 namespace ProductService.Application.Interfaces
 {
@@ -7,6 +8,13 @@ namespace ProductService.Application.Interfaces
   /// </summary>
   public interface ICommandService
   {
+    /// <summary>
+    /// Reserves The Product 
+    /// </summary>
+    /// <param name="productDtos"></param>
+    /// <returns></returns>
+    public Task ReserveProductAsync(ReserveProductDto productDtos);
+
     /// <summary>
     /// Adds a new product.
     /// </summary>
@@ -24,12 +32,5 @@ namespace ProductService.Application.Interfaces
     /// </summary>
     /// <param name="productDto">The product to delete.</param>
     Task DeleteProductAsync(ProductDto productDto);
-
-    /// <summary>
-    /// Reserves a product.
-    /// </summary>
-    /// <param name="productDto">The product to reserve.</param>
-    /// /// <param name="quantity">quantity to reserve</param>
-    Task ReserveProductAsync(Guid productId, int quantity);
   }
 }

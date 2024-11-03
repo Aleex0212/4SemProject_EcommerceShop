@@ -21,4 +21,4 @@
 - **31.10:** Forventningsafstemning, opbygning af arkitektur til projektet og arbejde med Domain-Driven Design. Enighed om services og projektets scope.
 - **02.10:** Udfordringer: Hvordan implementerer man en Saga i microservices? Hvad er en Saga?
 - **03.10:** Udfordringer: Forskel på `DaprClient` og `DaprWorkflowClient`? Hvordan får man services til at kommunikere? Overvejelser om RabbitMQ og Redis. Arbejde med `CreateOrderDaprWorkflow` og flytte Saga til `OrderService` som et workflow.
-- **04.10:** Arbejde med Activities og kompensationstransaktioner.
+- **04.10:** Udfordringer: Debug i Dapr?? 

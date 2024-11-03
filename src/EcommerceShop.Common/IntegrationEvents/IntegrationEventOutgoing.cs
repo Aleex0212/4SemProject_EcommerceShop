@@ -11,7 +11,7 @@ namespace EcommerceShop.Common.IntegrationEvents
   public record ReserveProductDto : IntegrationEventOutgoing
   {
     [Required] public string CorrelationId { get; set; }
-    [Required] public List<ProductLineDto> Products { get; set; }
+    [Required] public List<ProductLineDto> Products { get; set; } = new();
   }
 
 }
