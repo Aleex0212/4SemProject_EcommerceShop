@@ -12,7 +12,6 @@ namespace OrderService.Api.ServiceCollectionExtensions
     internal static void ServiceRegistration(this IServiceCollection services, IConfiguration configuration)
     {
       //Dapr 
-      services.AddDaprClient();
       services.AddDaprWorkflow(options =>
       {
         //Workflows
