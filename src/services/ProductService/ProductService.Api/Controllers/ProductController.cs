@@ -22,7 +22,7 @@ namespace ProductService.Api.Controllers
     }
 
 
-    [Topic(PubSub.Base, PubSub.ProductTopic.Reserve)]
+    [Topic(PubSub.Channel, PubSub.ProductTopic.Reserve)]
     [HttpPut("reserve")]
     public async Task<IActionResult> ReserveProduct([FromBody] ReserveProductDto request)
     {
@@ -34,7 +34,6 @@ namespace ProductService.Api.Controllers
       catch (Exception ex)
       {
         return StatusCode(500);
-        return null;
       }
     }
 
@@ -42,7 +41,7 @@ namespace ProductService.Api.Controllers
     [SwaggerOperation(
         Summary = "Gets all products",
         Description = "Retrieves a list of all available products",
-        Tags = new[] { "Products" })]
+        Tags = ["Products"])]
     public async Task<IActionResult> Get()
     {
       var products = await _queryService.GetAllProductsAsync();
@@ -56,7 +55,7 @@ namespace ProductService.Api.Controllers
     [SwaggerOperation(
         Summary = "Gets a product by ID",
         Description = "Retrieves the details of a product by its unique ID",
-        Tags = new[] { "Products" })]
+        Tags = ["Products"])]
     public async Task<IActionResult> Get(Guid id)
     {
       var product = await _queryService.GetProductByIdAsync(id);

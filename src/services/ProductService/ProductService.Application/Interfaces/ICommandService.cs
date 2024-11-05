@@ -11,9 +11,9 @@ namespace ProductService.Application.Interfaces
     /// <summary>
     /// Reserves The Product 
     /// </summary>
-    /// <param name="productDtos"></param>
+    /// <param name="productDto"></param>
     /// <returns></returns>
-    public Task ReserveProductAsync(ReserveProductDto productDtos);
+    public Task ReserveProductAsync(ReserveProductDto productDto);
 
     /// <summary>
     /// Adds a new product.
