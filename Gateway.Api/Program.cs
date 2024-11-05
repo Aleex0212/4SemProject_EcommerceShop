@@ -7,20 +7,20 @@ builder.AddServiceDefaults();
 var daprGrpcPort = Environment.GetEnvironmentVariable("DAPR_GRPC_PORT");
 if (string.IsNullOrEmpty(daprGrpcPort))
 {
-  daprGrpcPort = "50001"; //altid sæt den til 50001
+  daprGrpcPort = "50001"; //altid sÃ¦t den til 50001
   Environment.SetEnvironmentVariable("DAPR_GRPC_PORT", daprGrpcPort);
 }
 
 var daprHttpPort = Environment.GetEnvironmentVariable("DAPR_HTTP_PORT");
 if (string.IsNullOrEmpty(daprHttpPort))
 {
-  daprHttpPort = "5005"; //altid sæt den til 50001
+  daprHttpPort = "5005"; //altid sÃ¦t den til 50001
   Environment.SetEnvironmentVariable("DAPR_HTTP_PORT", daprHttpPort);
 }
 
 // Add services to the container.
 builder.Services.AddControllers()
-  .AddDapr(config => config.UseGrpcEndpoint(daprGrpcPort).UseHttpEndpoint(daprHttpPort));
+  .AddDapr(config => config.UseGrpcEndpoint($"http://localhost:{daprGrpcPort}").UseHttpEndpoint($"http://localhost:{daprHttpPort}"));
 #endregion
 // Add services to the container.
 
@@ -32,6 +32,8 @@ builder.Services.AddDaprClient(config => config.UseGrpcEndpoint(daprGrpcPort).Us
 
 
 var app = builder.Build();
+
+app.MapDefaultEndpoints();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -45,7 +47,7 @@ if (app.Environment.IsDevelopment())
 app.UseAuthorization();
 
 #region dapr setup
-app.UseCloudEvents(); //sørger for at medsendte parametre som DTO'er kan deserialiseres.
+app.UseCloudEvents(); //sÃ¸rger for at medsendte parametre som DTO'er kan deserialiseres.
 app.MapSubscribeHandler(); // kun ved explicit pubsub.
 
 #endregion

@@ -9,14 +9,14 @@ builder.AddServiceDefaults();
 var daprGrpcPort = Environment.GetEnvironmentVariable("DAPR_GRPC_PORT");
 if (string.IsNullOrEmpty(daprGrpcPort))
 {
-  daprGrpcPort = "50001"; //altid sæt den til 50001
+  daprGrpcPort = "50001"; //altid sÃ¦t den til 50001
   Environment.SetEnvironmentVariable("DAPR_GRPC_PORT", daprGrpcPort);
 }
 
 var daprHttpPort = Environment.GetEnvironmentVariable("DAPR_HTTP_PORT");
 if (string.IsNullOrEmpty(daprHttpPort))
 {
-  daprHttpPort = "5005"; //altid sæt den til 50001
+  daprHttpPort = "5005"; //altid sÃ¦t den til 50001
   Environment.SetEnvironmentVariable("DAPR_HTTP_PORT", daprHttpPort);
 }
 
@@ -34,11 +34,13 @@ builder.Services.ServiceRegistration(builder.Configuration);
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddDaprClient(config => config.UseGrpcEndpoint(daprGrpcPort).UseHttpEndpoint(daprHttpPort));
+builder.Services.AddDaprClient(config => config.UseGrpcEndpoint($"http://localhost:{daprGrpcPort}").UseHttpEndpoint($"http://localhost:{daprHttpPort}"));
 
 
 
 var app = builder.Build();
+
+app.MapDefaultEndpoints();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -52,7 +54,7 @@ if (app.Environment.IsDevelopment())
 app.UseAuthorization();
 
 #region dapr setup
-app.UseCloudEvents(); //sørger for at medsendte parametre som DTO'er kan deserialiseres.
+app.UseCloudEvents(); //sÃ¸rger for at medsendte parametre som DTO'er kan deserialiseres.
 app.MapSubscribeHandler(); // kun ved explicit pubsub.
 
 #endregion

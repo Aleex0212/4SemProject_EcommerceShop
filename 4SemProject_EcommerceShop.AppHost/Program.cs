@@ -1,6 +1,3 @@
-using Aspire.Hosting.Dapr;
-using Projects;
-
 var builder = DistributedApplication.CreateBuilder(args);
 
 // PubSub Channels 
@@ -8,57 +5,55 @@ var daprStateStore = builder.AddDaprStateStore("daprStateStore");
 var pubSub = builder.AddDaprPubSub("pubsub");
 
 
-//Project References
-builder.AddProject<Gateway_Api>("ordergateway")
-    .WithDaprSidecar(
+builder.AddProject<Projects.Gateway_Api>("gateway-api")
+  .WithDaprSidecar(
   //new DaprSidecarOptions
   //{
   //  DaprGrpcPort = 50005,
   //  DaprHttpPort = 3500
   //}
   )
-    .WithReference(daprStateStore)
+      .WithReference(daprStateStore)
     .WithReference(pubSub);
 
-
-builder
-    .AddProject<OrderService_Api>("orderservice")
-   .WithDaprSidecar(
+builder.AddProject<Projects.CustomerService_Api>("customerservice-api")
+     .WithDaprSidecar(
   //new DaprSidecarOptions
   //{
   //  DaprGrpcPort = 50006,
   //  DaprHttpPort = 3501
   //}
   )
-    .WithReference(daprStateStore)
+         .WithReference(daprStateStore)
     .WithReference(pubSub);
 
-builder
-    .AddProject<ProductService_Api>("productservice")
-    .WithDaprSidecar(
+builder.AddProject<Projects.OrderService_Api>("orderservice-api")
+      .WithDaprSidecar(
   //new DaprSidecarOptions
   //{
   //  DaprGrpcPort = 50007,
   //  DaprHttpPort = 3502
   //}
   )
-    .WithReference(daprStateStore)
+          .WithReference(daprStateStore)
     .WithReference(pubSub);
 
-builder
-    .AddProject<CustomerService_Api>("customerservice")
-    .WithDaprSidecar(
+builder.AddProject<Projects.ProductService_Api>("productservice-api")
+      .WithDaprSidecar(
   //new DaprSidecarOptions
   //{
   //  DaprGrpcPort = 50008,
   //  DaprHttpPort = 3503
   //}
   )
-    .WithReference(daprStateStore)
+          .WithReference(daprStateStore)
     .WithReference(pubSub);
+
+
 
 string? daprPath = Environment.GetEnvironmentVariable("DAPR_PATH", EnvironmentVariableTarget.User);
 builder.AddDapr(opts => opts.DaprPath = daprPath ?? "default/dapr/path");
 
-var app = builder.Build();
-app.Run();
+
+
+builder.Build().Run();

@@ -16,7 +16,7 @@
   </ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\..\..\..\EcommerceShop.ServiceDefaults\EcommerceShop.ServiceDefaults.csproj" />
+		<ProjectReference Include="..\..\..\..\4SemProject_EcommerceShop.ServiceDefaults\4SemProject_EcommerceShop.ServiceDefaults.csproj" />
 		<ProjectReference Include="..\CustomerService.Application\CustomerService.Application.csproj" />
 		<ProjectReference Include="..\CustomerService.Domain\CustomerService.Domain.csproj" />
 	</ItemGroup>
