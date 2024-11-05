@@ -8,17 +8,17 @@ namespace EcommerceShop.Common.Queues
 {
   public static class PubSub
   {
-    public const string Base = "PubSub";
+    public const string Channel = "pubsub";
     public static class OrderTopic
     {
-      public const string Base = "Order";
-      public const string CreateOrder = "Create";
+      public const string Base = "order";
+      public const string CreateOrder = "create";
 
     }
     public static class ProductTopic
     {
-      public const string Base = "Product";
-      public const string Reserve = "Reserve";
+      public const string Base = "product";
+      public const string Reserve = "reserve";
     }
   }
 }

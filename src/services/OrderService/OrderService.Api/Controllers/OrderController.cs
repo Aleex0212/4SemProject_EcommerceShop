@@ -24,7 +24,7 @@ namespace OrderService.Api.Controllers
     }
 
     [HttpPost]
-    [Topic(PubSub.Base, PubSub.OrderTopic.CreateOrder)]
+    [Topic(PubSub.Channel, PubSub.OrderTopic.CreateOrder)] //explicit pubsub
     [SwaggerOperation(
       Summary = "Creates a new order",
       Description = "Initiate a new order and starts the workflow",

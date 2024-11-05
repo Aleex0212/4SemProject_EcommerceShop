@@ -2,6 +2,9 @@ using ProductService.Api.ServiceCollectionExtensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.AddServiceDefaults();
+
+
 builder.Services.ServiceRegistration(builder.Configuration);
 
 builder.Services.AddControllers();
