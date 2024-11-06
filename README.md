@@ -1,11 +1,11 @@
 # 4SemProject_EcommerceShop : **TO-DO**
 
-- Implementer GatewayApi korrekt
-- Lav Activities og kompensationsaktiviteter på `CreateOrderWorkflow`
-- Tilføj JWT-tokens til API-gatewayen
-- Tilføj `Database.EnsureCreated` på `DbContext`
-- Tilføj `IdentityId` på `CustomerId` - Identity håndteres af Microservice
-
+- Lave Activities/Compensating Activities i OrderSerivce. Alle returnere bare (OK).
+- Lave CreateOrder Workflow.
+- Ryde op i koden. Kommentatere på Api'er og Interfaces kun.
+- Tilføj JWT-tokens til API-gatewayen.
+- Implementer Resiliance i OrderSerivce Persisantancelayer.
+  
 ---
 
 **Done:**
