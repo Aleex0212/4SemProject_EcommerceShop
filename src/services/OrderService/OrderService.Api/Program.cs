@@ -1,9 +1,12 @@
+using Dapr.Workflow;
 using OrderService.Api.ServiceCollectionExtensions;
+using OrderService.Api.Workflow;
+using OrderService.Api.Workflow.Activities.ExternalActivities;
+using OrderService.Api.Workflow.Activities.OrderActivities;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.AddServiceDefaults();
-
 
 #region Dapr setup
 var daprGrpcPort = Environment.GetEnvironmentVariable("DAPR_GRPC_PORT");
@@ -20,37 +23,35 @@ if (string.IsNullOrEmpty(daprHttpPort))
   Environment.SetEnvironmentVariable("DAPR_HTTP_PORT", daprHttpPort);
 }
 
-// Add services to the container.
 builder.Services.AddControllers();
 
 builder.Services.AddDaprClient(config => config.UseGrpcEndpoint($"http://localhost:{daprGrpcPort}").UseHttpEndpoint($"http://localhost:{daprHttpPort}"));
+
+builder.Services.AddDaprWorkflow(options =>
+{
+  //Workflows
+  options.RegisterWorkflow<CreateOrderWorkflow>();
+
+  //Activities 
+  options.RegisterActivity<CreateOrderActivity>();
+  options.RegisterActivity<ReserveProductActivity>();
+});
 #endregion
-
-
 
 //Service Registration
 builder.Services.ServiceRegistration(builder.Configuration);
-
-
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
-
-
 
 var app = builder.Build();
 
 app.MapDefaultEndpoints();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
   app.UseSwagger();
   app.UseSwaggerUI();
 }
-
-//app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
@@ -59,6 +60,7 @@ app.UseCloudEvents(); //sørger for at medsendte parametre som DTO'er kan deseri
 app.MapSubscribeHandler(); // kun ved explicit pubsub.
 
 #endregion
+
 app.MapControllers();
 
 app.Run();

@@ -4,21 +4,21 @@
   {
     public static class GatewayRoutes
     {
-      public const string BaseUrl = "Gateway";
+      public const string BaseUrl = "gateway";
 
       public static class OrderGatewayRoutes
       {
-        public const string Order = BaseUrl + "/Order";
+        public const string Order = BaseUrl + "/order";
       }
     }
 
     public static class OrderRoutes
     {
-      public const string BaseUrl = "Order";
+      public const string BaseUrl = "order";
     }
     public static class ProductRoutes
     {
-      public const string BaseUrl = "Product";
+      public const string BaseUrl = "product";
     }
   }
 }

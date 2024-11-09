@@ -13,5 +13,4 @@ namespace EcommerceShop.Common.IntegrationEvents
     [Required] public string CorrelationId { get; set; }
     [Required] public List<ProductLineDto> Products { get; set; } = new();
   }
-
 }

@@ -3,7 +3,6 @@ using EcommerceShop.Common.IntegrationEvents;
 using EcommerceShop.Common.Queues;
 using EcommerceShop.Common.Routes;
 using Microsoft.AspNetCore.Mvc;
-using ProductService.Application.Interfaces;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace ProductService.Api.Controllers
@@ -12,15 +11,6 @@ namespace ProductService.Api.Controllers
   [ApiController]
   public class ProductController : ControllerBase
   {
-    private readonly ICommandService _commandService;
-    private readonly IQueryService _queryService;
-
-    public ProductController(ICommandService commandService, IQueryService queryService)
-    {
-      _commandService = commandService;
-      _queryService = queryService;
-    }
-
 
     [Topic(PubSub.Channel, PubSub.ProductTopic.Reserve)]
     [HttpPut("reserve")]
@@ -28,10 +18,9 @@ namespace ProductService.Api.Controllers
     {
       try
       {
-        await _commandService.ReserveProductAsync(request);
-        return Ok("Product reservation processed successfully.");
+        return Ok();
       }
-      catch (Exception ex)
+      catch (Exception)
       {
         return StatusCode(500);
       }
@@ -44,11 +33,7 @@ namespace ProductService.Api.Controllers
         Tags = ["Products"])]
     public async Task<IActionResult> Get()
     {
-      var products = await _queryService.GetAllProductsAsync();
-      if (products == null || !products.Any())
-        return NotFound("No products found.");
-
-      return Ok(products);
+      return Ok();
     }
 
     [HttpGet("{id}")]
@@ -58,11 +43,7 @@ namespace ProductService.Api.Controllers
         Tags = ["Products"])]
     public async Task<IActionResult> Get(Guid id)
     {
-      var product = await _queryService.GetProductByIdAsync(id);
-      if (product == null)
-        return NotFound($"Product with ID {id} not found.");
-
-      return Ok(product);
+      return Ok();
     }
   }
 }

@@ -2,7 +2,7 @@
 {
   public class Order
   {
-    public Guid? Id { get; set; } 
+    public Guid? Id { get; set; }
 
     public Customer Customer { get; private set; }
 
@@ -17,17 +17,17 @@
 
     }
 
-    private Order(Guid? id, Customer customer, List<ProductLine> productLines, 
+    private Order(Guid? id, Customer customer, List<ProductLine> productLines,
       OrderStatus orderStatus)
     {
       Id = id;
-      Customer = customer;  
+      Customer = customer;
       ProductLines = productLines;
       Status = orderStatus;
       TotalPrice = ProductLines.Sum(p => p.Quantity * p.Product.Price);
     }
 
-    public static Order Create(Guid id, Customer customer, 
+    public static Order Create(Guid id, Customer customer,
       List<ProductLine>? productLines, OrderStatus orderStatus)
     {
       return new Order(id, customer, productLines!, orderStatus);

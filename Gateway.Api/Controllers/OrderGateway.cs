@@ -27,9 +27,9 @@ namespace Gateway.Api.Controllers
     public async Task<IActionResult> Post([FromBody] OrderDto order)
     {
       try
-      {        
+      {
         await _daprClient.PublishEventAsync(PubSub.Channel, PubSub.OrderTopic.CreateOrder, order);
-        
+
         Console.WriteLine("publish event sent");
         return Ok();
       }

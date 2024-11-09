@@ -1,5 +1,4 @@
 ﻿using Dapr;
-using Dapr.Client;
 using Dapr.Workflow;
 using EcommerceShop.Common.Dto;
 using EcommerceShop.Common.Queues;
@@ -10,7 +9,7 @@ using Swashbuckle.AspNetCore.Annotations;
 
 namespace OrderService.Api.Controllers
 {
-    [Route(Routes.OrderRoutes.BaseUrl)]
+  [Route(Routes.OrderRoutes.BaseUrl)]
   [ApiController]
   public class OrderController : ControllerBase
   {
