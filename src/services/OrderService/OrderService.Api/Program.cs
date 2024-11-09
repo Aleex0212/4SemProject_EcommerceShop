@@ -21,8 +21,7 @@ if (string.IsNullOrEmpty(daprHttpPort))
 }
 
 // Add services to the container.
-builder.Services.AddControllers()
-  .AddDapr(config => config.UseGrpcEndpoint(daprGrpcPort).UseHttpEndpoint(daprHttpPort));
+builder.Services.AddControllers();
 
 builder.Services.AddDaprClient(config => config.UseGrpcEndpoint($"http://localhost:{daprGrpcPort}").UseHttpEndpoint($"http://localhost:{daprHttpPort}"));
 #endregion

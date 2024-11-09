@@ -36,7 +36,6 @@ namespace OrderService.Api.Controllers
 
       try
       {
-        Console.WriteLine("subscribe event received");
         var startResponse =
           await _daprWorkflowClient.ScheduleNewWorkflowAsync(workflowName, instanceId, order);
 

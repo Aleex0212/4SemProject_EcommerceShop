@@ -12,6 +12,11 @@
 
     public decimal TotalPrice { get; set; }
 
+    public Order()
+    {
+
+    }
+
     private Order(Guid? id, Customer customer, List<ProductLine> productLines, 
       OrderStatus orderStatus)
     {
