@@ -2,10 +2,8 @@
 
 - Lave Activities/Compensating Activities i OrderSerivce. Alle returnere bare (OK).
 - Lave CreateOrder Workflow.
-- Ryde op i koden. Kommentatere på Api'er og Interfaces kun.
 - Tilføj JWT-tokens til API-gatewayen.
-- Implementer Resiliance i OrderSerivce Persisantancelayer.
-  
+- Ryde op i koden. Kommentatere på Api'er og Interfaces kun.  
 ---
 
 **Done:**
@@ -13,14 +11,17 @@
 - ✅ Implementer som et Dapr-workflow
 - ✅ Flyt ansvaret for `OrderOrchestrator` til `OrderService`
 - ✅ Få services til at kommunikere gennem Dapr
+- ✅ Implementer Resiliance i OrderSerivce Persisantancelayer. bliver håndteret af ServiceDefault, fra Aspire. 
 
 ---
 
 # DAGBOG:
 
 - **31.10:** Forventningsafstemning, opbygning af arkitektur til projektet og arbejde med Domain-Driven Design. Enighed om services og projektets scope.
-- **02.10:** Udfordringer: Hvordan implementerer man en Saga i microservices? Hvad er en Saga?
-- **03.10:** Udfordringer: Forskel på `DaprClient` og `DaprWorkflowClient`? Hvordan får man services til at kommunikere? Overvejelser om RabbitMQ og Redis. Arbejde med `CreateOrderDaprWorkflow` og flytte Saga til `OrderService` som et workflow.
-- **04.10:** Udfordringer: Debug i Dapr??
-- **05.10:** Udfordringer: Dapr virker!!
-- **06.10:** Vi Forventningsafstemmer igen. Projektet skalreres lidt ned med Domain-Driven-Design, så vi kan holde et fokus på hvad der er vigitgt.
+- **02.11:** Udfordringer: Hvordan implementerer man en Saga i microservices? Hvad er en Saga?
+- **03.11:** Udfordringer: Forskel på `DaprClient` og `DaprWorkflowClient`? Hvordan får man services til at kommunikere? Overvejelser om RabbitMQ og Redis. Arbejde med `CreateOrderDaprWorkflow` og flytte Saga til `OrderService` som et workflow.
+- **04.11:** Udfordringer: Debug i Dapr??
+- **05.11:** Udfordringer: Dapr virker!!
+- **06.11:** Vi Forventningsafstemmer igen. Projektet skalreres lidt ned med Domain-Driven-Design, så vi kan holde et fokus på hvad der er vigitgt.
+- **07.11:** Workflow virker ikke. Actor fejl.
+- **09.11:** Dapr workflow virker! Vi laver Refaktorering på koden og skalere ned. Nu virker det.    
