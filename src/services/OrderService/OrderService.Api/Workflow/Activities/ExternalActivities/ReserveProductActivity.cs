@@ -6,7 +6,7 @@ using EcommerceShop.Common.Queues;
 
 namespace OrderService.Api.Workflow.Activities.ExternalActivities
 {
-  public class ReserveProductActivity : WorkflowActivity<ProductDto, object?>
+  public class ReserveProductActivity : WorkflowActivity<IEnumerable<ProductDto>, object?>
   {
     private readonly DaprClient _daprClient;
     private readonly ILogger<ReserveProductActivity> _logger;
@@ -17,10 +17,8 @@ namespace OrderService.Api.Workflow.Activities.ExternalActivities
       _logger = logger;
     }
 
-    public override async Task<object?> RunAsync(WorkflowActivityContext context, ProductDto productDto)
+    public override async Task<object?> RunAsync(WorkflowActivityContext context, IEnumerable<ProductDto> productDtos)
     {
-      _logger.LogInformation($"Reserving Product: {productDto.Id}");
-
       var reserveProductDto = new ReserveProductDto()
       {
         CorrelationId = context.InstanceId,
