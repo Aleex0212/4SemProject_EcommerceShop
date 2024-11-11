@@ -1,21 +1,24 @@
 # 4SemProject_EcommerceShop : **TO-DO**
 
-- Lave Activities/Compensating Activities i OrderSerivce. Alle returnere bare (OK).
-- Lave CreateOrder Workflow.
+- DDD på `OrderService`
 - Tilføj JWT-tokens til API-gatewayen.
 - Ryde op i koden. Kommentatere på Api'er og Interfaces kun.  
+
 ---
 
 **Done:**
+
 - ✅ Lav `ProductService` om, så den følger REST niveau 2
 - ✅ Implementer som et Dapr-workflow
 - ✅ Flyt ansvaret for `OrderOrchestrator` til `OrderService`
 - ✅ Få services til at kommunikere gennem Dapr
-- ✅ Implementer Resiliance i OrderSerivce Persisantancelayer. bliver håndteret af ServiceDefault, fra Aspire. 
+- ✅ Implementer Resiliance i OrderSerivce Persisantancelayer. bliver håndteret af ServiceDefault, fra Aspire.
+- ✅ Lave Activities/Compensating Activities i OrderSerivce. Alle returnere bare (OK).
+- ✅ Lave CreateOrder Workflow.
 
 ---
 
-# DAGBOG:
+## DAGBOG
 
 - **31.10:** Forventningsafstemning, opbygning af arkitektur til projektet og arbejde med Domain-Driven Design. Enighed om services og projektets scope.
 - **02.11:** Udfordringer: Hvordan implementerer man en Saga i microservices? Hvad er en Saga?
@@ -25,4 +28,4 @@
 - **06.11:** Vi Forventningsafstemmer igen. Projektet skalreres lidt ned med Domain-Driven-Design, så vi kan holde et fokus på hvad der er vigitgt.
 - **07.11:** Workflow virker ikke. Actor fejl.
 - **09.11:** Dapr workflow virker! Vi laver Refaktorering på koden og skalere ned. Nu virker det.
-- **11.11:** Udfordringer : Arbejder med WorkFlows. Hvordan returnere vi result?  
+- **11.11:** Udfordringer : Arbejder med WorkFlows. Hvordan returnere vi result?  - problem løst senere på aftenen -

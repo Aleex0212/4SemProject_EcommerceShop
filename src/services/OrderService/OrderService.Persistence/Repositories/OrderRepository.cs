@@ -1,14 +1,14 @@
 ﻿using OrderService.Application.Services;
 using OrderService.Domain.Models;
-using DbContext = OrderService.Persistence.Context.DbContext;
+using OrderContext = OrderService.Persistence.Context.OrderContext;
 
 namespace OrderService.Persistence.Repositories
 {
   public class OrderRepository : IOrderRepository
   {
-    private readonly DbContext _dbContext;
+    private readonly OrderContext _dbContext;
 
-    public OrderRepository(DbContext dbContext)
+    public OrderRepository(OrderContext dbContext)
     {
       _dbContext = dbContext;
     }

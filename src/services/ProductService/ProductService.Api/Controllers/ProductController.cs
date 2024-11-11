@@ -1,6 +1,5 @@
 ﻿using Dapr;
 using EcommerceShop.Common.Dto;
-using EcommerceShop.Common.IntegrationEvents;
 using EcommerceShop.Common.Queues;
 using EcommerceShop.Common.Routes;
 using Microsoft.AspNetCore.Mvc;

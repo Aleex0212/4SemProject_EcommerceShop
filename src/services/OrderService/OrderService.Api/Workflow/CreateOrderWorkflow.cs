@@ -41,12 +41,11 @@ namespace OrderService.Api.Workflow
           order.Status = OrderStatus.Failed;
           await context.CallActivityAsync(nameof(ReleaseProductActivity), products);
         }
-        
+
         var confirmOrderActivity = await context.CallActivityAsync<bool>(nameof(ConfirmOrderActivity), order);
         if (!confirmOrderActivity)
         {
           await context.CallActivityAsync(nameof(ReleaseProductActivity));
-          await context.CallActivityAsync(nameof(CancelOrderActivity));
         }
 
         return order.Status = OrderStatus.Completed;
