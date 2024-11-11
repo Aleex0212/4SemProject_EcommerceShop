@@ -1,8 +1,9 @@
 using Dapr.Workflow;
 using OrderService.Api.ServiceCollectionExtensions;
 using OrderService.Api.Workflow;
+using OrderService.Api.Workflow.Activities.CompensationActivity;
 using OrderService.Api.Workflow.Activities.ExternalActivities;
-using OrderService.Api.Workflow.Activities.OrderActivities;
+using OrderService.Api.Workflow.Activities.InternalActivities;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -32,9 +33,18 @@ builder.Services.AddDaprWorkflow(options =>
   //Workflows
   options.RegisterWorkflow<CreateOrderWorkflow>();
 
-  //Activities 
-  options.RegisterActivity<CreateOrderActivity>();
+  //Compensating Activities 
+  options.RegisterActivity<CancelOrderActivity>();
+  options.RegisterActivity<ReleaseProductActivity>();
+
+  //External Activities 
+  options.RegisterActivity<AuthorizePaymentActivity>();
   options.RegisterActivity<ReserveProductActivity>();
+  options.RegisterActivity<ValidateCustomerActivity>();
+
+  //Internal Activities 
+  options.RegisterActivity<ConfirmOrderActivity>();
+
 });
 #endregion
 

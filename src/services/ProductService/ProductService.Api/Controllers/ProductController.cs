@@ -1,4 +1,5 @@
 ﻿using Dapr;
+using EcommerceShop.Common.Dto;
 using EcommerceShop.Common.IntegrationEvents;
 using EcommerceShop.Common.Queues;
 using EcommerceShop.Common.Routes;
@@ -14,7 +15,7 @@ namespace ProductService.Api.Controllers
 
     [Topic(PubSub.Channel, PubSub.ProductTopic.Reserve)]
     [HttpPut("reserve")]
-    public async Task<IActionResult> ReserveProduct([FromBody] ReserveProductDto request)
+    public async Task<IActionResult> ReserveProduct([FromBody] ProductDto request)
     {
       try
       {

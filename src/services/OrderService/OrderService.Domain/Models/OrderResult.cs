@@ -1,4 +1,6 @@
-﻿namespace OrderService.Domain.Models
+﻿using EcommerceShop.Common.Enum;
+
+namespace OrderService.Domain.Models
 {
   public class OrderResult
   {
