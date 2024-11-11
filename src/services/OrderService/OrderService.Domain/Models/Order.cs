@@ -4,7 +4,7 @@ namespace OrderService.Domain.Models
 {
   public class Order
   {
-    public Guid? Id { get; private set; }
+    public Guid Id { get; private set; }
 
     public Customer Customer { get; private set; }
 
@@ -14,7 +14,7 @@ namespace OrderService.Domain.Models
 
     public decimal TotalPrice { get; private set; }
 
-    private Order(Guid? id, Customer customer, IEnumerable<ProductLine> productLines,
+    private Order(Guid id, Customer customer, IEnumerable<ProductLine> productLines,
       OrderStatus orderStatus)
     {
       Id = id;

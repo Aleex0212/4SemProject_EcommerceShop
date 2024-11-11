@@ -1,18 +1,24 @@
 ﻿using OrderService.Application.Interfaces;
 using OrderService.Domain.Models;
+using EcommerceShop.Common.Enum;
+using OrderService.Domain;
 
 namespace OrderService.Application.Services
 {
   public class CommandService : ICommandService
   {
-    public Task CreateOrderAsync(Order order)
+    private readonly IOrderRepository _orderRepository;
+
+    public CommandService(IOrderRepository orderRepository)
     {
-      throw new NotImplementedException();
+      _orderRepository = orderRepository;
     }
 
-    public Task DeleteOrderAsync(Guid orderId)
+    public async Task CreateOrderAsync(Guid id, Customer customer, IEnumerable<ProductLine> productLines,
+      OrderStatus orderStatus)
     {
-      throw new NotImplementedException();
+      var order = Order.Create(id, customer, productLines, orderStatus);
+      await _orderRepository.AddOrderAsync(order);
     }
   }
 }
