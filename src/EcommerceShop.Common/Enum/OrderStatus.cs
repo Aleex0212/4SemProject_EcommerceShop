@@ -1,9 +1,8 @@
-﻿namespace OrderService.Domain.Models
+﻿namespace EcommerceShop.Common.Enum
 {
   public enum OrderStatus
   {
     Received,
-    Processing,
     Completed,
     Failed,
   }

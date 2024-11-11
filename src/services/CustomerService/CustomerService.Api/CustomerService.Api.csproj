@@ -17,6 +17,7 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\..\..\..\4SemProject_EcommerceShop.ServiceDefaults\4SemProject_EcommerceShop.ServiceDefaults.csproj" />
+		<ProjectReference Include="..\..\..\EcommerceShop.Common\EcommerceShop.Common.csproj" />
 	</ItemGroup>
 
 </Project>
