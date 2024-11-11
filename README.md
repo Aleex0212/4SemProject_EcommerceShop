@@ -24,4 +24,5 @@
 - **05.11:** Udfordringer: Dapr virker!!
 - **06.11:** Vi Forventningsafstemmer igen. Projektet skalreres lidt ned med Domain-Driven-Design, så vi kan holde et fokus på hvad der er vigitgt.
 - **07.11:** Workflow virker ikke. Actor fejl.
-- **09.11:** Dapr workflow virker! Vi laver Refaktorering på koden og skalere ned. Nu virker det.    
+- **09.11:** Dapr workflow virker! Vi laver Refaktorering på koden og skalere ned. Nu virker det.
+- **11.11:** Udfordringer : Arbejder med WorkFlows. Hvordan returnere vi result?  
