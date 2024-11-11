@@ -1,7 +1,7 @@
-﻿using OrderService.Application.Interfaces;
-using OrderService.Domain.Models;
-using EcommerceShop.Common.Enum;
+﻿using EcommerceShop.Common.Enum;
+using OrderService.Application.Interfaces;
 using OrderService.Domain;
+using OrderService.Domain.Models;
 
 namespace OrderService.Application.Services
 {

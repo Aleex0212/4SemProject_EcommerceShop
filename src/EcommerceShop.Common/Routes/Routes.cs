@@ -19,6 +19,7 @@
     public static class ProductRoutes
     {
       public const string BaseUrl = "product";
+      public const string Release = "release";
     }
     public static class PaymentRoutes
     {

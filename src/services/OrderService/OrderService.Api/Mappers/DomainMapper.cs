@@ -4,7 +4,7 @@ using OrderService.Domain.Models;
 
 namespace OrderService.Api.Mappers
 {
-  internal class DomainMapper
+  public class DomainMapper
   {
     internal Order MapOrderDtoToModel(OrderDto dto)
     {
@@ -18,10 +18,10 @@ namespace OrderService.Api.Mappers
 
       return order;
     }
-    internal Customer MapCustomerDtoToModel(CustomerDto dto) 
+    internal Customer MapCustomerDtoToModel(CustomerDto dto)
     {
       var customer = Customer.Crate(dto.Id, dto.Name, dto.Email, dto.Phone, dto.Address);
-      return customer; 
+      return customer;
     }
     internal ProductLine MapProductLineDtoToModel(ProductLineDto dto)
     {

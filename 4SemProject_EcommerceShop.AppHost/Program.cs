@@ -49,25 +49,10 @@ builder.AddProject<Projects.ProductService_Api>("productservice-api")
           .WithReference(daprStateStore)
     .WithReference(pubSub);
 
-builder.AddProject<Projects.PaymentService_Api>("paymentservice-api")
-        .WithDaprSidecar(
-  //new DaprSidecarOptions
-  //{
-  //  DaprGrpcPort = 50008,
-  //  DaprHttpPort = 3503
-  //}
-  )
-          .WithReference(daprStateStore)
-    .WithReference(pubSub); 
-
-
 
 
 string? daprPath = Environment.GetEnvironmentVariable("DAPR_PATH", EnvironmentVariableTarget.User);
 builder.AddDapr(opts => opts.DaprPath = daprPath ?? "default/dapr/path");
-
-
-
 
 
 

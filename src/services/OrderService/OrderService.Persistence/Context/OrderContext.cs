@@ -4,9 +4,9 @@ using OrderService.Domain.Models;
 
 namespace OrderService.Persistence.Context
 {
-  public class DbContext : Microsoft.EntityFrameworkCore.DbContext
+  public class OrderContext : DbContext
   {
-    public DbContext(DbContextOptions<DbContext> options) : base(options)
+    public OrderContext(DbContextOptions<OrderContext> options) : base(options)
     {
 
     }
