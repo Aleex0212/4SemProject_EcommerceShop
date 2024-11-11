@@ -5,12 +5,12 @@ namespace OrderService.Application.Services
 {
   public class CommandService : ICommandService
   {
-    public Task CreateOrder(Order order)
+    public Task CreateOrderAsync(Order order)
     {
       throw new NotImplementedException();
     }
 
-    public Task DeleteOrder(Guid orderId)
+    public Task DeleteOrderAsync(Guid orderId)
     {
       throw new NotImplementedException();
     }

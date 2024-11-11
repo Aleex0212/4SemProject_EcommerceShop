@@ -1,4 +1,5 @@
-﻿using OrderService.Application.Interfaces;
+﻿using OrderService.Api.Mappers;
+using OrderService.Application.Interfaces;
 using OrderService.Application.Services;
 
 namespace OrderService.Api.ServiceCollectionExtensions
@@ -10,6 +11,7 @@ namespace OrderService.Api.ServiceCollectionExtensions
       // Application Services
       services.AddScoped<ICommandService, CommandService>();
       services.AddScoped<IQueryService, QueryService>();
+      services.AddScoped<DomainMapper>();
     }
   }
 }

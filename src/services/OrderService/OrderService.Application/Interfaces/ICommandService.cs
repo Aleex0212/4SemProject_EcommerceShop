@@ -8,12 +8,12 @@ namespace OrderService.Application.Interfaces
     /// Create an order.
     /// </summary>
     /// <param name="order">
-    Task CreateOrder(Order order);
+    Task CreateOrderAsync(Order order);
 
     /// <summary>
     /// Delete an order.
     /// </summary>
     /// <param name="orderId">
-    Task DeleteOrder(Guid orderId);
+    Task DeleteOrderAsync(Guid orderId);
   }
 }

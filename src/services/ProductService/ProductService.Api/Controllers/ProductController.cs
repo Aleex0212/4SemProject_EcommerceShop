@@ -14,8 +14,8 @@ namespace ProductService.Api.Controllers
   {
 
     [Topic(PubSub.Channel, PubSub.ProductTopic.Reserve)]
-    [HttpPut("reserve")]
-    public async Task<IActionResult> ReserveProduct([FromBody] ProductDto request)
+    [HttpPost]
+    public async Task<IActionResult> ReserveProduct([FromBody] IEnumerable<ProductDto> request)
     {
       try
       {
