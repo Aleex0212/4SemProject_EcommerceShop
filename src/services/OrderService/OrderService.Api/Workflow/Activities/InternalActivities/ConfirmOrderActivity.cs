@@ -16,11 +16,11 @@ namespace OrderService.Api.Workflow.Activities.InternalActivities
       _commandService = commandService;
     }
 
-    public override async Task<bool> RunAsync(WorkflowActivityContext context, OrderDto input)
+    public override async Task<bool> RunAsync(WorkflowActivityContext context, OrderDto order)
     {
-      var order = _domainMapper.MapOrderDtoToModel(input);
-      await _commandService.CreateOrderAsync(order);
-      throw new NotImplementedException();
+      var domainModel = _domainMapper.MapOrderDtoToModel(order);
+      await _commandService.CreateOrderAsync(domainModel.Id,domainModel.Customer,domainModel.ProductLines, domainModel.Status);
+      return true;
     }
   }
 }
