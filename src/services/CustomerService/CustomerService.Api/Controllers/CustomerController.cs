@@ -2,7 +2,7 @@
 using EcommerceShop.Common.Routes;
 using Microsoft.AspNetCore.Mvc;
 
-namespace CustomerService.Api.Controller
+namespace CustomerService.Api.Controllers
 {
   [Route(Routes.CustomerRoutes.BaseUrl)]
   [ApiController]

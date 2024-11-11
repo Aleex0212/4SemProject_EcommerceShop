@@ -2,17 +2,17 @@
 {
   public class ProductLine
   {
-    public int Id { get; set; }
-    public Product Product { get; set; }
-    public int Quantity { get; set; }
+    public Guid Id { get; private set; }
+    public Product Product { get; private set; }
+    public int Quantity { get; private set; }
 
-    private ProductLine(int id, Product product, int quantity)
+    private ProductLine(Guid id, Product product, int quantity)
     {
       Id = id;
       Product = product;
       Quantity = quantity;
     }
-    public static ProductLine Create(int id, Product product, int quantity)
+    public static ProductLine Create(Guid id, Product product, int quantity)
     {
       return new ProductLine(id, product, quantity);
     }

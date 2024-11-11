@@ -39,6 +39,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "4SemProject_EcommerceShop.A
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "4SemProject_EcommerceShop.ServiceDefaults", "4SemProject_EcommerceShop.ServiceDefaults\4SemProject_EcommerceShop.ServiceDefaults.csproj", "{3AA15A06-E9FC-476F-9177-0952E27EFEF1}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PaymentService", "PaymentService", "{9B145D30-B782-488A-9D8E-2D40B3A9E4C5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PaymentService.Api", "PaymentService.Api\PaymentService.Api.csproj", "{C1182328-4C0A-4D09-BAD1-E5CBAC31627D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -93,6 +97,10 @@ Global
 		{3AA15A06-E9FC-476F-9177-0952E27EFEF1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3AA15A06-E9FC-476F-9177-0952E27EFEF1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3AA15A06-E9FC-476F-9177-0952E27EFEF1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C1182328-4C0A-4D09-BAD1-E5CBAC31627D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C1182328-4C0A-4D09-BAD1-E5CBAC31627D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C1182328-4C0A-4D09-BAD1-E5CBAC31627D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C1182328-4C0A-4D09-BAD1-E5CBAC31627D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -113,6 +121,8 @@ Global
 		{7DEABD97-7FA7-41C0-9E14-23CD17C2FCE6} = {5960A9A1-EA15-4ED0-8665-C98065CF3740}
 		{194783D5-0104-4EC6-9A1F-8745760B1EB1} = {5750D40C-DECC-47AA-A9F3-446DCC544D00}
 		{B8929F14-F5E8-48D3-A74C-3CA528F46119} = {194783D5-0104-4EC6-9A1F-8745760B1EB1}
+		{9B145D30-B782-488A-9D8E-2D40B3A9E4C5} = {A38701EE-85A2-4EF1-96A8-A3D8C7BFA935}
+		{C1182328-4C0A-4D09-BAD1-E5CBAC31627D} = {9B145D30-B782-488A-9D8E-2D40B3A9E4C5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D1985305-46CA-4D9E-B112-8B60040DACC3}

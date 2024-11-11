@@ -19,9 +19,11 @@
     public static class ProductRoutes
     {
       public const string BaseUrl = "product";
-      public const string Reserve = BaseUrl + "/reserve";
     }
-
+    public static class PaymentRoutes
+    {
+      public const string BaseUrl = "payment";
+    }
     public static class CustomerRoutes
     {
       public const string BaseUrl = "customer";

@@ -12,7 +12,7 @@
       Price = price;
     }
 
-    private static Product Create(Guid id, string name, decimal price)
+    public static Product Create(Guid id, string name, decimal price)
     {
       return new Product(id, name, price);
     }
