@@ -14,7 +14,7 @@ namespace OrderService.Persistence.Repositories
     {
       _db = db;
     }
-    public void BeginTransaction(IsolationLevel isolationLevel)
+    public void BeginTransaction()
     {
       _transaction = _db.Database.CurrentTransaction ?? _db.Database.BeginTransaction();
     }

@@ -9,11 +9,7 @@ namespace OrderService.Application.Interfaces
     /// <summary>
     /// Create an order.
     /// </summary>
-    /// <param name="id"></param>
-    /// <param name="customer"></param>
-    /// <param name="productLines"></param>
-    /// <param name="orderStatus"></param>
-    /// <param name="order">
-    Task CreateOrderAsync(Guid id, Customer customer, IEnumerable<ProductLine> productLines, OrderStatus orderStatus);
+    /// <param name="order">The order to be created</param>
+    Task CreateOrderAsync(Order order);
   }
 }

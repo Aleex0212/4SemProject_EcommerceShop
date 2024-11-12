@@ -22,6 +22,6 @@ namespace OrderService.Application.Interfaces
     /// Begins a new transaction with the specified isolation level.
     /// </summary>
     /// <param name="isolationLevel">The isolation level for the transaction.</param>
-    void BeginTransaction(IsolationLevel isolationLevel);
+    void BeginTransaction();
   }
 }
