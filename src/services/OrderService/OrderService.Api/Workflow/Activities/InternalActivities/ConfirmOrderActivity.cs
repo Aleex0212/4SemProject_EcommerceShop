@@ -2,6 +2,7 @@
 using EcommerceShop.Common.Dto;
 using OrderService.Api.Mappers;
 using OrderService.Application.Interfaces;
+using OrderService.Domain.Models;
 
 namespace OrderService.Api.Workflow.Activities.InternalActivities
 {
@@ -18,8 +19,9 @@ namespace OrderService.Api.Workflow.Activities.InternalActivities
 
     public override async Task<bool> RunAsync(WorkflowActivityContext context, OrderDto order)
     {
-      var domainModel = _domainMapper.MapOrderDtoToModel(order);
-      await _commandService.CreateOrderAsync(domainModel.Id, domainModel.Customer, domainModel.ProductLines, domainModel.Status);
+      order.Id = Guid.NewGuid();
+      var orderModel = _domainMapper.MapOrderDtoToModel(order);
+      await _commandService.CreateOrderAsync(orderModel);
       return true;
     }
   }

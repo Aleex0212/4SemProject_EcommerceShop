@@ -34,7 +34,6 @@ builder.Services.AddDaprWorkflow(options =>
   options.RegisterWorkflow<CreateOrderWorkflow>();
 
   //Compensating Activities 
-  options.RegisterActivity<CancelOrderActivity>();
   options.RegisterActivity<ReleaseProductActivity>();
 
   //External Activities 
