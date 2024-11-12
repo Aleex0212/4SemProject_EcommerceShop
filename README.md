@@ -29,3 +29,4 @@
 - **07.11:** Workflow virker ikke. Actor fejl.
 - **09.11:** Dapr workflow virker! Vi laver Refaktorering på koden og skalere ned. Nu virker det.
 - **11.11:** Udfordringer : Arbejder med WorkFlows. Hvordan returnere vi result?  - problem løst senere på aftenen -
+- **12.11:** tilføjelse af update og delete funkition på `OrderService.Api` Udfordringer: hvordan får jeg så den order med igennem?
