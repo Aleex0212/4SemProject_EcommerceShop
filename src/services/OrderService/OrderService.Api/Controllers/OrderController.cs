@@ -4,7 +4,9 @@ using EcommerceShop.Common.Dto;
 using EcommerceShop.Common.Queues;
 using EcommerceShop.Common.Routes;
 using Microsoft.AspNetCore.Mvc;
+using OrderService.Api.Mappers;
 using OrderService.Api.Workflow;
+using OrderService.Application.Interfaces;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace OrderService.Api.Controllers
@@ -15,11 +17,15 @@ namespace OrderService.Api.Controllers
   {
     private readonly ILogger<OrderController> _logger;
     private readonly DaprWorkflowClient _daprWorkflowClient;
+    private readonly ICommandService _commandService;
+    private readonly DomainMapper _domainMapper;
 
-    public OrderController(DaprWorkflowClient daprWorkflowClient, ILogger<OrderController> logger)
+    public OrderController(DaprWorkflowClient daprWorkflowClient, ILogger<OrderController> logger, ICommandService commandService, DomainMapper domainMapper)
     {
       _daprWorkflowClient = daprWorkflowClient;
       _logger = logger;
+      _commandService = commandService;
+      _domainMapper = domainMapper;
     }
 
     [HttpPost]
@@ -27,7 +33,7 @@ namespace OrderService.Api.Controllers
     [SwaggerOperation(
       Summary = "Creates a new order",
       Description = "Initiate a new order and starts the workflow",
-      Tags = new[] { "Orders" })]
+      Tags = ["Orders"])]
     public async Task<IActionResult> Post([FromBody] OrderDto order)
     {
       var instanceId = Guid.NewGuid().ToString();
@@ -44,6 +50,48 @@ namespace OrderService.Api.Controllers
       catch (Exception ex)
       {
         _logger.LogError(ex.Message, $"Error starting Workflow {workflowName}");
+        return StatusCode(500);
+      }
+    }
+
+    [HttpPut]
+    [Topic(PubSub.Channel, PubSub.OrderTopic.UpdateOrder)] //explicit pubsub
+    [SwaggerOperation(
+  Summary = "Updates an order",
+  Description = "Updates an already existing order in the database",
+  Tags = ["Orders"])]
+    public IActionResult Put([FromBody] OrderDto order)
+    {
+      try
+      {
+        var orderModel = _domainMapper.MapOrderDtoToModel(order);
+        _commandService.UpdateOrder(orderModel);
+        return Ok();
+      }
+      catch (Exception ex)
+      {
+        _logger.LogError(ex.Message, $"Error updating order orderId: {order.Id}");
+        return StatusCode(500);
+      }
+    }
+
+    [HttpDelete]
+    [Topic(PubSub.Channel, PubSub.OrderTopic.DeleteOrder)] //explicit pubsub
+    [SwaggerOperation(
+Summary = "Deletes an order",
+Description = "Deletes an already existing order in the database",
+Tags = ["Orders"])]
+    public IActionResult Delete([FromBody] OrderDto order)
+    {
+      try
+      {
+        var orderModel = _domainMapper.MapOrderDtoToModel(order);
+        _commandService.DeleteOrder(orderModel);
+        return Ok();
+      }
+      catch (Exception ex)
+      {
+        _logger.LogError(ex.Message, $"Error deleting order orderId: {order.Id}");
         return StatusCode(500);
       }
     }

@@ -34,5 +34,35 @@ namespace OrderService.Application.Services
         _unitOfWork.Rollback();
       }
     }
+    public void UpdateOrder(Order order)
+    {
+      try
+      {
+        _unitOfWork.BeginTransaction();
+        _orderRepository.UpdateOrder(order);
+        _unitOfWork.Commit();
+
+      }
+      catch (Exception ex)
+      {
+        _logger.LogError(ex.Message, order);
+        _unitOfWork.Rollback();
+      }
+    }
+    public void DeleteOrder(Order order)
+    {
+      try
+      {
+        _unitOfWork.BeginTransaction();
+        _orderRepository.DeleteOrder(order);
+        _unitOfWork.Commit();
+
+      }
+      catch (Exception ex)
+      {
+        _logger.LogError(ex.Message, order);
+        _unitOfWork.Rollback();
+      }
+    }
   }
 }

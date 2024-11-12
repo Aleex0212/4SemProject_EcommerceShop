@@ -7,6 +7,9 @@
     {
       public const string Base = "order";
       public const string CreateOrder = "create";
+      public const string UpdateOrder = "update";
+      public const string DeleteOrder = "delete";
+
 
     }
     public static class ProductTopic

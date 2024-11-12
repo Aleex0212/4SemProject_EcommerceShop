@@ -39,5 +39,44 @@ namespace Gateway.Api.Controllers
         return StatusCode(500);
       }
     }
+    [HttpPut]
+    [SwaggerOperation(
+  Summary = "OrderGateway",
+  Description = "Calls Update Order using DaprClient")]
+    public async Task<IActionResult> Put([FromBody] OrderDto order)
+    {
+      try
+      {
+        await _daprClient.PublishEventAsync(PubSub.Channel, PubSub.OrderTopic.UpdateOrder, order);
+
+        Console.WriteLine("publish event sent");
+        return Ok();
+      }
+      catch (Exception ex)
+      {
+        _logger.LogError(ex.Message, $"Error starting OrderGateway {ex.Message}");
+        return StatusCode(500);
+      }
+    }
+
+    [HttpDelete]
+    [SwaggerOperation(
+  Summary = "OrderGateway",
+  Description = "Calls Delete Order using DaprClient")]
+    public async Task<IActionResult> Delete([FromBody] OrderDto order)
+    {
+      try
+      {
+        await _daprClient.PublishEventAsync(PubSub.Channel, PubSub.OrderTopic.DeleteOrder, order);
+
+        Console.WriteLine("publish event sent");
+        return Ok();
+      }
+      catch (Exception ex)
+      {
+        _logger.LogError(ex.Message, $"Error starting OrderGateway {ex.Message}");
+        return StatusCode(500);
+      }
+    }
   }
 }

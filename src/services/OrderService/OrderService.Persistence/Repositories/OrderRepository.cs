@@ -15,8 +15,17 @@ namespace OrderService.Persistence.Repositories
 
     public async Task AddOrderAsync(Order order)
     {
-      _dbContext.Orders.Add(order);
-      await _dbContext.SaveChangesAsync();
+      await _dbContext.Orders.AddAsync(order);
+    }
+
+    public void UpdateOrder(Order order)
+    {
+      _dbContext.Update(order);
+    }
+
+    public void DeleteOrder(Order order)
+    {
+      _dbContext.Remove(order);
     }
   }
 }
