@@ -1,6 +1,7 @@
 using Dapr.Workflow;
 using OrderService.Api.ServiceCollectionExtensions;
 using OrderService.Api.Workflow;
+using OrderService.Api.Workflow.Activities;
 using OrderService.Api.Workflow.Activities.CompensationActivity;
 using OrderService.Api.Workflow.Activities.ExternalActivities;
 using OrderService.Api.Workflow.Activities.InternalActivities;
@@ -43,6 +44,7 @@ builder.Services.AddDaprWorkflow(options =>
 
   //Internal Activities 
   options.RegisterActivity<ConfirmOrderActivity>();
+  options.RegisterActivity<NotificationActivity>();
 
 });
 #endregion
