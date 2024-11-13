@@ -9,10 +9,9 @@ namespace PaymentService.Api.Controllers
   public class PaymentController : ControllerBase
   {
     [HttpPost]
-    public async Task<IActionResult> Get([FromBody] OrderDto customer)
+    public IActionResult Post([FromBody] OrderDto customer)
     {
       return Ok();
-      //return StatusCode(500);
     }
   }
 }

@@ -5,7 +5,7 @@ using EcommerceShop.Common.Routes;
 
 namespace OrderService.Api.Workflow.Activities.ExternalActivities
 {
-  public class ReserveProductActivity : WorkflowActivity<IEnumerable<ProductDto>, bool>
+  public class ReserveProductActivity : WorkflowActivity<IEnumerable<ProductLineDto>, bool>
   {
     private readonly DaprClient _daprClient;
 
@@ -14,13 +14,13 @@ namespace OrderService.Api.Workflow.Activities.ExternalActivities
       _daprClient = daprClient;
     }
 
-    public override async Task<bool> RunAsync(WorkflowActivityContext context, IEnumerable<ProductDto> products)
+    public override async Task<bool> RunAsync(WorkflowActivityContext context, IEnumerable<ProductLineDto> products)
     {
       try
       {
         var request = _daprClient.CreateInvokeMethodRequest(
           "productservice-api",
-          Routes.ProductRoutes.BaseUrl,
+          Routes.ProductRoutes.Reserve,
           products);
 
         var responseJson = await _daprClient.InvokeMethodWithResponseAsync(request);

@@ -5,7 +5,7 @@ using EcommerceShop.Common.Routes;
 
 namespace OrderService.Api.Workflow.Activities.CompensationActivity
 {
-  public class ReleaseProductActivity : WorkflowActivity<IEnumerable<ProductDto>, bool>
+  public class ReleaseProductActivity : WorkflowActivity<IEnumerable<ProductLineDto>, bool>
   {
     private readonly DaprClient _daprClient;
 
@@ -13,7 +13,7 @@ namespace OrderService.Api.Workflow.Activities.CompensationActivity
     {
       _daprClient = daprClient;
     }
-    public override async Task<bool> RunAsync(WorkflowActivityContext context, IEnumerable<ProductDto> input)
+    public override async Task<bool> RunAsync(WorkflowActivityContext context, IEnumerable<ProductLineDto> input)
     {
       try
       {

@@ -1,6 +1,6 @@
 # 4SemProject_EcommerceShop : **TO-DO**
 
-- DDD på `OrderService`
+- Tilføj NotificationActivity 
 - Tilføj JWT-tokens til API-gatewayen.
 - Ryde op i koden. Kommentatere på Api'er og Interfaces kun.  
 
@@ -15,6 +15,7 @@
 - ✅ Implementer Resiliance i OrderSerivce Persisantancelayer. bliver håndteret af ServiceDefault, fra Aspire.
 - ✅ Lave Activities/Compensating Activities i OrderSerivce. Alle returnere bare (OK).
 - ✅ Lave CreateOrder Workflow.
+- ✅ DDD på `OrderService`
 
 ---
 

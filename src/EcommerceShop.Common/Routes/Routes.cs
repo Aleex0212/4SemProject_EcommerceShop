@@ -15,11 +15,15 @@
     public static class OrderRoutes
     {
       public const string BaseUrl = "order";
+      public const string Create = BaseUrl + "/create";
+      public const string Update = BaseUrl + "/update";
+      public const string Delete = BaseUrl + "/delete";
     }
     public static class ProductRoutes
     {
       public const string BaseUrl = "product";
-      public const string Release = "release";
+      public const string Release = BaseUrl + "/release";
+      public const string Reserve = BaseUrl + "/reserve";
     }
     public static class PaymentRoutes
     {
