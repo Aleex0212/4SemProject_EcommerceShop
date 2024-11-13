@@ -7,6 +7,6 @@ namespace EcommerceShop.Common.Dto
     [Required] public Guid Id { get; set; }
     [Required] public required string Name { get; set; }
     [Required] public decimal Price { get; set; }
-    [Required] public int Quantity { get; set; }
+    [Required] public int Amount { get; set; }
   }
 }

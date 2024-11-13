@@ -11,7 +11,6 @@ using Swashbuckle.AspNetCore.Annotations;
 
 namespace OrderService.Api.Controllers
 {
-  [Route(Routes.OrderRoutes.BaseUrl)]
   [ApiController]
   public class OrderController : ControllerBase
   {
@@ -28,7 +27,7 @@ namespace OrderService.Api.Controllers
       _domainMapper = domainMapper;
     }
 
-    [HttpPost]
+    [HttpPost(Routes.OrderRoutes.Create)]
     [Topic(PubSub.Channel, PubSub.OrderTopic.CreateOrder)] //explicit pubsub
     [SwaggerOperation(
       Summary = "Creates a new order",
@@ -54,12 +53,12 @@ namespace OrderService.Api.Controllers
       }
     }
 
-    [HttpPut]
-    [Topic(PubSub.Channel, PubSub.OrderTopic.UpdateOrder)] //explicit pubsub
+    [HttpPost(Routes.OrderRoutes.Update)]
+    [Topic(PubSub.Channel, PubSub.OrderTopic.UpdateOrder)]
     [SwaggerOperation(
-  Summary = "Updates an order",
-  Description = "Updates an already existing order in the database",
-  Tags = ["Orders"])]
+      Summary = "Updates an order",
+      Description = "Updates an already existing order in the database",
+      Tags = ["Orders"])]
     public IActionResult Put([FromBody] OrderDto order)
     {
       try
@@ -75,12 +74,12 @@ namespace OrderService.Api.Controllers
       }
     }
 
-    [HttpDelete]
-    [Topic(PubSub.Channel, PubSub.OrderTopic.DeleteOrder)] //explicit pubsub
+    [HttpPost(Routes.OrderRoutes.Delete)]
+    [Topic(PubSub.Channel, PubSub.OrderTopic.DeleteOrder)]
     [SwaggerOperation(
-Summary = "Deletes an order",
-Description = "Deletes an already existing order in the database",
-Tags = ["Orders"])]
+      Summary = "Deletes an order",
+      Description = "Deletes an already existing order in the database",
+      Tags = ["Orders"])]
     public IActionResult Delete([FromBody] OrderDto order)
     {
       try

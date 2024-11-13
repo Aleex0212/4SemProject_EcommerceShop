@@ -1,31 +1,34 @@
-﻿using OrderService.Application.Services;
+﻿using EcommerceShop.Common.Enum;
+using OrderService.Application.Services;
 using OrderService.Domain.Models;
-using OrderContext = OrderService.Persistence.Context.OrderContext;
+using OrderService.Persistence.Db;
 
 namespace OrderService.Persistence.Repositories
 {
   public class OrderRepository : IOrderRepository
   {
-    private readonly OrderContext _dbContext;
-
-    public OrderRepository(OrderContext dbContext)
+    private readonly OrderData Orders;
+    public OrderRepository(OrderData orders)
     {
-      _dbContext = dbContext;
+      Orders = orders;
     }
 
     public async Task AddOrderAsync(Order order)
     {
-      await _dbContext.Orders.AddAsync(order);
+      Orders.Orders.Add(order);
     }
 
     public void UpdateOrder(Order order)
     {
-      _dbContext.Update(order);
+      var existingOrder = Orders.Orders.FirstOrDefault(o => o.Id == order.Id);
+      Orders.Orders.Remove(existingOrder);
+      Orders.Orders.Add(order);
     }
 
     public void DeleteOrder(Order order)
     {
-      _dbContext.Remove(order);
+      var existingOrder = Orders.Orders.FirstOrDefault(o => o.Id == order.Id);
+      Orders.Orders.Remove(existingOrder);
     }
   }
 }

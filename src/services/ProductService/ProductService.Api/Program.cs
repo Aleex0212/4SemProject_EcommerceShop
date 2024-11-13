@@ -1,4 +1,6 @@
 
+using ProductService.Api.Db;
+
 var builder = WebApplication.CreateBuilder(args);
 
 #region Dapr setup
@@ -27,6 +29,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDaprClient();
+
+builder.Services.AddSingleton<ProductDataDto>();
 
 var app = builder.Build();
 

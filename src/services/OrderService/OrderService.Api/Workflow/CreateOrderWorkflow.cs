@@ -27,8 +27,8 @@ namespace OrderService.Api.Workflow
           throw new CustomerNotValidatedException("Customer not found");
         }
 
-        var products = order.ProductLines.Select(p => p.Product);
-        var reserveCallActivityAsync = await context.CallActivityAsync<bool>(nameof(ReserveProductActivity), products);
+        var productLines= order.ProductLines;
+        var reserveCallActivityAsync = await context.CallActivityAsync<bool>(nameof(ReserveProductActivity), productLines);
         if (!reserveCallActivityAsync)
         {
           order.Status = OrderStatus.Failed;
@@ -39,7 +39,7 @@ namespace OrderService.Api.Workflow
         if (!authorizePaymentActivity)
         {
           order.Status = OrderStatus.Failed;
-          await context.CallActivityAsync(nameof(ReleaseProductActivity), products);
+          await context.CallActivityAsync(nameof(ReleaseProductActivity), productLines);
         }
 
         var confirmOrderActivity = await context.CallActivityAsync<bool>(nameof(ConfirmOrderActivity), order);
