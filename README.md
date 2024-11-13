@@ -1,6 +1,6 @@
 # 4SemProject_EcommerceShop : **TO-DO**
 
-- Tilføj NotificationActivity 
+
 - Tilføj JWT-tokens til API-gatewayen.
 - Ryde op i koden. Kommentatere på Api'er og Interfaces kun.  
 
@@ -16,6 +16,7 @@
 - ✅ Lave Activities/Compensating Activities i OrderSerivce. Alle returnere bare (OK).
 - ✅ Lave CreateOrder Workflow.
 - ✅ DDD på `OrderService`
+- ✅ Tilføj NotificationActivity 
 
 ---
 
