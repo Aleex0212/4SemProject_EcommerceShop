@@ -6,6 +6,12 @@
     {
       public const string BaseUrl = "gateway";
 
+      public static class AuthRoutes
+      {
+        public const string Auth = "auth";
+        public const string Login = Auth + "/login";
+      }
+
       public static class OrderGatewayRoutes
       {
         public const string Order = BaseUrl + "/order";
@@ -32,6 +38,7 @@
     public static class CustomerRoutes
     {
       public const string BaseUrl = "customer";
+      public const string Login = BaseUrl + "/login";
     }
   }
 }

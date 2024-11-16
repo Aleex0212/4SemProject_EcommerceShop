@@ -2,11 +2,13 @@
 using EcommerceShop.Common.Dto;
 using EcommerceShop.Common.Queues;
 using EcommerceShop.Common.Routes;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace Gateway.Api.Controllers
 {
+  [Authorize]
   [Route(Routes.GatewayRoutes.OrderGatewayRoutes.Order)]
   [ApiController]
   public class OrderGateway : ControllerBase

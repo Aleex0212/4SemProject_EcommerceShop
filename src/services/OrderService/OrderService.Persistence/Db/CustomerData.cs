@@ -1,8 +1,8 @@
-﻿using OrderService.Domain;
+﻿using OrderService.Domain.Models;
 
 namespace OrderService.Persistence.Db
 {
-  public class CustomerData
+    public class CustomerData
   {
     public List<Customer> Customers { get; }
 
