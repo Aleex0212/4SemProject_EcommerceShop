@@ -1,7 +1,7 @@
 # 4SemProject_EcommerceShop : **TO-DO**
 
 - Ryde op i koden. Kommentatere på Api'er og Interfaces kun.  
-
+---
 **Done:**
 
 - ✅ Lav `ProductService` om, så den følger REST niveau 2
