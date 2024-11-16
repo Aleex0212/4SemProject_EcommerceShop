@@ -8,7 +8,6 @@ using Swashbuckle.AspNetCore.Annotations;
 
 namespace Gateway.Api.Controllers
 {
-  [Authorize]
   [Route(Routes.GatewayRoutes.OrderGatewayRoutes.Order)]
   [ApiController]
   public class OrderGateway : ControllerBase
@@ -22,6 +21,7 @@ namespace Gateway.Api.Controllers
       _logger = logger;
     }
 
+    [Authorize(Roles = "customer")]
     [HttpPost]
     [SwaggerOperation(
       Summary = "OrderGateway",
@@ -39,7 +39,9 @@ namespace Gateway.Api.Controllers
         return StatusCode(500);
       }
     }
+
     [HttpPut]
+    [Authorize(Roles = "admin")]
     [SwaggerOperation(
       Summary = "OrderGateway",
       Description = "Calls Update Order using DaprClient")]
@@ -58,6 +60,7 @@ namespace Gateway.Api.Controllers
     }
 
     [HttpDelete]
+    [Authorize (Roles = "admin")]
     [SwaggerOperation(
       Summary = "OrderGateway",
       Description = "Calls Delete Order using DaprClient")]

@@ -1,15 +1,15 @@
-﻿using CustomerService.Db;
+﻿using UserService.Db;
 using EcommerceShop.Common.Dto;
 using EcommerceShop.Common.Routes;
 using Microsoft.AspNetCore.Mvc;
 
-namespace CustomerService.Api.Controllers
+namespace UserService.Api.Controllers
 {
   [ApiController]
-  public class CustomerController : ControllerBase
+  public class UserController : ControllerBase
   {
     private readonly CustomerData _customerData;
-    public CustomerController(CustomerData customerData)
+    public UserController(CustomerData customerData)
     {
       _customerData = customerData;
     }
@@ -17,6 +17,7 @@ namespace CustomerService.Api.Controllers
     [HttpPost(Routes.CustomerRoutes.BaseUrl)]
     public IActionResult VerifyCustomer([FromBody] CustomerDto customer)
     {
+      _customerData.Customers.First(c => c.Id == customer.Id);
       return Ok();
     }
 

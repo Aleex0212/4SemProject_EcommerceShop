@@ -1,4 +1,4 @@
-using CustomerService.Db;
+using UserService.Db;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.AddServiceDefaults();

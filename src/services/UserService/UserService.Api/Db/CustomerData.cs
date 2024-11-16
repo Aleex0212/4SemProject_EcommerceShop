@@ -1,7 +1,6 @@
-﻿
-using EcommerceShop.Common.Dto;
+﻿using EcommerceShop.Common.Dto;
 
-namespace CustomerService.Db
+namespace UserService.Db
 {
   public class CustomerData
   {

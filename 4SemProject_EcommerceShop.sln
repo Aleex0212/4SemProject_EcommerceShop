@@ -7,13 +7,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{5750D40C-DEC
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "services", "services", "{A38701EE-85A2-4EF1-96A8-A3D8C7BFA935}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CustomerService", "CustomerService", "{23A493F1-6687-4F1B-9399-EE2BC4B14895}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UserService", "UserService", "{23A493F1-6687-4F1B-9399-EE2BC4B14895}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ProductService", "ProductService", "{2F84A18C-92FD-49EE-867A-F07F0242A387}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "OrderService", "OrderService", "{5960A9A1-EA15-4ED0-8665-C98065CF3740}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomerService.Api", "src\services\CustomerService\CustomerService.Api\CustomerService.Api.csproj", "{14FB385F-7781-4863-9991-3FC8B97ED9AB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UserService.Api", "src\services\UserService\UserService.Api\UserService.Api.csproj", "{14FB385F-7781-4863-9991-3FC8B97ED9AB}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProductService.Api", "src\services\ProductService\ProductService.Api\ProductService.Api.csproj", "{6639A13E-5B31-46F2-AAAC-BAE07F428399}"
 EndProject

@@ -19,9 +19,9 @@
   <ItemGroup>
     <ProjectReference Include="..\Gateway.Api\Gateway.Api.csproj" />
     <ProjectReference Include="..\PaymentService.Api\PaymentService.Api.csproj" />
-    <ProjectReference Include="..\src\services\CustomerService\CustomerService.Api\CustomerService.Api.csproj" />
     <ProjectReference Include="..\src\services\OrderService\OrderService.Api\OrderService.Api.csproj" />
     <ProjectReference Include="..\src\services\ProductService\ProductService.Api\ProductService.Api.csproj" />
+    <ProjectReference Include="..\src\services\UserService\UserService.Api\UserService.Api.csproj" />
   </ItemGroup>
 
 </Project>
