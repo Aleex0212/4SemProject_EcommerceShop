@@ -1,3 +1,5 @@
+using CustomerService.Db;
+
 var builder = WebApplication.CreateBuilder(args);
 builder.AddServiceDefaults();
 
@@ -18,13 +20,14 @@ if (string.IsNullOrEmpty(daprHttpPort))
 
 // Add services to the container.
 builder.Services.AddControllers();
+builder.Services.AddDaprClient(config => config.UseGrpcEndpoint($"http://localhost:{daprGrpcPort}").UseHttpEndpoint($"http://localhost:{daprHttpPort}"));
+
 #endregion
 
-builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddDaprClient(config => config.UseGrpcEndpoint($"http://localhost:{daprGrpcPort}").UseHttpEndpoint($"http://localhost:{daprHttpPort}"));
+builder.Services.AddSingleton<CustomerData>();
 
 var app = builder.Build();
 

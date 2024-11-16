@@ -1,18 +1,30 @@
-﻿using EcommerceShop.Common.Dto;
+﻿using CustomerService.Db;
+using EcommerceShop.Common.Dto;
 using EcommerceShop.Common.Routes;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CustomerService.Api.Controllers
 {
-  [Route(Routes.CustomerRoutes.BaseUrl)]
   [ApiController]
   public class CustomerController : ControllerBase
   {
-    [HttpPost]
-    public async Task<IActionResult> Get([FromBody] CustomerDto customer)
+    private readonly CustomerData _customerData;
+    public CustomerController(CustomerData customerData)
+    {
+      _customerData = customerData;
+    }
+
+    [HttpPost(Routes.CustomerRoutes.BaseUrl)]
+    public IActionResult VerifyCustomer([FromBody] CustomerDto customer)
     {
       return Ok();
-      //return StatusCode(500);
+    }
+
+    [HttpPost(Routes.CustomerRoutes.Login)]
+    public ActionResult<CustomerDto> Login([FromBody] LoginDto loginDto)
+    {
+      var customer = _customerData.Customers.First(c => c.Email == loginDto.Email && c.Password == loginDto.Password);
+      return customer;
     }
   }
 }

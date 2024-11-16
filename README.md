@@ -1,10 +1,6 @@
 # 4SemProject_EcommerceShop : **TO-DO**
 
-
-- Tilføj JWT-tokens til API-gatewayen.
 - Ryde op i koden. Kommentatere på Api'er og Interfaces kun.  
-
----
 
 **Done:**
 
@@ -17,7 +13,7 @@
 - ✅ Lave CreateOrder Workflow.
 - ✅ DDD på `OrderService`
 - ✅ Tilføj NotificationActivity 
-
+- ✅Tilføj JWT-tokens til API-gatewayen.
 ---
 
 ## DAGBOG
@@ -33,3 +29,4 @@
 - **11.11:** Udfordringer : Arbejder med WorkFlows. Hvordan returnere vi result?  - problem løst senere på aftenen -
 - **12.11:** tilføjelse af update og delete funkition på `OrderService.Api` Udfordringer: hvordan får jeg så den order med igennem?
 - **13.11:** tilføjelse af en Simpel Database, Ordre Put,Post,Delete virker nu. Tilføjet NoificationActivity, udfordringer: Den kalder 2 gange?. 
+- **16.11:** Tilføjelse af JWT implementering på Gateway Api'en. Udfordring: Hvorfor er vores Beere token ikke valid?? 

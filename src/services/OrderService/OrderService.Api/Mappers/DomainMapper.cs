@@ -1,10 +1,9 @@
 ﻿using EcommerceShop.Common.Dto;
-using OrderService.Domain;
 using OrderService.Domain.Models;
 
 namespace OrderService.Api.Mappers
 {
-  public class DomainMapper
+    public class DomainMapper
   {
     internal Order MapOrderDtoToModel(OrderDto dto)
     {

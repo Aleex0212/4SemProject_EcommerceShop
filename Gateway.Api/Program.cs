@@ -1,3 +1,9 @@
+using System.Text;
+using Gateway.Api.Auth;
+using Gateway.Api.ServiceCollectionExtention;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+
 var builder = WebApplication.CreateBuilder(args);
 
 
@@ -25,10 +31,24 @@ builder.Services.AddControllers()
 builder.Services.AddDaprClient(config => config.UseGrpcEndpoint(daprGrpcPort).UseHttpEndpoint(daprHttpPort));
 #endregion
 
+builder.Services.AddAuthorization();
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+  .AddJwtBearer(o =>
+  {
+    o.RequireHttpsMetadata = false;
+    o.TokenValidationParameters = new TokenValidationParameters
+    {
+      IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:secret"]!)),
+      ValidIssuer = builder.Configuration["Jwt:Issuers"],
+      ValidAudience = builder.Configuration["Jwt:Audience"],
+      ClockSkew = TimeSpan.Zero
+    };
+  });
+
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-
-
+builder.Services.AddSwaggerGenWithAuth();
+builder.Services.AddScoped<LoginCustomer>();
+builder.Services.AddSingleton<TokenProvider>();
 
 var app = builder.Build();
 
@@ -40,13 +60,14 @@ if (app.Environment.IsDevelopment())
   app.UseSwaggerUI();
 }
 
-app.UseAuthorization();
-
 #region dapr setup
 app.UseCloudEvents(); //sørger for at medsendte parametre som DTO'er kan deserialiseres.
 app.MapSubscribeHandler(); // kun ved explicit pubsub.
 
 #endregion
+
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.MapControllers();
 
