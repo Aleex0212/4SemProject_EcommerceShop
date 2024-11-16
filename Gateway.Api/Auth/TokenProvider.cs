@@ -1,6 +1,5 @@
 ﻿using System.Security.Claims;
 using System.Text;
-using Dapr.Client;
 using EcommerceShop.Common.Dto;
 using Microsoft.IdentityModel.JsonWebTokens;
 using Microsoft.IdentityModel.Tokens;
@@ -16,13 +15,13 @@ namespace Gateway.Api.Auth
 
       var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
 
-      var tokenDescripter = new SecurityTokenDescriptor()
+      var tokenDescriptor = new SecurityTokenDescriptor()
       {
         Subject = new ClaimsIdentity(
         [
-          new Claim(JwtRegisteredClaimNames.Sub, Convert.ToString(login.Id)),
-          new Claim(JwtRegisteredClaimNames.Sub, login.Email)
+          new Claim(JwtRegisteredClaimNames.Email, Convert.ToString(login.Email)),
         ]),
+
         Expires = DateTime.UtcNow.AddMinutes(configuration.GetValue<int>("Jwt:ExpirationInMinutes")),
         SigningCredentials = credentials,
         Issuer = configuration["Jwt:Issuer"],
@@ -30,7 +29,7 @@ namespace Gateway.Api.Auth
       };
 
       var handler = new JsonWebTokenHandler();
-      string token = handler.CreateToken(tokenDescripter);
+      string token = handler.CreateToken(tokenDescriptor);
 
       return token;
     }

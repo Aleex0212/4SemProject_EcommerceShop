@@ -6,7 +6,6 @@ using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
 builder.AddServiceDefaults();
 
 #region Dapr setup
@@ -38,8 +37,8 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     o.RequireHttpsMetadata = false;
     o.TokenValidationParameters = new TokenValidationParameters
     {
-      IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:secret"]!)),
-      ValidIssuer = builder.Configuration["Jwt:Issuers"],
+      IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Secret"]!)),
+      ValidIssuer = builder.Configuration["Jwt:Issuer"],
       ValidAudience = builder.Configuration["Jwt:Audience"],
       ClockSkew = TimeSpan.Zero
     };
