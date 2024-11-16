@@ -3,7 +3,7 @@
 - Tilføj Claims/Roles på User. Admin kan Put,Get,Delete.
 - Tilføj UserTypes. 
 - Ryde op i koden. Kommentatere på Api'er og Interfaces kun.  
-
+---
 **Done:**
 
 - ✅ Lav `ProductService` om, så den følger REST niveau 2
