@@ -20,7 +20,7 @@ namespace Gateway.Api.Auth
       try
       {
         var request = _daprClient.CreateInvokeMethodRequest(
-          "UserService-api",
+          "userservice-api",
           Routes.CustomerRoutes.Login,
           login);
 
