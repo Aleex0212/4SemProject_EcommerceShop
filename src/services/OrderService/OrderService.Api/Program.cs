@@ -64,8 +64,6 @@ if (app.Environment.IsDevelopment())
   app.UseSwaggerUI();
 }
 
-app.UseAuthorization();
-
 #region dapr setup
 app.UseCloudEvents(); //sørger for at medsendte parametre som DTO'er kan deserialiseres.
 app.MapSubscribeHandler(); // kun ved explicit pubsub.

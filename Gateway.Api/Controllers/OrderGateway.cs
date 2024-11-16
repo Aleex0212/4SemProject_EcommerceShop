@@ -31,8 +31,6 @@ namespace Gateway.Api.Controllers
       try
       {
         await _daprClient.PublishEventAsync(PubSub.Channel, PubSub.OrderTopic.CreateOrder, order);
-
-        Console.WriteLine("publish event sent");
         return Ok();
       }
       catch (Exception ex)
@@ -43,15 +41,13 @@ namespace Gateway.Api.Controllers
     }
     [HttpPut]
     [SwaggerOperation(
-  Summary = "OrderGateway",
-  Description = "Calls Update Order using DaprClient")]
+      Summary = "OrderGateway",
+      Description = "Calls Update Order using DaprClient")]
     public async Task<IActionResult> Put([FromBody] OrderDto order)
     {
       try
       {
         await _daprClient.PublishEventAsync(PubSub.Channel, PubSub.OrderTopic.UpdateOrder, order);
-
-        Console.WriteLine("publish event sent");
         return Ok();
       }
       catch (Exception ex)
@@ -63,15 +59,13 @@ namespace Gateway.Api.Controllers
 
     [HttpDelete]
     [SwaggerOperation(
-  Summary = "OrderGateway",
-  Description = "Calls Delete Order using DaprClient")]
+      Summary = "OrderGateway",
+      Description = "Calls Delete Order using DaprClient")]
     public async Task<IActionResult> Delete([FromBody] OrderDto order)
     {
       try
       {
         await _daprClient.PublishEventAsync(PubSub.Channel, PubSub.OrderTopic.DeleteOrder, order);
-
-        Console.WriteLine("publish event sent");
         return Ok();
       }
       catch (Exception ex)
