@@ -2,7 +2,6 @@
 using EcommerceShop.Common.Dto;
 using OrderService.Api.Mappers;
 using OrderService.Application.Interfaces;
-using OrderService.Domain.Models;
 
 namespace OrderService.Api.Workflow.Activities.InternalActivities
 {

@@ -9,8 +9,6 @@ namespace Gateway.Api.ServiceCollectionExtention
     {
       services.AddSwaggerGen(o =>
       {
-        //o.CustomOperationIds(id => id.FullName!.Reaplce('+','-'));
-
         var securityScheme = new OpenApiSecurityScheme
         {
           Name = "JWT Authentication",
@@ -20,7 +18,7 @@ namespace Gateway.Api.ServiceCollectionExtention
           Scheme = JwtBearerDefaults.AuthenticationScheme,
           BearerFormat = "JWT"
         };
-        
+
         o.AddSecurityDefinition(JwtBearerDefaults.AuthenticationScheme, securityScheme);
 
         var securityRequirement = new OpenApiSecurityRequirement
@@ -39,7 +37,6 @@ namespace Gateway.Api.ServiceCollectionExtention
         };
         o.AddSecurityRequirement(securityRequirement);
       });
-
       return services;
     }
   }

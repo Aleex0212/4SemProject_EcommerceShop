@@ -1,4 +1,4 @@
-using UserService.Db;
+using UserService.Api.Db;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.AddServiceDefaults();
@@ -27,7 +27,7 @@ builder.Services.AddDaprClient(config => config.UseGrpcEndpoint($"http://localho
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddSingleton<CustomerData>();
+builder.Services.AddSingleton<UserData>();
 
 var app = builder.Build();
 

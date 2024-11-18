@@ -26,7 +26,7 @@ namespace OrderService.Api.Workflow.Activities.CompensationActivity
         responseJson.EnsureSuccessStatusCode();
         return true;
       }
-      catch (Exception ex)
+      catch (Exception)
       {
         return false;
       }

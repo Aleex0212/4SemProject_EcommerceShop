@@ -23,7 +23,6 @@ builder.Services.AddControllers();
 builder.Services.AddDaprClient(config => config.UseGrpcEndpoint($"http://localhost:{daprGrpcPort}").UseHttpEndpoint($"http://localhost:{daprHttpPort}"));
 #endregion
 
-
 builder.AddServiceDefaults();
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();

@@ -2,19 +2,16 @@
 using EcommerceShop.Common.Dto;
 using EcommerceShop.Common.Enum;
 using OrderService.Api.Exceptions;
+using OrderService.Api.Workflow.Activities;
 using OrderService.Api.Workflow.Activities.CompensationActivity;
 using OrderService.Api.Workflow.Activities.ExternalActivities;
 using OrderService.Api.Workflow.Activities.InternalActivities;
-using System.Reactive;
-using OrderService.Api.Workflow.Activities;
 
 namespace OrderService.Api.Workflow
 {
   public class CreateOrderWorkflow : Workflow<OrderDto, OrderStatus>
   {
-    public CreateOrderWorkflow()
-    {
-    }
+    public CreateOrderWorkflow() { }
 
     public override async Task<OrderStatus> RunAsync(WorkflowContext context, OrderDto order)
     {
@@ -30,7 +27,7 @@ namespace OrderService.Api.Workflow
           activityResults.Add("ValidateCustomerActivity failed");
           throw new CustomerNotValidatedException("Customer not found");
         }
-        
+
         activityResults.Add("ValidateCustomerActivity succeed");
 
         var productLines = order.ProductLines;
@@ -65,7 +62,7 @@ namespace OrderService.Api.Workflow
 
         return order.Status = OrderStatus.Completed;
       }
-      catch (Exception ex)
+      catch (Exception)
       {
         await context.CallActivityAsync(nameof(NotificationActivity), activityResults);
         return OrderStatus.Failed;

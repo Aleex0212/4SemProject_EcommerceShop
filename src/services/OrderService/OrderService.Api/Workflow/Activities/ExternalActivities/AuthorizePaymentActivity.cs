@@ -20,14 +20,14 @@ namespace OrderService.Api.Workflow.Activities.ExternalActivities
       {
         var request = _daprClient.CreateInvokeMethodRequest(
           "paymentservice-api",
-          Routes.PaymentRoutes.BaseUrl,
+          Routes.PaymentRoutes.Payment,
           input);
 
         var responseJson = await _daprClient.InvokeMethodWithResponseAsync(request);
         responseJson.EnsureSuccessStatusCode();
         return true;
       }
-      catch (Exception ex)
+      catch (Exception)
       {
         return false;
       }

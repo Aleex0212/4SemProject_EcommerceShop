@@ -1,5 +1,4 @@
-﻿using EcommerceShop.Common.Enum;
-using OrderService.Application.Services;
+﻿using OrderService.Application.Services;
 using OrderService.Domain.Models;
 using OrderService.Persistence.Db;
 

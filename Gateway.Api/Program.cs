@@ -1,10 +1,10 @@
-using System.Text;
 using EcommerceShop.Common.Enum;
 using EcommerceShop.Common.Policies;
 using Gateway.Api.Auth;
 using Gateway.Api.ServiceCollectionExtention;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -32,6 +32,7 @@ builder.Services.AddControllers()
 builder.Services.AddDaprClient(config => config.UseGrpcEndpoint(daprGrpcPort).UseHttpEndpoint(daprHttpPort));
 #endregion
 
+#region JWT Authorization
 builder.Services.AddAuthorization();
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
   .AddJwtBearer(o =>
@@ -45,6 +46,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
       ClockSkew = TimeSpan.Zero
     };
   });
+#endregion
 
 #region Policies
 builder.Services.AddAuthorization(options => options
@@ -57,7 +59,7 @@ builder.Services.AddAuthorization(options => options
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGenWithAuth();
-builder.Services.AddScoped<LoginCustomer>();
+builder.Services.AddScoped<LoginUser>();
 builder.Services.AddSingleton<TokenProvider>();
 
 var app = builder.Build();
