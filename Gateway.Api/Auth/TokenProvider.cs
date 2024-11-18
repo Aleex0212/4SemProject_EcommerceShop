@@ -1,6 +1,7 @@
 ﻿using System.Security.Claims;
 using System.Text;
 using EcommerceShop.Common.Dto;
+using EcommerceShop.Common.Enum;
 using Microsoft.IdentityModel.JsonWebTokens;
 using Microsoft.IdentityModel.Tokens;
 
@@ -8,7 +9,7 @@ namespace Gateway.Api.Auth
 {
   public class TokenProvider(IConfiguration configuration)
   {
-    public string Create(LoginDto login)
+    public string Create(UserDto user)
     {
       string secretKey = configuration["Jwt:Secret"];
       var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey));
@@ -19,7 +20,7 @@ namespace Gateway.Api.Auth
       {
         Subject = new ClaimsIdentity(
         [
-          new Claim(JwtRegisteredClaimNames.Email, Convert.ToString(login.Email)),
+          new Claim(nameof(user.UserType), user.UserType.ToString()),
         ]),
 
         Expires = DateTime.UtcNow.AddMinutes(configuration.GetValue<int>("Jwt:ExpirationInMinutes")),

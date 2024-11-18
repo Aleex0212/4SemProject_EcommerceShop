@@ -15,14 +15,14 @@ namespace UserService.Api.Controllers
     }
 
     [HttpPost(Routes.CustomerRoutes.BaseUrl)]
-    public IActionResult VerifyCustomer([FromBody] CustomerDto customer)
+    public IActionResult VerifyCustomer([FromBody] UserDto customer)
     {
       _customerData.Customers.First(c => c.Id == customer.Id);
       return Ok();
     }
 
     [HttpPost(Routes.CustomerRoutes.Login)]
-    public ActionResult<CustomerDto> Login([FromBody] LoginDto loginDto)
+    public ActionResult<UserDto> Login([FromBody] LoginDto loginDto)
     {
       var customer = _customerData.Customers.First(c => c.Email == loginDto.Email && c.Password == loginDto.Password);
       return customer;
