@@ -1,5 +1,6 @@
 ﻿using Dapr.Client;
 using EcommerceShop.Common.Dto;
+using EcommerceShop.Common.Policies;
 using EcommerceShop.Common.Queues;
 using EcommerceShop.Common.Routes;
 using Microsoft.AspNetCore.Authorization;
@@ -21,7 +22,7 @@ namespace Gateway.Api.Controllers
       _logger = logger;
     }
 
-    [Authorize(Roles = "customer")]
+    [Authorize(Policy = UserPolicies.CustomerPolicy)]
     [HttpPost]
     [SwaggerOperation(
       Summary = "OrderGateway",
@@ -41,7 +42,7 @@ namespace Gateway.Api.Controllers
     }
 
     [HttpPut]
-    [Authorize(Roles = "admin")]
+    [Authorize(Policy = UserPolicies.AdminPolicy)]
     [SwaggerOperation(
       Summary = "OrderGateway",
       Description = "Calls Update Order using DaprClient")]
@@ -60,7 +61,7 @@ namespace Gateway.Api.Controllers
     }
 
     [HttpDelete]
-    [Authorize (Roles = "admin")]
+    [Authorize (Policy = UserPolicies.AdminPolicy)]
     [SwaggerOperation(
       Summary = "OrderGateway",
       Description = "Calls Delete Order using DaprClient")]
