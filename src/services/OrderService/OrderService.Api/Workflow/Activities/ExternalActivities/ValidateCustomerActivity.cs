@@ -5,7 +5,7 @@ using EcommerceShop.Common.Routes;
 
 namespace OrderService.Api.Workflow.Activities.ExternalActivities
 {
-  public class ValidateCustomerActivity : WorkflowActivity<CustomerDto, bool>
+  public class ValidateCustomerActivity : WorkflowActivity<UserDto, bool>
   {
     private readonly DaprClient _daprClient;
 
@@ -14,7 +14,7 @@ namespace OrderService.Api.Workflow.Activities.ExternalActivities
       _daprClient = daprClient;
     }
 
-    public override async Task<bool> RunAsync(WorkflowActivityContext context, CustomerDto customer)
+    public override async Task<bool> RunAsync(WorkflowActivityContext context, UserDto customer)
     {
       try
       {

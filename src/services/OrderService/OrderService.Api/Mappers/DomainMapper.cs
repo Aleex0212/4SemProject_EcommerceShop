@@ -17,7 +17,7 @@ namespace OrderService.Api.Mappers
 
       return order;
     }
-    internal Customer MapCustomerDtoToModel(CustomerDto dto)
+    internal Customer MapCustomerDtoToModel(UserDto dto)
     {
       var customer = Customer.Crate(dto.Id, dto.Name, dto.Email, dto.Phone, dto.Address);
       return customer;

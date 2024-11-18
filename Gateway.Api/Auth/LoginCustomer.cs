@@ -26,7 +26,8 @@ namespace Gateway.Api.Auth
 
         var responseJson = await _daprClient.InvokeMethodWithResponseAsync(request);
         responseJson.EnsureSuccessStatusCode();
-        var token = _tokenProvider.Create(login);
+        var user = await responseJson.Content.ReadFromJsonAsync<UserDto>();
+        var token = _tokenProvider.Create(user);
         
         return token;
       }
