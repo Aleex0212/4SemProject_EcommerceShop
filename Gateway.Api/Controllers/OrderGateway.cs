@@ -22,22 +22,23 @@ namespace Gateway.Api.Controllers
       _logger = logger;
     }
 
-    [Authorize(Policy = UserPolicies.CustomerPolicy)]
     [HttpPost]
+    [Authorize(Policy = UserPolicies.CustomerPolicy)]
     [SwaggerOperation(
       Summary = "OrderGateway",
-      Description = "Calls Create Order using DaprClient")]
+      Description = "Calls Create Order using DaprClient and starts workflow",
+      Tags = new[] { "Gateway_Order" })]
     public async Task<IActionResult> Post([FromBody] OrderDto order)
     {
       try
       {
         await _daprClient.PublishEventAsync(PubSub.Channel, PubSub.OrderTopic.CreateOrder, order);
-        return Ok();
+        return Ok($"Order with OrderId:  {order.Id} Successfully created and workflow initialised.");
       }
       catch (Exception ex)
       {
-        _logger.LogError(ex.Message, $"Error starting OrderGateway {ex.Message}");
-        return StatusCode(500);
+        _logger.LogError(ex, "Error starting OrderGateway");
+        return StatusCode(500, "An error occurred while processing the order.");
       }
     }
 
@@ -45,38 +46,41 @@ namespace Gateway.Api.Controllers
     [Authorize(Policy = UserPolicies.AdminPolicy)]
     [SwaggerOperation(
       Summary = "OrderGateway",
-      Description = "Calls Update Order using DaprClient")]
+      Description = "Calls Update Order using DaprClient",
+      Tags = new[] { "Gateway_Order" })]
     public async Task<IActionResult> Put([FromBody] OrderDto order)
     {
       try
       {
         await _daprClient.PublishEventAsync(PubSub.Channel, PubSub.OrderTopic.UpdateOrder, order);
-        return Ok();
+        return Ok($"Update for order with OrderId {order.Id} initialised");
       }
       catch (Exception ex)
       {
-        _logger.LogError(ex.Message, $"Error starting OrderGateway {ex.Message}");
-        return StatusCode(500);
+        _logger.LogError(ex, "Error starting OrderGateway");
+        return StatusCode(500, "An error occurred while updating the order.");
       }
     }
 
     [HttpDelete]
-    [Authorize (Policy = UserPolicies.AdminPolicy)]
+    [Authorize(Policy = UserPolicies.AdminPolicy)]
     [SwaggerOperation(
       Summary = "OrderGateway",
-      Description = "Calls Delete Order using DaprClient")]
+      Description = "Calls Delete Order using DaprClient",
+      Tags = new[] { "Gateway_Order" })]
     public async Task<IActionResult> Delete([FromBody] OrderDto order)
     {
       try
       {
         await _daprClient.PublishEventAsync(PubSub.Channel, PubSub.OrderTopic.DeleteOrder, order);
-        return Ok();
+        return Ok($"delete of order with orderId {order.Id} initialised");
       }
       catch (Exception ex)
       {
-        _logger.LogError(ex.Message, $"Error starting OrderGateway {ex.Message}");
-        return StatusCode(500);
+        _logger.LogError(ex, $"Error while attempting to deleting order {order.Id}.");
+        return StatusCode(500, "An error occurred while deleting the order.");
       }
     }
+
   }
 }

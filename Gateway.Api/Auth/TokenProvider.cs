@@ -1,17 +1,17 @@
-﻿using System.Security.Claims;
-using System.Text;
-using EcommerceShop.Common.Dto;
+﻿using EcommerceShop.Common.Dto;
 using EcommerceShop.Common.Enum;
 using Microsoft.IdentityModel.JsonWebTokens;
 using Microsoft.IdentityModel.Tokens;
+using System.Security.Claims;
+using System.Text;
 
 namespace Gateway.Api.Auth
 {
   public class TokenProvider(IConfiguration configuration)
   {
-    public string Create(UserDto user)
+    internal string Create(UserDto user)
     {
-      string secretKey = configuration["Jwt:Secret"];
+      var secretKey = configuration["Jwt:Secret"];
       var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey));
 
       var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
@@ -30,7 +30,7 @@ namespace Gateway.Api.Auth
       };
 
       var handler = new JsonWebTokenHandler();
-      string token = handler.CreateToken(tokenDescriptor);
+      var token = handler.CreateToken(tokenDescriptor);
 
       return token;
     }

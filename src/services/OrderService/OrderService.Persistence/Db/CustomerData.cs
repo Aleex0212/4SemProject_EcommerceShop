@@ -2,7 +2,7 @@
 
 namespace OrderService.Persistence.Db
 {
-    public class CustomerData
+  public class CustomerData
   {
     public List<Customer> Customers { get; }
 

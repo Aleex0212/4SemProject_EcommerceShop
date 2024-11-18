@@ -27,7 +27,7 @@ namespace OrderService.Api.Workflow.Activities.ExternalActivities
         responseJson.EnsureSuccessStatusCode();
         return true;
       }
-      catch (Exception ex)
+      catch (Exception)
       {
         return false;
       }

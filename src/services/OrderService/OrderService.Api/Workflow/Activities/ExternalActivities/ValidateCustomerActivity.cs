@@ -20,7 +20,7 @@ namespace OrderService.Api.Workflow.Activities.ExternalActivities
       {
         var request = _daprClient.CreateInvokeMethodRequest(
           "UserService-api",
-          Routes.CustomerRoutes.BaseUrl,
+          Routes.UserRoutes.BaseUrl,
           customer);
 
         var responseJson = await _daprClient.InvokeMethodWithResponseAsync(request);
@@ -29,7 +29,7 @@ namespace OrderService.Api.Workflow.Activities.ExternalActivities
         return true;
 
       }
-      catch (Exception ex)
+      catch (Exception)
       {
         return false;
       }

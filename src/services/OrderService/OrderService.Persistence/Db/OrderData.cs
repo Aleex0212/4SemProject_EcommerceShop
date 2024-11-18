@@ -1,6 +1,4 @@
-﻿using System.Collections.Immutable;
-using EcommerceShop.Common.Enum;
-using OrderService.Domain;
+﻿using EcommerceShop.Common.Enum;
 using OrderService.Domain.Models;
 
 namespace OrderService.Persistence.Db
@@ -9,7 +7,7 @@ namespace OrderService.Persistence.Db
   {
     private ProductData Products;
     private CustomerData Customers;
-    public List<Order> Orders { get;}
+    public List<Order> Orders { get; }
 
     public OrderData(ProductData products, CustomerData customers)
     {
@@ -23,9 +21,9 @@ namespace OrderService.Persistence.Db
         ProductLine.Create(Guid.NewGuid(), products.Products[1], 2)
       };
       Orders.Add(Order.Create(
-        new Guid("11111111-1111-1111-1111-111111111111"), 
+        new Guid("11111111-1111-1111-1111-111111111111"),
         Customers.Customers[0],
-        productLines1, 
+        productLines1,
         OrderStatus.Completed));
 
       var productLines2 = new List<ProductLine>
