@@ -17,6 +17,7 @@
 - ✅ Tilføj NotificationActivity 
 - ✅ Tilføj JWT-tokens til API-gatewayen.
 - ✅ Tilføj UserTypes.
+- ✅ Tilføj policies på gateway.
   
 ---
 
@@ -34,4 +35,4 @@
 - **12.11:** tilføjelse af update og delete funkition på `OrderService.Api` Udfordringer: hvordan får jeg så den order med igennem?
 - **13.11:** tilføjelse af en Simpel Database, Ordre Put,Post,Delete virker nu. Tilføjet NoificationActivity, udfordringer: Den kalder 2 gange?. 
 - **16.11:** Tilføjelse af JWT implementering på Gateway Api'en. Udfordring: Hvorfor er vores Beere token ikke valid?? Løst i dag
-- **18.11:** Man kan nu lave claims baseret på hvilken usertype man logger ind med.
+- **18.11:** Man kan nu lave claims baseret på hvilken usertype man logger ind med samt policies til at sikre det med.
