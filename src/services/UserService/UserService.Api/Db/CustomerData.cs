@@ -1,4 +1,5 @@
 ﻿using EcommerceShop.Common.Dto;
+using EcommerceShop.Common.Enum;
 
 namespace UserService.Db
 {
@@ -16,7 +17,7 @@ namespace UserService.Db
         Name = "Customer1",
         Email = "Customer1Email@Mail.dk",
         Password = "Customer1Password",
-        UserType = EcommerceShop.Common.Enum.UserTypes.Customer,
+        UserType = UserTypes.Customer,
         Phone = "11111111",
         Address = "Customer1Address"
       };
@@ -26,7 +27,7 @@ namespace UserService.Db
         Name = "Customer2",
         Email = "Customer2Email@Mail.dk",
         Password = "Customer2Password",
-        UserType = EcommerceShop.Common.Enum.UserTypes.Customer,
+        UserType = UserTypes.Customer,
         Phone = "22222222",
         Address = "Customer2Address"
       };
@@ -36,7 +37,7 @@ namespace UserService.Db
         Name = "Customer3",
         Email = "Customer3Email@Mail.dk",
         Password = "Customer3Password",
-        UserType = EcommerceShop.Common.Enum.UserTypes.Admin,
+        UserType = UserTypes.Admin,
         Phone = "33333333",
         Address = "Customer3Address"
       };
@@ -46,7 +47,7 @@ namespace UserService.Db
         Name = "Customer4",
         Email = "Customer4Email@Mail.dk",
         Password = "Customer4Password",
-        UserType = EcommerceShop.Common.Enum.UserTypes.User,
+        UserType = UserTypes.User,
         Phone = "44444444",
         Address = "Customer4Address"
       };
