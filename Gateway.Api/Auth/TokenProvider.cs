@@ -20,7 +20,7 @@ namespace Gateway.Api.Auth
       {
         Subject = new ClaimsIdentity(
         [
-          new Claim(nameof(user.UserType), user.UserType.ToString()),
+          new Claim(nameof(UserTypes), user.UserType.ToString()),
         ]),
 
         Expires = DateTime.UtcNow.AddMinutes(configuration.GetValue<int>("Jwt:ExpirationInMinutes")),

@@ -1,4 +1,6 @@
 using System.Text;
+using EcommerceShop.Common.Enum;
+using EcommerceShop.Common.Policies;
 using Gateway.Api.Auth;
 using Gateway.Api.ServiceCollectionExtention;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -43,6 +45,15 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
       ClockSkew = TimeSpan.Zero
     };
   });
+
+#region Policies
+builder.Services.AddAuthorization(options => options
+    .AddPolicy(UserPolicies.CustomerPolicy, policyBuilder => policyBuilder.RequireClaim(nameof(UserTypes), [UserTypes.Customer.ToString()])));
+builder.Services.AddAuthorization(options => options
+    .AddPolicy(UserPolicies.UserPolicy, policyBuilder => policyBuilder.RequireClaim(nameof(UserTypes), [UserTypes.User.ToString()])));
+builder.Services.AddAuthorization(options => options
+    .AddPolicy(UserPolicies.AdminPolicy, policyBuilder => policyBuilder.RequireClaim(nameof(UserTypes), [UserTypes.Admin.ToString()])));
+#endregion
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGenWithAuth();
