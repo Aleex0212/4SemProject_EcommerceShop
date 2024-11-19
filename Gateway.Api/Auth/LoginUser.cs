@@ -37,7 +37,7 @@ namespace Gateway.Api.Auth
       catch (Exception ex)
       {
         _logger.LogError(ex, $"could not create token for login {login.Email}");
-        return $"could not create valid token for login  : Invalid credentials";
+        return string.Empty;
       }
     }
   }

@@ -29,7 +29,7 @@ namespace Gateway.Api.Controllers
       {
         var token = await _loginUser.AuthLogin(login);
         if (string.IsNullOrEmpty(token))
-          return BadRequest($"Login attempt failed for user {login.Email}");
+          return Ok(token);
 
         return Ok(token);
       }
