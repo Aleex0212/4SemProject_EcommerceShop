@@ -48,6 +48,19 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
   });
 #endregion
 
+#region CORS Configuration Blazor
+builder.Services.AddCors(options =>
+{
+  options.AddPolicy("AllowFrontend", policy =>
+  {
+    policy.WithOrigins("https://localhost:7056") // frontend URL
+      .AllowAnyMethod()
+      .AllowAnyHeader()
+      .AllowCredentials();
+  });
+});
+#endregion
+
 #region Policies
 builder.Services.AddAuthorization(options => options
     .AddPolicy(UserPolicies.CustomerPolicy, policyBuilder => policyBuilder.RequireClaim(nameof(UserTypes), [UserTypes.Customer.ToString()])));
@@ -77,6 +90,8 @@ app.UseCloudEvents(); //sørger for at medsendte parametre som DTO'er kan deseri
 app.MapSubscribeHandler(); // kun ved explicit pubsub.
 
 #endregion
+
+app.UseCors("AllowFrontend");  // CORS policy
 
 app.UseAuthentication();
 app.UseAuthorization();

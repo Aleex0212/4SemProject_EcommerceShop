@@ -1,10 +1,3 @@
-# Ignore EcommerceShop.Blazor
-<<<<<<< HEAD
-# EcommerceShop.FrontEnd
-=======
-#EcommerceShop.FrontEnd
->>>>>>> main
-
 # Ignore build directories
 bin/
 obj/
@@ -21,4 +14,5 @@ obj/
 *.log
 *.tmp
 *.zip
-/EcommerceShop.FrontEnd
+
+Ecommerce.FrontEnd/
