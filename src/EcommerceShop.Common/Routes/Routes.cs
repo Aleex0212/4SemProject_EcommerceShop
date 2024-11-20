@@ -53,6 +53,7 @@
     public static class UserRoutes
     {
       public const string BaseUrl = "user";
+      public const string Verify = BaseUrl + "/verify";
       public const string Login = BaseUrl + "/login";
     }
   }
