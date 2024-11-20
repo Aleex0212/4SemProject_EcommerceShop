@@ -1,0 +1,23 @@
+﻿@page "/homepage"
+
+@using Radzen.Blazor
+
+<RadzenContent>
+  <div class="navbar-container" style="background-color: #333333; padding: 10px 20px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1); border-radius: 8px;">
+    <div style="font-size: 24px; font-weight: bold; color: white; display: flex; align-items: center;">
+      <RadzenIcon Icon="home" Style="width: 40px; margin-right: 10px;" />
+      <span style="color: white;">Velkommen til EcommerceShop</span>
+    </div>
+
+    <RadzenButton Icon="account_circle" Style="background-color: transparent; color: white; border: none; font-size: 28px; padding: 0;" />
+  </div>
+
+  <div style="background-color: #c0cad7; display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px; padding: 20px;">
+    <RadzenButton Icon="shopping_basket" Text="Produkter" Style="font-size: 20px; color: #2c3e50; background-color: #ecf0f1; border-radius: 12px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); padding: 20px; text-align: center; transition: all 0.3s ease;" Path="products" />
+    <RadzenButton Icon="receipt_long" Text="Ordrer" Style="font-size: 20px; color: #2c3e50; background-color: #ecf0f1; border-radius: 12px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); padding: 20px; text-align: center; transition: all 0.3s ease;" Path="orders" />
+    <RadzenButton Icon="settings" Text="Indstillinger" Style="font-size: 20px; color: #2c3e50; background-color: #ecf0f1; border-radius: 12px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); padding: 20px; text-align: center; transition: all 0.3s ease;" Path="settings" />
+  </div>
+</RadzenContent>
+
+@code {
+}

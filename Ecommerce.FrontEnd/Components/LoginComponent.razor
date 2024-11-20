@@ -1,0 +1,100 @@
+﻿@page "/login"
+@using System.Text
+@using Ecommerce.FrontEnd.Interfaces.Refit
+@using EcommerceShop.Common.Dto
+@using Microsoft.AspNetCore.Cryptography.KeyDerivation
+@using Refit
+@using Radzen
+@using Radzen.Blazor
+
+
+@inject IAuthApi AuthApi
+@inject NavigationManager Navigation
+@inject NotificationService NotificationService
+
+<RadzenContent>
+  <div class="login-container" style="display: flex; justify-content: center; align-items: center; min-height: 100vh; background-color: #c0cad7; padding: 20px;">
+    <RadzenPanel Style="max-width: 450px; margin: 0 auto; padding: 30px; background-color: #ffffff; border-radius: 12px; box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);">
+      <h1 class="login-header" style="text-align: center; color: #2c3e50; font-size: 36px; margin-bottom: 5px; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-weight: bold;">Ecommerce-Shop</h1>
+      <h2 class="login-header" style="text-align: center; color: #3498db; font-size: 34px; margin-bottom: 15px; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-weight: 600;">Velkommen</h2>
+      <h3 class="login-header" style="text-align: center; color: #95a5a6; font-size: 20px; margin-bottom: 40px; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-style: italic;">Log ind for at fortsætte</h3>
+
+      <RadzenTextBox @bind-Value="_loginModel.Email"
+                     Placeholder="Brugernavn"
+                     Style="margin-bottom: 20px; width: 100%; padding: 14px 18px; border-radius: 8px; border: 1px solid #ddd; font-size: 16px; box-sizing: border-box; transition: all 0.3s ease;"
+                     onfocus="this.style.borderColor='#4CAF50'; this.style.boxShadow='0 0 5px rgba(76, 175, 80, 0.4)';"
+                     onblur="this.style.borderColor='#ddd'; this.style.boxShadow='none';" />
+
+      <RadzenTextBox @bind-Value="_loginModel.HashedPassword"
+                     Placeholder="Adgangskode"
+                     Type="password"
+                     Style="margin-bottom: 30px; width: 100%; padding: 14px 18px; border-radius: 8px; border: 1px solid #ddd; font-size: 16px; box-sizing: border-box; transition: all 0.3s ease;"
+                     onfocus="this.style.borderColor='#4CAF50'; this.style.boxShadow='0 0 5px rgba(76, 175, 80, 0.4)';"
+                     onblur="this.style.borderColor='#ddd'; this.style.boxShadow='none';" />
+
+      <RadzenButton ButtonType="ButtonType.Button"
+                    Icon="lock"
+                    Text="Log ind"
+                    Click="@(async args => await HandleLogin())"
+                    Style="width: 100%; background-color: #4CAF50; color: white; padding: 16px; font-size: 16px; border-radius: 8px; border: none; cursor: pointer; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); transition: all 0.3s ease;"
+                    onmouseover="this.style.backgroundColor='#45a049';"
+                    onmouseout="this.style.backgroundColor='#4CAF50';" />
+
+      <RadzenLink class="forgot-password-link"
+                  Text="Glemt adgangskode?"
+                  Url="/forgot-password"
+                  Style="display: block; text-align: center; margin-top: 20px; color: #007BFF; font-size: 14px; text-decoration: none; transition: color 0.3s ease;"
+                  onmouseover="this.style.color='#0056b3';"
+                  onmouseout="this.style.color='#007BFF';" />
+    </RadzenPanel>
+  </div>
+</RadzenContent>
+
+@code {
+  private readonly LoginDto _loginModel = new();
+
+  private async Task HandleLogin()
+  {
+    try
+    {
+      string passwordToHash = _loginModel.HashedPassword; //UserPassword1! 
+      string saltValue = "super-secret-salt-value_xd";
+      
+      byte[] salt = Encoding.UTF8.GetBytes(saltValue!);
+      byte[] hashedPassword = Encoding.UTF8.GetBytes(passwordToHash);
+
+      string hashedPasswordSalt = Convert.ToBase64String
+      (KeyDerivation.Pbkdf2
+      (
+        password: passwordToHash,
+        salt: salt,
+        prf: KeyDerivationPrf.HMACSHA256,
+        iterationCount: 10,
+        numBytesRequested: 256 / 8)
+      );
+
+      _loginModel.HashedPassword = hashedPasswordSalt;
+
+      var token = await AuthApi.Login(_loginModel);
+
+      if (string.IsNullOrEmpty(token)) {NotifyLoginFailed();}
+      else{Navigation.NavigateTo("/homepage");}
+    }
+    catch (ApiException ex)
+    {
+      Console.WriteLine($"Login failed: {ex.Message}");
+      NotifyLoginFailed();
+    }
+  }
+
+  private void NotifyLoginFailed()
+  {
+    NotificationService.Notify(new NotificationMessage
+      {
+        Severity = NotificationSeverity.Error,
+        Summary = "Login Fejlede",
+        Detail = "Ugyldigt brugernavn eller adgangskode.",
+        Duration = 4000
+      });
+  }
+}
