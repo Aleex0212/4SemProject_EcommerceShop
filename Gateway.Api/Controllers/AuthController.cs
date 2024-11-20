@@ -35,7 +35,7 @@ namespace Gateway.Api.Controllers
       }
       catch (Exception ex)
       {
-        _logger.LogError(ex, $"Login failed for user {login.Email} , {login.Password}");
+        _logger.LogError(ex, $"Login failed for user {login.Email} , {login.HashedPassword}");
         return BadRequest($"Login attempt failed for user {login.Email}");
       }
     }
