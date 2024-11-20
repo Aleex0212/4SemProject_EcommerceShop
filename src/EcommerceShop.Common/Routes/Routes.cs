@@ -32,6 +32,8 @@
       public const string Create = BaseUrl + "/create";
       public const string Update = BaseUrl + "/update";
       public const string Delete = BaseUrl + "/delete";
+      public const string Get = BaseUrl + "/get";
+      public const string GetById = BaseUrl + "/get/{id}";
     }
     public static class ProductRoutes
     {

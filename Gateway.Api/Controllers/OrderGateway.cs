@@ -42,6 +42,65 @@ namespace Gateway.Api.Controllers
       }
     }
 
+    [HttpGet]
+    [Authorize(Policy = UserPolicies.AdminPolicy)]
+    [SwaggerOperation(
+      Summary = "Get all orders",
+      Description = "Retrieves a collection of all orders",
+      Tags = new[] { "Gateway_Order" })]
+    public async Task<IActionResult> Get()
+    {
+      try
+      {
+        var request = _daprClient.CreateInvokeMethodRequest(
+          httpMethod: HttpMethod.Get,
+          "orderservice-api",
+          Routes.OrderRoutes.Get);
+
+        var responseJson = await _daprClient.InvokeMethodWithResponseAsync(request);
+        responseJson.EnsureSuccessStatusCode();
+
+        var orders = await responseJson.Content.ReadFromJsonAsync<IEnumerable<OrderDto>>();
+        return Ok(orders);
+      }
+      catch (Exception ex)
+      {
+        _logger.LogError($"Error retrieving orders: {ex.Message}");
+        return StatusCode(500, "Internal server error while fetching products");
+      }
+    }
+
+    [HttpGet("{id}")]
+    [Authorize(Policy = UserPolicies.AdminPolicy)]
+    [SwaggerOperation(
+      Summary = "Get order by ID",
+      Description = "Retrieves a single order by its ID",
+      Tags = new[] { "Gateway_Order" })]
+    public async Task<IActionResult> Get(Guid id)
+    {
+      try
+      {
+        var request = _daprClient.CreateInvokeMethodRequest(
+          httpMethod: HttpMethod.Get,
+          appId: "orderservice-api",
+          methodName: $"{Routes.OrderRoutes.GetById.Replace("{id}", id.ToString())}");
+
+        var responseJson = await _daprClient.InvokeMethodWithResponseAsync(request);
+        responseJson.EnsureSuccessStatusCode();
+
+        var order = await responseJson.Content.ReadFromJsonAsync<OrderDto>();
+
+        if (order == null) return NotFound($"Product with ID {id} was not found");
+
+        return Ok(order);
+      }
+      catch (Exception ex)
+      {
+        _logger.LogError($"Error retrieving order with ID {id}: {ex.Message}");
+        return StatusCode(500, "Internal server error while fetching the product");
+      }
+    }
+
     [HttpPut]
     [Authorize(Policy = UserPolicies.AdminPolicy)]
     [SwaggerOperation(

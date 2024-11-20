@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using OrderService.Api.Mappers;
 using OrderService.Api.Workflow;
 using OrderService.Application.Interfaces;
+using OrderService.Domain.Models;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace OrderService.Api.Controllers
@@ -17,14 +18,17 @@ namespace OrderService.Api.Controllers
     private readonly ILogger<OrderController> _logger;
     private readonly DaprWorkflowClient _daprWorkflowClient;
     private readonly ICommandService _commandService;
+    private readonly IQueryService _queryService;
     private readonly DomainMapper _domainMapper;
 
-    public OrderController(DaprWorkflowClient daprWorkflowClient, ILogger<OrderController> logger, ICommandService commandService, DomainMapper domainMapper)
+    public OrderController(DaprWorkflowClient daprWorkflowClient, ILogger<OrderController> logger,
+      ICommandService commandService, DomainMapper domainMapper, IQueryService queryService)
     {
       _daprWorkflowClient = daprWorkflowClient;
       _logger = logger;
       _commandService = commandService;
       _domainMapper = domainMapper;
+      _queryService = queryService;
     }
 
     [HttpPost(Routes.OrderRoutes.Create)]
@@ -50,6 +54,48 @@ namespace OrderService.Api.Controllers
       {
         _logger.LogError(ex.Message, $"Error starting Workflow {workflowName}");
         return StatusCode(500);
+      }
+    }
+
+    [HttpGet(Routes.OrderRoutes.Get)]
+    [SwaggerOperation(
+  Summary = "Gets all products",
+  Description = "Retrieves a list of all available products",
+  Tags = ["Orders"])]
+    public IActionResult Get()
+    {
+      try
+      {
+        var orders = _queryService.GetAllOrders();
+        if (!orders.Any()) return NoContent();
+
+        return Ok(orders);
+      }
+      catch (Exception)
+      {
+        _logger.LogError(500, "Something went wrong during fetching of orders");
+        return StatusCode(500, "Something went wrong during fetching of orders");
+      }
+    }
+
+    [HttpGet(Routes.OrderRoutes.GetById)]
+    [SwaggerOperation(
+      Summary = "Gets an order by unique ID",
+      Description = "Retrieves the details of an order by its unique ID",
+      Tags = ["Orders"])]
+    public IActionResult Get(Guid id)
+    {
+      try
+      {
+        var order = _queryService.GetOrder(id);
+        if (order == null) return NoContent();
+
+        return Ok(order);
+      }
+      catch (Exception)
+      {
+        _logger.LogError(500, $"something went wrong during fetching productId : {id}");
+        return StatusCode(500, $"something went wrong during fetching productId : {id}");
       }
     }
 

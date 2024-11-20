@@ -1,10 +1,10 @@
 ﻿using OrderService.Domain.Models;
 
-namespace OrderService.Application.Services
+namespace OrderService.Application.Interfaces
 {
-  public interface IOrderRepository
+  public interface ICommandRepository
   {
-    Task AddOrderAsync(Order order);
+    void AddOrderAsync(Order order);
 
     void UpdateOrder(Order order);
 
