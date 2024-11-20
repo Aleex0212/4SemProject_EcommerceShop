@@ -17,8 +17,8 @@ namespace OrderService.Persistence.Db
 
       var productLines1 = new List<ProductLine>
       {
-        ProductLine.Create(Guid.NewGuid(), products.Products[0], 2),
-        ProductLine.Create(Guid.NewGuid(), products.Products[1], 2)
+        ProductLine.Create(Guid.NewGuid(), Products.Products[0], 2),
+        ProductLine.Create(Guid.NewGuid(), Products.Products[1], 2)
       };
       Orders.Add(Order.Create(
         new Guid("11111111-1111-1111-1111-111111111111"),
@@ -28,8 +28,8 @@ namespace OrderService.Persistence.Db
 
       var productLines2 = new List<ProductLine>
       {
-        ProductLine.Create(Guid.NewGuid(), products.Products[2], 2),
-        ProductLine.Create(Guid.NewGuid(), products.Products[3], 2)
+        ProductLine.Create(Guid.NewGuid(), Products.Products[2], 2),
+        ProductLine.Create(Guid.NewGuid(), Products.Products[3], 2)
       };
       Orders.Add(Order.Create(
         new Guid("22222222-2222-2222-2222-222222222222"),
@@ -39,7 +39,7 @@ namespace OrderService.Persistence.Db
 
       var productLines3 = new List<ProductLine>
       {
-        ProductLine.Create(Guid.NewGuid(), products.Products[3], 2),
+        ProductLine.Create(Guid.NewGuid(), Products.Products[3], 2),
       };
       Orders.Add(Order.Create(
         new Guid("33333333-3333-3333-3333-333333333333"),

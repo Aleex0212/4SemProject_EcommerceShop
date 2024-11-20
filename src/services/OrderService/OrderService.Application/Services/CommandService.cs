@@ -6,20 +6,20 @@ namespace OrderService.Application.Services
 {
   public class CommandService : ICommandService
   {
-    private readonly IOrderRepository _orderRepository;
+    private readonly ICommandRepository _orderRepository;
     private readonly ILogger<CommandService> _logger;
 
-    public CommandService(IOrderRepository orderRepository, ILogger<CommandService> logger)
+    public CommandService(ICommandRepository orderRepository, ILogger<CommandService> logger)
     {
       _orderRepository = orderRepository;
       _logger = logger;
     }
 
-    public async Task CreateOrderAsync(Order order)
+    public void CreateOrderAsync(Order order)
     {
       try
       {
-        await _orderRepository.AddOrderAsync(order);
+        _orderRepository.AddOrderAsync(order);
       }
       catch (Exception ex)
       {

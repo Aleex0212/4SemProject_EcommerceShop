@@ -5,14 +5,21 @@ namespace OrderService.Application.Services
 {
   public class QueryService : IQueryService
   {
-    public Task<Order> GetOrder(Guid orderId, Guid customerId)
+    private readonly IQueryRepository _repository;
+
+    public QueryService(IQueryRepository repository)
     {
-      throw new NotImplementedException();
+      _repository = repository;
     }
 
-    public Task<IEnumerable<Order>> GetAllOrders()
+    public IEnumerable<Order> GetAllOrders()
     {
-      throw new NotImplementedException();
+      return _repository.GetAllOrders();
+    }
+
+    public Order GetOrder(Guid orderId)
+    {
+      return _repository.GetOrder(orderId);
     }
   }
 }

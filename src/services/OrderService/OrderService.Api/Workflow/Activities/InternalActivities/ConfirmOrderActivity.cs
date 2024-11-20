@@ -20,7 +20,7 @@ namespace OrderService.Api.Workflow.Activities.InternalActivities
     {
       order.Id = Guid.NewGuid();
       var orderModel = _domainMapper.MapOrderDtoToModel(order);
-      await _commandService.CreateOrderAsync(orderModel);
+      _commandService.CreateOrderAsync(orderModel);
       return true;
     }
   }

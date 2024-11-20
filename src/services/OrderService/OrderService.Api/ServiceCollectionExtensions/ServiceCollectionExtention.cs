@@ -17,7 +17,8 @@ namespace OrderService.Api.ServiceCollectionExtensions
       services.AddScoped<DomainMapper>();
 
       //Repository services
-      services.AddScoped<IOrderRepository, OrderRepository>();
+      services.AddScoped<ICommandRepository, CommandRepository>();
+      services.AddScoped<IQueryRepository, QueryRepository>();
 
       //Database 
       services.AddSingleton<OrderData>();

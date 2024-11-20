@@ -8,7 +8,7 @@ namespace OrderService.Application.Interfaces
     /// Create an order.
     /// </summary>
     /// <param name="order">The order to be created</param>
-    Task CreateOrderAsync(Order order);
+    void CreateOrderAsync(Order order);
 
     void UpdateOrder(Order order);
 
