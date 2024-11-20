@@ -1,7 +1,5 @@
 # 4SemProject_EcommerceShop : 
 ## **TO-DO**
-
-- Tilføj Claims/Roles på User. Admin kan Put,Get,Delete.
 - Ryde op i koden. Kommentatere på Api'er og Interfaces kun.  
 ---
 **Done:**
@@ -18,8 +16,8 @@
 - ✅ Tilføj JWT-tokens til API-gatewayen.
 - ✅ Tilføj UserTypes.
 - ✅ Tilføj policies på gateway.
-- ✅ Tilføj Hasing af passwords på User. og input validering
-  
+- ✅ Tilføj Claims/Roles på User. Admin kan Put,Get,Delete.
+- ✅ Tilføj Hasing af passwords på User. og input validering + Fjernelse af HTTP LaunchSettings.Json fra alle Microservice. 
 ---
 
 ## DAGBOG
