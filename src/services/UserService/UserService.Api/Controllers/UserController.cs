@@ -40,7 +40,7 @@ namespace UserService.Api.Controllers
     {
       try
       {
-        var user = _userData.Users.FirstOrDefault(u => u.Email == login.Email && u.Password == login.Password);
+        var user = _userData.Users.FirstOrDefault(u => u.Email == login.Email && u.Password == login.HashedPassword);
         if (user is null) return NotFound($"user not found for login : {login.Email}");
         return Ok(user);
       }
