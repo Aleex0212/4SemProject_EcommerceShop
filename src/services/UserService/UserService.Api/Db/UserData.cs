@@ -16,7 +16,7 @@ namespace UserService.Api.Db
         Id = Guid.NewGuid(),
         Name = "User1",
         Email = "User1Email@Mail.dk",
-        Password = "User1Password",
+        Password = "User1Password!",
         UserType = UserTypes.Customer,
         Phone = "11111111",
         Address = "User1Address"
@@ -26,7 +26,7 @@ namespace UserService.Api.Db
         Id = Guid.NewGuid(),
         Name = "User2",
         Email = "User2Email@Mail.dk",
-        Password = "User2Password",
+        Password = "User2Password!",
         UserType = UserTypes.Customer,
         Phone = "22222222",
         Address = "User2Address"
@@ -36,7 +36,7 @@ namespace UserService.Api.Db
         Id = Guid.NewGuid(),
         Name = "User3",
         Email = "User3Email@Mail.dk",
-        Password = "User3Password",
+        Password = "User3Password!",
         UserType = UserTypes.Admin,
         Phone = "33333333",
         Address = "User3Address"
@@ -46,7 +46,7 @@ namespace UserService.Api.Db
         Id = Guid.NewGuid(),
         Name = "User4",
         Email = "User4Email@Mail.dk",
-        Password = "User4Password",
+        Password = "User4Password!",
         UserType = UserTypes.User,
         Phone = "44444444",
         Address = "User4Address"

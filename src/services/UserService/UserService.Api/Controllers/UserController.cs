@@ -19,7 +19,7 @@ namespace UserService.Api.Controllers
       _logger = logger;
     }
 
-    [HttpPost(Routes.UserRoutes.BaseUrl)]
+    [HttpPost(Routes.UserRoutes.Verify)]
     public IActionResult VerifyUser([FromBody] UserDto user)
     {
       try
