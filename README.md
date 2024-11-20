@@ -36,3 +36,4 @@
 - **13.11:** tilføjelse af en Simpel Database, Ordre Put,Post,Delete virker nu. Tilføjet NoificationActivity, udfordringer: Den kalder 2 gange?. 
 - **16.11:** Tilføjelse af JWT implementering på Gateway Api'en. Udfordring: Hvorfor er vores Beere token ikke valid?? Løst i dag
 - **18.11:** Man kan nu lave claims baseret på hvilken usertype man logger ind med samt policies til at sikre det med.
+- **20.11:** read på orders
