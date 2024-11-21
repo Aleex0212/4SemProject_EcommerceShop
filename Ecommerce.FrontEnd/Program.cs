@@ -1,3 +1,4 @@
+using Blazored.SessionStorage;
 using Ecommerce.FrontEnd;
 using Ecommerce.FrontEnd.Interfaces.Refit;
 using Microsoft.AspNetCore.Components.Web;
@@ -11,10 +12,17 @@ builder.RootComponents.Add<HeadOutlet>("head::after");
 
 builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
 
+#region ServiceRegistration
+builder.Services.AddBlazoredSessionStorage();
+#endregion
 
 #region Refit Interface Registration
 
 builder.Services.AddRefitClient<IAuthApi>()
+  .ConfigureHttpClient(c => c.BaseAddress = new Uri("https://localhost:7136/"));
+
+builder.Services
+  .AddRefitClient<IProductApi>()
   .ConfigureHttpClient(c => c.BaseAddress = new Uri("https://localhost:7136/"));
 
 #endregion
