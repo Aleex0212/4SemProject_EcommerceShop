@@ -3,11 +3,15 @@
 @using Ecommerce.FrontEnd.Interfaces.Refit
 @using Ecommerce.FrontEnd.ViewModels
 @using EcommerceShop.Common.Dto
+@using Radzen
 @using Radzen.Blazor
+@using Refit
 
 @inject NavigationManager NavigationManager
 @inject Blazored.SessionStorage.ISessionStorageService SessionStorage
 @inject IProductGatewayApi ProductGatewayApi
+@inject NotificationService NotificationService
+@inject NavigationManager Navigation
 
 <RadzenContent>
   <div class="navbar-container" style="background-color: #2c3e50; padding: 10px 20px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1); border-radius: 8px;">
@@ -20,7 +24,10 @@
   </div>
 
   <div style="background-color: #c0cad7; display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; padding: 20px;">
-    @if (_products == null) <p>Indlæser produkter...</p>
+    @if (_products == null)
+    {
+      <p>Indlæser produkter...</p>
+    }
     else
     {
       @foreach (var product in _products)
@@ -45,8 +52,24 @@
     var token = await SessionStorage.GetItemAsync<string>("ecommerce-login-token");
     if (string.IsNullOrEmpty(token)) NavigationManager.NavigateTo("login", true);
 
-    var productDtos = await ProductGatewayApi.GetProductsAsync($"Bearer {token}");
-    if (productDtos != null) _products = MapDtoToViewModels(productDtos);
+    try
+    {
+      var productDtos = await ProductGatewayApi.GetProductsAsync($"Bearer {token}");
+      if (productDtos != null) _products = MapDtoToViewModels(productDtos);
+    }
+    catch (ApiException)
+    {
+      NotificationService.Notify
+      (new NotificationMessage()
+        {
+          Severity = NotificationSeverity.Error,
+          Summary = "Authorisation fejl!",
+          Detail = "Du har ikke adgang til denne side",
+          Duration = 4000
+        });
+      await SessionStorage.RemoveItemAsync("ecommerce-login-token");
+      Navigation.NavigateTo("/login");
+    }
   }
 
   private IEnumerable<ProductViewModel> MapDtoToViewModels(IEnumerable<ProductDto> productDtos)

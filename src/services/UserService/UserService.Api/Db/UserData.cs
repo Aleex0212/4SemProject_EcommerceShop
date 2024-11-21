@@ -15,7 +15,7 @@ namespace UserService.Api.Db
       {
         Id = Guid.NewGuid(),
         Name = "User1",
-        Email = "User1Email@Mail.dk",
+        Email = "Customer@Mail.dk",
         Password = "3HMfKV5eMAsi7f/UlFnWVgd34dJYEsVZbUV4Em1qe1U=", //UserPassword1! + salt : "super-secret-salt-value_xd"
         UserType = UserTypes.Customer,
         Phone = "11111111",
@@ -25,7 +25,7 @@ namespace UserService.Api.Db
       {
         Id = Guid.NewGuid(),
         Name = "User2",
-        Email = "User2Email@Mail.dk",
+        Email = "Customer@Mail.dk",
         Password = "3HMfKV5eMAsi7f/UlFnWVgd34dJYEsVZbUV4Em1qe1U=", //UserPassword1! + salt : "super-secret-salt-value_xd"
         UserType = UserTypes.Customer,
         Phone = "22222222",
@@ -35,7 +35,7 @@ namespace UserService.Api.Db
       {
         Id = Guid.NewGuid(),
         Name = "User3",
-        Email = "User3Email@Mail.dk",
+        Email = "Admin@Mail.dk",
         Password = "3HMfKV5eMAsi7f/UlFnWVgd34dJYEsVZbUV4Em1qe1U=", //UserPassword1! + salt : "super-secret-salt-value_xd"
         UserType = UserTypes.Admin,
         Phone = "33333333",
@@ -45,7 +45,7 @@ namespace UserService.Api.Db
       {
         Id = Guid.NewGuid(),
         Name = "User4",
-        Email = "User4Email@Mail.dk",
+        Email = "User@Mail.dk",
         Password = "3HMfKV5eMAsi7f/UlFnWVgd34dJYEsVZbUV4Em1qe1U=", //UserPassword1! + salt : "super-secret-salt-value_xd"
         UserType = UserTypes.User,
         Phone = "44444444",
