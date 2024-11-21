@@ -8,14 +8,12 @@
 
     private ProductLine(Guid id, Product product, int quantity)
     {
-      Id = id;
       Product = product;
       Quantity = quantity;
     }
     public static ProductLine Create(Guid id, Product product, int quantity)
     {
-      return new ProductLine(id, product, quantity);
+      return new ProductLine(id = Guid.NewGuid(), product, quantity);
     }
   }
-
 }

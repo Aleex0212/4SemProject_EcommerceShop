@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Mvc;
 using OrderService.Api.Mappers;
 using OrderService.Api.Workflow;
 using OrderService.Application.Interfaces;
-using OrderService.Domain.Models;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace OrderService.Api.Controllers

@@ -17,7 +17,6 @@ namespace OrderService.Domain.Models
     private Order(Guid id, Customer customer, IEnumerable<ProductLine> productLines,
       OrderStatus orderStatus)
     {
-      Id = id;
       Customer = customer;
       ProductLines = productLines;
       Status = orderStatus;
@@ -25,9 +24,9 @@ namespace OrderService.Domain.Models
     }
 
     public static Order Create(Guid id, Customer customer,
-      IEnumerable<ProductLine>? productLines, OrderStatus orderStatus)
+      IEnumerable<ProductLine> productLines, OrderStatus status)
     {
-      return new Order(id, customer, productLines!, orderStatus);
+      return new Order(id = Guid.NewGuid(), customer, productLines, status);
     }
   }
 }

@@ -1,6 +1,6 @@
-﻿using global::Refit;
-using EcommerceShop.Common.Dto;
+﻿using EcommerceShop.Common.Dto;
 using EcommerceShop.Common.Routes;
+using global::Refit;
 
 namespace Ecommerce.FrontEnd.Interfaces.Refit
 {

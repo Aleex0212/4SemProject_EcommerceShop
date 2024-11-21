@@ -41,8 +41,8 @@
       public const string Release = BaseUrl + "/release";
       public const string Reserve = BaseUrl + "/reserve";
       public const string Create = BaseUrl + "/create";
-      public const string Get = BaseUrl + "/get"; 
-      public const string GetById = BaseUrl + "/get/{id}"; 
+      public const string Get = BaseUrl + "/get";
+      public const string GetById = BaseUrl + "/get/{id}";
       public const string Update = BaseUrl + "/update";
     }
 

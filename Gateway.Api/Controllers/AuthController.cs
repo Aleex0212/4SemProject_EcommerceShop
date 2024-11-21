@@ -22,7 +22,7 @@ namespace Gateway.Api.Controllers
     [SwaggerOperation(
       Summary = "User login",
       Description = "Endpoint for logging in a user and obtaining a JWT token",
-      Tags = new[] { "Authentication" })]
+      Tags = new[] { "Gateway_Authentication" })]
     public async Task<IActionResult> Login([FromBody] LoginDto login)
     {
       try

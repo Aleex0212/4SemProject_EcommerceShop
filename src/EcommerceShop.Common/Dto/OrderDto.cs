@@ -1,5 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
-using EcommerceShop.Common.Enum;
+﻿using EcommerceShop.Common.Enum;
+using System.ComponentModel.DataAnnotations;
 
 namespace EcommerceShop.Common.Dto
 {

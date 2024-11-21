@@ -1,6 +1,7 @@
 ﻿using EcommerceShop.Common.Dto;
 using EcommerceShop.Common.Routes;
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace PaymentService.Api.Controllers
 {
@@ -16,6 +17,10 @@ namespace PaymentService.Api.Controllers
     }
 
     [HttpPost]
+    [SwaggerOperation(
+      Summary = "Create a product",
+      Description = "Endpoint for Creating a payment",
+      Tags = new[] { "Payment" })]
     public IActionResult Post([FromBody] PaymentDto payment)
     {
       try
