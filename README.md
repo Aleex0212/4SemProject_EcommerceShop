@@ -1,6 +1,7 @@
 # 4SemProject_EcommerceShop : 
 ## **TO-DO**
-- Ryde op i koden. Kommentatere på Api'er og Interfaces kun.  
+- FrontEnd
+- Rapport
 ---
 **Done:**
 
@@ -17,7 +18,9 @@
 - ✅ Tilføj UserTypes.
 - ✅ Tilføj policies på gateway.
 - ✅ Tilføj Claims/Roles på User. Admin kan Put,Get,Delete.
-- ✅ Tilføj Hasing af passwords på User. og input validering + Fjernelse af HTTP LaunchSettings.Json fra alle Microservice. 
+- ✅ Tilføj Hasing af passwords på User. og input validering + Fjernelse af HTTP LaunchSettings.Json fra alle Microservice.
+- ✅ Ryde op i koden. Kommentatere på Api'er og Interfaces kun.
+- ✅ Tilføj test i orderservice.    
 ---
 
 ## DAGBOG
@@ -36,3 +39,4 @@
 - **16.11:** Tilføjelse af JWT implementering på Gateway Api'en. Udfordring: Hvorfor er vores Beere token ikke valid?? Løst i dag.
 - **18.11:** Man kan nu lave claims baseret på hvilken usertype man logger ind med samt policies til at sikre det med.
 - **20.11:** read på orders og tilføjelse af Hashing på Passwords og Inputvalidering.
+- **21.11:** Ryde op i koden, Tilføj test orderservice, ændringer af domænemodeller. 
