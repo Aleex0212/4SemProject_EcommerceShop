@@ -5,22 +5,23 @@
 ---
 **Done:**
 
-- ✅ Lav `ProductService` om, så den følger REST niveau 2
-- ✅ Implementer som et Dapr-workflow
-- ✅ Flyt ansvaret for `OrderOrchestrator` til `OrderService`
-- ✅ Få services til at kommunikere gennem Dapr
-- ✅ Implementer Resiliance i OrderSerivce Persisantancelayer. bliver håndteret af ServiceDefault, fra Aspire.
-- ✅ Lave Activities/Compensating Activities i OrderSerivce. Alle returnere bare (OK).
-- ✅ Lave CreateOrder Workflow.
-- ✅ DDD på `OrderService`
-- ✅ Tilføj NotificationActivity 
-- ✅ Tilføj JWT-tokens til API-gatewayen.
-- ✅ Tilføj UserTypes.
-- ✅ Tilføj policies på gateway.
-- ✅ Tilføj Claims/Roles på User. Admin kan Put,Get,Delete.
-- ✅ Tilføj Hasing af passwords på User. og input validering + Fjernelse af HTTP LaunchSettings.Json fra alle Microservice.
-- ✅ Ryde op i koden. Kommentatere på Api'er og Interfaces kun.
-- ✅ Tilføj test i orderservice.    
+- ✅ Lav `ProductService` om, så den følger REST niveau 2  
+- ✅ Implementer som et `Dapr-workflow`  
+- ✅ Flyt ansvaret for `OrderOrchestrator` til `OrderService`  
+- ✅ Få services til at kommunikere gennem `Dapr`  
+- ✅ Implementer `Resiliance` i `OrderService PersistanceLayer`. Bliver håndteret af `ServiceDefault`, fra `Aspire`.  
+- ✅ Lav `Activities/Compensating Activities` i `OrderService`. Alle returnerer bare `(OK)`.  
+- ✅ Lav `CreateOrder Workflow`.  
+- ✅ `DDD` på `OrderService`  
+- ✅ Tilføj `NotificationActivity`  
+- ✅ Tilføj `JWT-tokens` til `API-gatewayen`.  
+- ✅ Tilføj `UserTypes`.  
+- ✅ Tilføj policies på `gateway`.  
+- ✅ Tilføj `Claims/policies` på `User`. Admin kan `Put`, `Delete`.  
+- ✅ Tilføj `Hasing` af passwords på `User` og inputvalidering + Fjernelse af `HTTP` i `LaunchSettings.json` fra alle microservices.  
+- ✅ Ryd op i koden. Kommenter kun på `API'er` og `Interfaces`.  
+- ✅ Tilføj `test` i `OrderService`.  
+
 ---
 
 ## DAGBOG
