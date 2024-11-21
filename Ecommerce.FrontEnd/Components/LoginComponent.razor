@@ -1,9 +1,11 @@
 ﻿@page "/login"
+
 @using System.Text
 @using Ecommerce.FrontEnd.Interfaces.Refit
 @using Ecommerce.FrontEnd.ViewModels
 @using EcommerceShop.Common.Dto
 @using Microsoft.AspNetCore.Cryptography.KeyDerivation
+@using Microsoft.IdentityModel.Tokens
 @using Refit
 @using Radzen
 @using Radzen.Blazor
@@ -11,6 +13,8 @@
 @inject IAuthApi AuthApi
 @inject NavigationManager Navigation
 @inject NotificationService NotificationService
+@inject ILogger<LoginComponent> Logger
+@inject Blazored.SessionStorage.ISessionStorageService SessionStorage
 
 <RadzenContent>
   <div class="login-container" style="display: flex; justify-content: center; align-items: center; min-height: 100vh; background-color: #c0cad7; padding: 20px;">
@@ -21,6 +25,7 @@
 
       <RadzenTextBox @bind-Value="_loginViewModel.Email"
                      Placeholder="Brugernavn"
+                     Type ="email"
                      Style="margin-bottom: 20px; width: 100%; padding: 14px 18px; border-radius: 8px; border: 1px solid #ddd; font-size: 16px; box-sizing: border-box; transition: all 0.3s ease;"
                      onfocus="this.style.borderColor='#4CAF50'; this.style.boxShadow='0 0 5px rgba(76, 175, 80, 0.4)';"
                      onblur="this.style.borderColor='#ddd'; this.style.boxShadow='none';" />
@@ -37,7 +42,7 @@
                     Text="Log ind"
                     Click="@(async args => await HandleLogin())"
                     Style="width: 100%; background-color: #4CAF50; color: white; padding: 16px; font-size: 16px; border-radius: 8px; border: none; cursor: pointer; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); transition: all 0.3s ease;"
-                    onmouseover="this.style.backgroundColor='#45a049';"
+                    onmouseover="this.style.backgroundColor='#2f6a2f';"
                     onmouseout="this.style.backgroundColor='#4CAF50';" />
 
       <RadzenLink class="forgot-password-link"
@@ -53,56 +58,73 @@
 @code {
   private readonly LoginViewModel _loginViewModel = new();
 
-  private LoginDto MapToDtoModel()
-  {
-    return new LoginDto
-    {
-      Email = _loginViewModel.Email,
-      HashedPassword = _loginViewModel.Password
-    };
-  }
-
   private async Task HandleLogin()
   {
     try
     {
-      string passwordToHash = _loginViewModel.Password; //UserPassword1!
-      string saltValue = "super-secret-salt-value_xd";
-      byte[] salt = Encoding.UTF8.GetBytes(saltValue!);
+      var hashedPasswordSalt = HashPassword(_loginViewModel);
 
-      string hashedPasswordSalt = Convert.ToBase64String
-      (KeyDerivation.Pbkdf2
+      var loginDto = MapToDtoModel(_loginViewModel);
+      
+      loginDto.HashedPassword = hashedPasswordSalt;
+
+      var token = await AuthApi.Login(loginDto);
+
+      if(!token.IsNullOrEmpty()) await SessionStorage.SetItemAsStringAsync("ecommerce-login-token", token);
+      LoginNotification(token);
+    }
+    catch (ApiException ex)
+    {
+      Logger.LogError($"Login failed: {ex.Message}");
+    }
+  }
+
+  private void LoginNotification(string token)
+  {
+    if (string.IsNullOrEmpty(token)) 
+    { 
+      NotificationService.Notify
+      (new NotificationMessage() { 
+        Severity = NotificationSeverity.Error, 
+        Summary = "Login Fejlede", 
+        Detail =  "Forkert Email eller Adgangskode", 
+        Duration = 4000 });}
+
+    else { NotificationService.Notify
+      (new NotificationMessage() { 
+        Severity = NotificationSeverity.Success, 
+        Summary = "Login gennemført", 
+        Detail =  "Du er logget ind", 
+        Duration = 4000 });
+        
+      Navigation.NavigateTo("/homepage");
+    }
+  }
+
+  private string HashPassword(LoginViewModel loginViewModel)
+  {
+    string passwordToHash = loginViewModel.Password; //UserPassword1!
+    string saltValue = "super-secret-salt-value_xd";
+    byte[] salt = Encoding.UTF8.GetBytes(saltValue!);
+
+    string hashedPasswordSalt = Convert.ToBase64String
+    (KeyDerivation.Pbkdf2
       (
         password: passwordToHash,
         salt: salt,
         prf: KeyDerivationPrf.HMACSHA256,
         iterationCount: 10,
         numBytesRequested: 256 / 8)
-      );
-
-      var loginDto = MapToDtoModel();
-      loginDto.HashedPassword = hashedPasswordSalt;
-
-      var token = await AuthApi.Login(loginDto);
-
-      if (string.IsNullOrEmpty(token)) {NotifyLoginFailed();}
-      else{Navigation.NavigateTo("/homepage");}
-    }
-    catch (ApiException ex)
-    {
-      Console.WriteLine($"Login failed: {ex.Message}");
-      NotifyLoginFailed();
-    }
+    );
+    return hashedPasswordSalt;
   }
 
-  private void NotifyLoginFailed()
+  private LoginDto MapToDtoModel(LoginViewModel loginViewModel)
   {
-    NotificationService.Notify(new NotificationMessage
-      {
-        Severity = NotificationSeverity.Error,
-        Summary = "Login Fejlede",
-        Detail = "Ugyldigt brugernavn eller adgangskode.",
-        Duration = 4000
-      });
+    return new LoginDto
+    {
+      Email = loginViewModel.Email,
+      HashedPassword = loginViewModel.Password
+    };
   }
 }

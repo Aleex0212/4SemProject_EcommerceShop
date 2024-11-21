@@ -1,9 +1,16 @@
 ﻿@page "/homepage"
 
+@using Ecommerce.FrontEnd.Interfaces.Refit
+@using Ecommerce.FrontEnd.ViewModels
+@using EcommerceShop.Common.Dto
 @using Radzen.Blazor
 
+@inject NavigationManager NavigationManager
+@inject Blazored.SessionStorage.ISessionStorageService SessionStorage
+@inject IProductApi ProductApi
+
 <RadzenContent>
-  <div class="navbar-container" style="background-color: #333333; padding: 10px 20px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1); border-radius: 8px;">
+  <div class="navbar-container" style="background-color: #2c3e50; padding: 10px 20px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1); border-radius: 8px;">
     <div style="font-size: 24px; font-weight: bold; color: white; display: flex; align-items: center;">
       <RadzenIcon Icon="home" Style="width: 40px; margin-right: 10px;" />
       <span style="color: white;">Velkommen til EcommerceShop</span>
@@ -12,12 +19,50 @@
     <RadzenButton Icon="account_circle" Style="background-color: transparent; color: white; border: none; font-size: 28px; padding: 0;" />
   </div>
 
-  <div style="background-color: #c0cad7; display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px; padding: 20px;">
-    <RadzenButton Icon="shopping_basket" Text="Produkter" Style="font-size: 20px; color: #2c3e50; background-color: #ecf0f1; border-radius: 12px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); padding: 20px; text-align: center; transition: all 0.3s ease;" Path="products" />
-    <RadzenButton Icon="receipt_long" Text="Ordrer" Style="font-size: 20px; color: #2c3e50; background-color: #ecf0f1; border-radius: 12px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); padding: 20px; text-align: center; transition: all 0.3s ease;" Path="orders" />
-    <RadzenButton Icon="settings" Text="Indstillinger" Style="font-size: 20px; color: #2c3e50; background-color: #ecf0f1; border-radius: 12px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); padding: 20px; text-align: center; transition: all 0.3s ease;" Path="settings" />
+  <div style="background-color: #c0cad7; display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; padding: 20px;">
+    @if (_products == null)
+    {
+      <p>Indlæser produkter...</p>
+    }
+    else
+    {
+      @foreach (var product in _products)
+      {
+        <div style="background-color: #ffffff; border-radius: 12px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); padding: 20px; text-align: center; transition: all 0.3s ease;">
+          <img src="https://via.placeholder.com/150" alt="@product.Name" style="width: 100%; border-radius: 8px; margin-bottom: 15px;" />
+          <h3 style="color: #2c3e50; font-size: 22px; font-weight: bold;">@product.Name</h3>
+          <p style="color: #3498db; font-size: 18px; margin: 5px 0;">Pris: @product.Price kr.</p>
+          <p style="color: #95a5a6; font-size: 16px;">Antal tilgængelig: @product.Amount</p>
+          <RadzenButton Text="Køb nu" Style="background-color: #4CAF50; color: white; padding: 10px 20px; border-radius: 8px; border: none; cursor: pointer; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); transition: all 0.3s ease;" />
+        </div>
+      }
+    }
   </div>
 </RadzenContent>
 
 @code {
+  private IEnumerable<ProductViewModel>? _products;
+
+  protected override async Task OnInitializedAsync()
+  {
+    var token = await SessionStorage.GetItemAsync<string>("ecommerce-login-token");
+    if (string.IsNullOrEmpty(token)) NavigationManager.NavigateTo("login", true);
+
+
+
+
+    var productDtos = await ProductApi.GetProductsAsync();
+    if (productDtos != null) _products = MapDtoToViewModels(productDtos);
+  }
+
+  private IEnumerable<ProductViewModel> MapDtoToViewModels(IEnumerable<ProductDto> productDtos)
+  {
+    return productDtos.Select(p => new ProductViewModel
+      {
+        Name = p.Name,
+        Price = p.Price,
+        Amount = p.Amount
+      }).ToList();
+  }
 }
+

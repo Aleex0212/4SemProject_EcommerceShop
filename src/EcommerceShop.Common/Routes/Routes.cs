@@ -4,7 +4,7 @@
   {
     public static class GatewayRoutes
     {
-      public const string BaseUrl = "gateway";
+      public const string BaseUrl = "/gateway";
 
       public static class AuthRoutes
       {
