@@ -4,9 +4,9 @@ using Refit;
 
 namespace Ecommerce.FrontEnd.Interfaces.Refit
 {
-  public interface IProductApi
+  public interface IProductGatewayApi
   {
     [Get(Routes.GatewayRoutes.ProductGatewayRoutes.Product)]
-    Task<IEnumerable<ProductDto>?> GetProductsAsync();
+    Task<IEnumerable<ProductDto>?> GetProductsAsync([Header("Authorization")] string bearerToken);
   }
 }

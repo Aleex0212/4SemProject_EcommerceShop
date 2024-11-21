@@ -10,7 +10,7 @@
 @using Radzen
 @using Radzen.Blazor
 
-@inject IAuthApi AuthApi
+@inject IAuthGatewayApi AuthGatewayApi
 @inject NavigationManager Navigation
 @inject NotificationService NotificationService
 @inject ILogger<LoginComponent> Logger
@@ -68,7 +68,7 @@
       
       loginDto.HashedPassword = hashedPasswordSalt;
 
-      var token = await AuthApi.Login(loginDto);
+      var token = await AuthGatewayApi.Login(loginDto);
 
       if(!token.IsNullOrEmpty()) await SessionStorage.SetItemAsStringAsync("ecommerce-login-token", token);
       LoginNotification(token);
