@@ -18,11 +18,11 @@ builder.Services.AddBlazoredSessionStorage();
 
 #region Refit Interface Registration
 
-builder.Services.AddRefitClient<IAuthApi>()
+builder.Services.AddRefitClient<IAuthGatewayApi>()
   .ConfigureHttpClient(c => c.BaseAddress = new Uri("https://localhost:7136/"));
 
 builder.Services
-  .AddRefitClient<IProductApi>()
+  .AddRefitClient<IProductGatewayApi>()
   .ConfigureHttpClient(c => c.BaseAddress = new Uri("https://localhost:7136/"));
 
 #endregion
