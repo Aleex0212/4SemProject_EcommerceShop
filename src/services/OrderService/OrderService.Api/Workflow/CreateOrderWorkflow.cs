@@ -20,6 +20,7 @@ namespace OrderService.Api.Workflow
       {
         order.Status = OrderStatus.Received;
 
+        #region ValidateCustomerActivity
         var validateCustomerActivityAsync = await context.CallActivityAsync<bool>(nameof(ValidateCustomerActivity), order.Customer);
         if (!validateCustomerActivityAsync)
         {
@@ -27,9 +28,10 @@ namespace OrderService.Api.Workflow
           activityResults.Add("ValidateCustomerActivity failed");
           throw new CustomerNotValidatedException("Customer not found");
         }
-
         activityResults.Add("ValidateCustomerActivity succeed");
+        #endregion
 
+        #region ReserveProductActivity
         var productLines = order.ProductLines;
         var reserveCallActivityAsync = await context.CallActivityAsync<bool>(nameof(ReserveProductActivity), productLines);
         if (!reserveCallActivityAsync)
@@ -39,7 +41,9 @@ namespace OrderService.Api.Workflow
           throw new ProductReservationFailedException($"Product failed to be reserved");
         }
         activityResults.Add("ReserveProductActivity succeed");
+        #endregion
 
+        #region AuthorizePaymentActivity
         var authorizePaymentActivity = await context.CallActivityAsync<bool>(nameof(AuthorizePaymentActivity), order);
         if (!authorizePaymentActivity)
         {
@@ -48,17 +52,19 @@ namespace OrderService.Api.Workflow
           await context.CallActivityAsync(nameof(ReleaseProductActivity), productLines);
         }
         activityResults.Add("AuthorizePaymentActivity succeed");
+        #endregion
 
-
+        #region ConfirmOrderActivity
         var confirmOrderActivity = await context.CallActivityAsync<bool>(nameof(ConfirmOrderActivity), order);
         if (!confirmOrderActivity)
         {
           activityResults.Add("ConfirmOrderActivity failed");
           await context.CallActivityAsync(nameof(ReleaseProductActivity));
         }
-
         activityResults.Add($"OrderCreate succeed with OrderId: {order.Id}");
         await context.CallActivityAsync(nameof(NotificationActivity), activityResults);
+
+        #endregion
 
         return order.Status = OrderStatus.Completed;
       }

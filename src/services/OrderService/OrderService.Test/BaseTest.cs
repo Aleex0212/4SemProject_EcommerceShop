@@ -1,11 +1,16 @@
-﻿namespace OrderService.Test
+﻿using OrderService.Api.Workflow;
+using OrderService.Application.Services;
+using OrderService.Domain.Models;
+using OrderService.Persistence.Db;
+using System.Reflection;
+
+namespace OrderService.Test
 {
   public abstract class BaseTest
   {
-    //protected static readonly Assembly DomainAssembly = typeof(BoardMember).Assembly;
-    //protected static readonly Assembly ApplicationAssembly = typeof(BoardMemberCommandService).Assembly;
-    //protected static readonly Assembly InfrastructureAssembly = typeof(AddressValidationInf).Assembly;
-    //protected static readonly Assembly PersistanceAssembly = typeof(BoardMemberCommandRepo).Assembly;
-    //protected static readonly Assembly PresentationAssembly = typeof(BoardMemberController).Assembly;
+    protected static readonly Assembly DomainAssembly = typeof(Customer).Assembly;
+    protected static readonly Assembly ApplicationAssembly = typeof(CommandService).Assembly;
+    protected static readonly Assembly PersistanceAssembly = typeof(CustomerData).Assembly;
+    protected static readonly Assembly PresentationAssembly = typeof(CreateOrderWorkflow).Assembly;
   }
 }

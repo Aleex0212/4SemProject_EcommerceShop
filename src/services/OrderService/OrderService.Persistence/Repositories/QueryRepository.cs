@@ -1,11 +1,6 @@
 ﻿using OrderService.Application.Interfaces;
 using OrderService.Domain.Models;
 using OrderService.Persistence.Db;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OrderService.Persistence.Repositories
 {

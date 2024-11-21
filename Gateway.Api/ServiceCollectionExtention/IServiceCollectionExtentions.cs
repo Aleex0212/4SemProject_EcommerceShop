@@ -3,7 +3,7 @@ using Microsoft.OpenApi.Models;
 
 namespace Gateway.Api.ServiceCollectionExtention
 {
-  internal static class IServiceCollectionExtentions
+  internal static class ServiceCollectionExtentions
   {
     internal static IServiceCollection AddSwaggerGenWithAuth(this IServiceCollection services)
     {

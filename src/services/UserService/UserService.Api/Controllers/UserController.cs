@@ -2,6 +2,7 @@
 using EcommerceShop.Common.Routes;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 using UserService.Api.Db;
 
 namespace UserService.Api.Controllers
@@ -20,6 +21,10 @@ namespace UserService.Api.Controllers
     }
 
     [HttpPost(Routes.UserRoutes.Verify)]
+    [SwaggerOperation(
+      Summary = "Verify a user",
+      Description = "Endpoint for verify customer is found with user",
+      Tags = new[] { "User" })]
     public IActionResult VerifyUser([FromBody] UserDto user)
     {
       try
@@ -36,6 +41,10 @@ namespace UserService.Api.Controllers
     }
 
     [HttpPost(Routes.UserRoutes.Login)]
+    [SwaggerOperation(
+      Summary = "Login",
+      Description = "Endpoint for checking is user and customer credentials is correct",
+      Tags = new[] { "User" })]
     public ActionResult<UserDto> Login([FromBody] LoginDto login)
     {
       try

@@ -73,7 +73,7 @@ namespace Gateway.Api.Controllers
       try
       {
         var request = _daprClient.CreateInvokeMethodRequest(
-          httpMethod: HttpMethod.Get, 
+          httpMethod: HttpMethod.Get,
           "productservice-api",
           Routes.ProductRoutes.Get);
 
@@ -111,7 +111,7 @@ namespace Gateway.Api.Controllers
         var product = await responseJson.Content.ReadFromJsonAsync<ProductDto>();
 
         if (product == null) return NotFound($"Product with ID {id} was not found");
-        
+
         return Ok(product);
       }
       catch (Exception ex)

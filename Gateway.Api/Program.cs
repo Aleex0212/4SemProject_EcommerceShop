@@ -91,7 +91,7 @@ app.MapSubscribeHandler(); // kun ved explicit pubsub.
 
 #endregion
 
-app.UseCors("AllowFrontend");  // CORS policy
+app.UseCors("AllowFrontend");  // CORS Blazor policy
 
 app.UseAuthentication();
 app.UseAuthorization();

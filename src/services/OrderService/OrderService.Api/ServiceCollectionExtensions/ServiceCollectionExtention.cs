@@ -13,6 +13,7 @@ namespace OrderService.Api.ServiceCollectionExtensions
       // Application Services
       services.AddScoped<ICommandService, CommandService>();
       services.AddScoped<IQueryService, QueryService>();
+
       // Api Services
       services.AddScoped<DomainMapper>();
 
