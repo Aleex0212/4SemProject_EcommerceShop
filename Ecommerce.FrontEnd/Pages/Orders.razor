@@ -1,7 +1,5 @@
 ﻿@page "/orders"
-@using AutoMapper
-@using Radzen
-@using Radzen.Blazor
+
 
 @inject Blazored.SessionStorage.ISessionStorageService SessionStorage
 @inject NotificationService NotificationService
@@ -16,31 +14,73 @@
     <RadzenButton Icon="account_circle" Style="background-color: transparent; color: white; border: none; font-size: 28px; padding: 0;" />
   </div>
 
-  <div style="display: flex; padding-top: 80px; height: 100vh;">
-    <div style="background-color: #1b242e; padding: 20px; width: 250px; box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1); height: 100%; position: fixed; left: 0; top: 80px;">
+  <RadzenButton Text="Produkter"
+                Style="background-color: #3498db; color: white; width: 100%; padding: 15px; margin-bottom: 15px; border-radius: 6px; border: none; cursor: pointer; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); transition: all 0.3s ease; font-size: 18px;"
+                Click="@OnProductsClickAsync" />
 
-      <RadzenButton Text="Ordre"
-                    Style="background-color: #3498db; color: white; width: 100%; padding: 15px; margin-bottom: 15px; border-radius: 6px; border: none; cursor: pointer; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); transition: all 0.3s ease; font-size: 18px;" />
+  <RadzenButton Text="Kurv" Icon="shopping_cart"
+                Style="background-color: #2c3e50; color: white; width: 100%; padding: 15px; margin-bottom: 20px; border-radius: 6px; border: none; cursor: pointer; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); transition: all 0.3s ease; font-size: 18px;"
+                Click="@OnBasketClickAsync" />
 
-      <RadzenButton Text="Produkter"
-                    Style="background-color: #2c3e50; color: white; width: 100%; padding: 15px; margin-bottom: 15px; border-radius: 6px; border: none; cursor: pointer; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); transition: all 0.3s ease; font-size: 18px;"
-                    Click ="OnProductsClickAsync"/>
+  <RadzenButton Text="Ordre"
+                Style="background-color: #3498db; color: white; width: 100%; padding: 15px; margin-bottom: 15px; border-radius: 6px; border: none; cursor: pointer; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);  transition: all 0.3s ease; font-size: 18px;" />
 
-      <RadzenButton Text="Indstillinger"
-                    Style="background-color: #2c3e50; color: white; width: 100%; padding: 15px; margin-bottom: 15px; border-radius: 6px; border: none; cursor: pointer; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); transition: all 0.3s ease; font-size: 18px;" />
+  <RadzenButton Text="Indstillinger"
+                Style="background-color: #2c3e50; color: white; width: 100%; padding: 15px; margin-bottom: 15px; border-radius: 6px; border: none; cursor: pointer; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); transition: all 0.3s ease; font-size: 18px;"
+                Click="@OnSettingsClickAsync" />
 
-      <RadzenButton Text="Kurv" Icon="shopping_cart"
-                    Style="background-color: #2c3e50; color: white; width: 100%; padding: 15px; margin-bottom: 20px; border-radius: 6px; border: none; cursor: pointer; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); transition: all 0.3s ease; font-size: 18px;"
-                    Click="OnBasketClickAsync" />
+  <RadzenButton Text="Log ud" Icon="exit_to_app"
+                Style="background-color: #b30000; color: white; width: 100%; padding: 15px; margin-bottom: 15px; border-radius: 6px; border: none; cursor: pointer; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); transition: all 0.3s ease; font-size: 18px;"
+                Click="@OnLogOutClickAsync" />
 
-      <RadzenButton Text="Log ud" Icon="exit_to_app"
-                    Style="background-color: #b30000; color: white; width: 100%; padding: 15px; margin-bottom: 15px; border-radius: 6px; border: none; cursor: pointer; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); transition: all 0.3s ease; font-size: 18px;"
-                    Click="OnLogOutClickAsync" />
-    </div>
+  <div style="margin-left: 270px; padding: 20px; flex-grow: 1;">
+    <h1 style="color: #2c3e50;">Ordredetaljer</h1>
+
+    @if (_orderViewModel != null)
+    {
+      <RadzenPanel Style="background-color: #ffffff; padding: 20px; border-radius: 12px; box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);">
+        <RadzenGrid Data="@_orderViewModel.ProductLines" TItem="ProductLineViewModel" Style="width: 100%;">
+          <Columns>
+            <RadzenGridColumn TItem="ProductLineViewModel" Property="ProductId" Title="Produkt ID" />
+            <RadzenGridColumn TItem="ProductLineViewModel" Property="ProductName" Title="Produkt Navn" />
+            <RadzenGridColumn TItem="ProductLineViewModel" Property="Quantity" Title="Antal" />
+            <RadzenGridColumn TItem="ProductLineViewModel" Property="Price" Title="Pris" />
+          </Columns>
+        </RadzenGrid>
+
+        <div style="margin-top: 20px;">
+          <h3 style="color: #3498db;">Samlet pris: @(_orderViewModel.TotalPrice)</h3>
+          <h4 style="color: #95a5a6;">Ordrestatus: @(_orderViewModel.Status)</h4>
+        </div>
+      </RadzenPanel>
+    }
+    else
+    {
+      <div style="color: #b30000;">Ingen ordre fundet. Prøv venligst igen senere.</div>
+    }
   </div>
 </RadzenContent>
 
 @code {
+  private OrderViewModel? _orderViewModel;
+
+  protected override async Task OnInitializedAsync()
+  {
+    await PopulateAssignedOrder();
+  }
+
+  private async Task PopulateAssignedOrder()
+  {
+    try
+    {
+      var assignedOrder = await SessionStorage.GetItemAsync<OrderViewModel>("assigned-order");
+      _orderViewModel = assignedOrder;
+    }
+    catch
+    {
+      _orderViewModel = null;
+    }
+  }
 
   private void OnBasketClickAsync(MouseEventArgs obj)
   {
@@ -52,15 +92,16 @@
     await SessionStorage.RemoveItemAsync("ecommerce-login-token");
     await SessionStorage.RemoveItemAsync("basket");
     await SessionStorage.RemoveItemAsync("user-email");
+    await SessionStorage.RemoveItemAsync("assigned-order");
 
-    NotificationService.Notify
-    (new NotificationMessage()
+    NotificationService.Notify(new NotificationMessage
     {
       Severity = NotificationSeverity.Info,
       Summary = "Logget ud",
       Detail = "Du blev logget ud",
       Duration = 4000
     });
+
     await Task.Delay(1000);
     Navigation.NavigateTo("login", true);
   }
@@ -68,5 +109,10 @@
   private void OnProductsClickAsync(MouseEventArgs obj)
   {
     Navigation.NavigateTo("/homepage");
+  }
+
+  private void OnSettingsClickAsync(MouseEventArgs obj)
+  {
+    Navigation.NavigateTo("/settings");
   }
 }
