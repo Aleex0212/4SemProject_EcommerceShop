@@ -1,6 +1,7 @@
 ﻿@page "/login"
 
 @using System.Text
+@using AutoMapper
 @using Ecommerce.FrontEnd.Interfaces.Refit
 @using Ecommerce.FrontEnd.ViewModels
 @using EcommerceShop.Common.Dto
@@ -15,6 +16,8 @@
 @inject NotificationService NotificationService
 @inject ILogger<LoginComponent> Logger
 @inject Blazored.SessionStorage.ISessionStorageService SessionStorage
+@inject IMapper Mapper
+
 
 <RadzenContent>
   <div class="login-container" style="display: flex; justify-content: center; align-items: center; min-height: 100vh; background-color: #1b242e; padding: 20px;">
@@ -64,13 +67,16 @@
     {
       var hashedPasswordSalt = HashPassword(_loginViewModel);
 
-      var loginDto = MapToDtoModel(_loginViewModel);
-      
+      var loginDto = Mapper.Map<LoginDto>(_loginViewModel);
+
       loginDto.HashedPassword = hashedPasswordSalt;
 
       var token = await AuthGatewayApi.Login(loginDto);
 
-      if(!token.IsNullOrEmpty()) await SessionStorage.SetItemAsStringAsync("ecommerce-login-token", token);
+      if(!token.IsNullOrEmpty()) 
+        await SessionStorage.SetItemAsStringAsync("ecommerce-login-token", token);
+        await SessionStorage.SetItemAsStringAsync("customer-email", _loginViewModel.Email);
+
       LoginNotification(token);
     }
     catch (ApiException ex)
@@ -87,14 +93,16 @@
       (new NotificationMessage() { 
         Severity = NotificationSeverity.Error, 
         Summary = "Login Fejlede", 
-        Detail =  "Forkert Email eller Adgangskode", 
-        Duration = 4000 });}
-
-    else { NotificationService.Notify
+        Detail = "Forkert Email eller Adgangskode", 
+        Duration = 2000 });
+    }
+    else 
+    { 
+      NotificationService.Notify
       (new NotificationMessage() { 
         Severity = NotificationSeverity.Success, 
         Summary = "Login gennemført", 
-        Detail =  "Du er logget ind", 
+        Detail = "Du er logget ind", 
         Duration = 4000 });
         
       Navigation.NavigateTo("/homepage");
@@ -103,7 +111,7 @@
 
   private string HashPassword(LoginViewModel loginViewModel)
   {
-    string passwordToHash = loginViewModel.Password; //UserPassword1!
+    string passwordToHash = loginViewModel.Password;
     string saltValue = "super-secret-salt-value_xd";
     byte[] salt = Encoding.UTF8.GetBytes(saltValue!);
 
@@ -117,14 +125,5 @@
         numBytesRequested: 256 / 8)
     );
     return hashedPasswordSalt;
-  }
-
-  private LoginDto MapToDtoModel(LoginViewModel loginViewModel)
-  {
-    return new LoginDto
-    {
-      Email = loginViewModel.Email,
-      HashedPassword = loginViewModel.Password
-    };
   }
 }

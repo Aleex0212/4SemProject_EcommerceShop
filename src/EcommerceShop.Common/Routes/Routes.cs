@@ -11,7 +11,6 @@
         public const string Auth = "/auth";
         public const string Login = Auth + "/login";
       }
-
       public static class OrderGatewayRoutes
       {
         public const string Order = BaseUrl + "/order";
@@ -23,6 +22,10 @@
       public static class PaymmentGatewayRoutes
       {
         public const string Payment = BaseUrl + "/payment";
+      }
+      public static class UserGatewayRoutes
+      {
+        public const string User = BaseUrl + "/user";
       }
     }
 
@@ -55,6 +58,7 @@
       public const string BaseUrl = "user";
       public const string Verify = BaseUrl + "/verify";
       public const string Login = BaseUrl + "/login";
+      public const string GetByEmail = BaseUrl + "/getByEmail/{email}";
     }
   }
 }
