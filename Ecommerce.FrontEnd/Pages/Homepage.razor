@@ -80,9 +80,7 @@
     {
       var productDtos = await ProductGatewayApi.GetProductsAsync($"Bearer {token}");
       if (productDtos != null)
-      {
-        _products = Mapper.Map<IEnumerable<ProductViewModel>>(productDtos);
-      }
+      { _products = Mapper.Map<IEnumerable<ProductViewModel>>(productDtos); }
     }
     catch (ApiException)
     {
@@ -90,7 +88,7 @@
       (new NotificationMessage()
         {
           Severity = NotificationSeverity.Error,
-          Summary = "Authorisation fejl!",
+          Summary = "Autorisering fejl!",
           Detail = "Du har ikke adgang til denne side",
           Duration = 4000
         });

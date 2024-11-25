@@ -8,6 +8,7 @@
 @inject IMapper Mapper
 
 <RadzenContent>
+  <!-- Navbar -->
   <div class="navbar-container" style="background-color: #1b242e; padding: 20px 40px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1); border-radius: 12px; width: 100%; position: fixed; top: 0; left: 0; z-index: 10;">
     <div style="font-size: 24px; font-weight: bold; color: white; display: flex; align-items: center;">
       <RadzenIcon Icon="home" Style="width: 40px; margin-right: 10px;" />
@@ -16,29 +17,18 @@
     <RadzenButton Icon="account_circle" Style="background-color: transparent; color: white; border: none; font-size: 28px; padding: 0;" />
   </div>
 
+  <!-- Main content -->
   <div style="display: flex; padding-top: 80px; height: 100vh;">
+    <!-- Sidebar -->
     <div style="background-color: #1b242e; padding: 20px; width: 250px; box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1); height: 100%; position: fixed; left: 0; top: 80px;">
-
-      <RadzenButton Text="Produkter"
-                    Style="background-color: #2c3e50; color: white; width: 100%; padding: 15px; margin-bottom: 15px; border-radius: 6px; border: none; cursor: pointer; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); transition: all 0.3s ease; font-size: 18px;" />
-
-      <RadzenButton Text="Kurv" Icon="shopping_cart"
-                    Style="background-color: #3498db; color: white; width: 100%; padding: 15px; margin-bottom: 20px;border-radius: 6px; border: none; cursor: pointer; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); transition: all 0.3s ease; font-size: 18px;"
-                      />
-
-      <RadzenButton Text="Ordre"
-                    Style="background-color: #2c3e50; color: white; width: 100%; padding: 15px; margin-bottom: 15px; border-radius: 6px; border: none; cursor: pointer; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);  transition: all 0.3s ease; font-size: 18px;"
-                    Click="@OnOrdreClickAsync" />
-      
-      <RadzenButton Text="Indstillinger"
-                    Style="background-color: #2c3e50; color: white; width: 100%; padding: 15px; margin-bottom: 15px; border-radius: 6px; border: none; cursor: pointer; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); transition: all 0.3s ease; font-size: 18px;"
-      />
-
-      <RadzenButton Text="Log ud" Icon="exit_to_app"
-                    Style="background-color: #b30000; color: white; width: 100%; padding: 15px; margin-bottom: 15px; border-radius: 6px; border: none; cursor: pointer; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); transition: all 0.3s ease; font-size: 18px;"
-                    Click="@OnLogOutClickAsync" />
+      <RadzenButton Text="Produkter" Style="background-color: #2c3e50; color: white; width: 100%; padding: 15px; margin-bottom: 15px; border-radius: 6px; border: none; cursor: pointer; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); transition: all 0.3s ease; font-size: 18px;" Click="@OnProductsClickAsync" />
+      <RadzenButton Text="Kurv" Icon="shopping_cart" Style="background-color: #3498db; color: white; width: 100%; padding: 15px; margin-bottom: 20px; border-radius: 6px; border: none; cursor: pointer; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); transition: all 0.3s ease; font-size: 18px;" />
+      <RadzenButton Text="Ordre" Style="background-color: #2c3e50; color: white; width: 100%; padding: 15px; margin-bottom: 15px; border-radius: 6px; border: none; cursor: pointer; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); transition: all 0.3s ease; font-size: 18px;" Click="@OnOrdreClickAsync" />
+      <RadzenButton Text="Indstillinger" Style="background-color: #2c3e50; color: white; width: 100%; padding: 15px; margin-bottom: 15px; border-radius: 6px; border: none; cursor: pointer; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); transition: all 0.3s ease; font-size: 18px;" />
+      <RadzenButton Text="Log ud" Icon="exit_to_app" Style="background-color: #b30000; color: white; width: 100%; padding: 15px; margin-bottom: 15px; border-radius: 6px; border: none; cursor: pointer; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); transition: all 0.3s ease; font-size: 18px;" Click="@OnLogOutClickAsync" />
     </div>
 
+    <!-- Main Content Section -->
     <div style="display: flex; flex-direction: column; justify-content: flex-start; padding: 20px 40px; background-color: #c0cad7; overflow-y: auto; border-radius: 12px; margin-left: 270px; width: calc(100% - 270px);">
       <div style="flex-grow: 1; margin-right: 20px;">
         <h3 style="color: black; font-size: 22px; font-weight: bold; font-family: 'Segoe UI', sans-serif; text-align: center;">
@@ -58,54 +48,23 @@
                 <h3 style="color: #2c3e50; font-size: 22px; font-weight: bold; font-family: 'Segoe UI', sans-serif;">@productLine.Product.Name</h3>
                 <p style="color: #3498db; font-size: 18px; margin: 5px 0; font-family: 'Segoe UI', sans-serif;">Pris: @productLine.Product.Price</p>
                 <p style="color: #3498db; font-size: 18px; margin: 5px 0; font-family: 'Segoe UI', sans-serif;">Antal: @productLine.Quantity</p>
-                <RadzenButton Text="Fjern"
-                              Style="background-color: #b30000; color: white; padding: 10px 20px; border-radius: 8px; border: none;
-                                         cursor: pointer; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); font-family: 'Segoe UI', sans-serif;
-                                         transition: all 0.3s ease;"
-                              HoverStyle="background-color: #990000; transform: scale(1.05);" />
+                <RadzenButton Text="Fjern" Style="background-color: #b30000; color: white; padding: 10px 20px; border-radius: 8px; border: none; cursor: pointer; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); font-family: 'Segoe UI', sans-serif; transition: all 0.3s ease;" HoverStyle="background-color: #990000; transform: scale(1.05);" />
               </li>
             }
           </ul>
         }
+
+        <!-- Total Price Section -->
+        <div style="padding: 10px; background-color: #2c3e50; color: white; border-radius: 6px; display: flex; justify-content: space-between; margin-top: auto;">
+          <span>Totalpris:</span>
+          <span>@TotalPrice.ToString(CultureInfo.CurrentCulture)</span>
+        </div>
       </div>
     </div>
 
-    <div style="position: fixed; bottom: 0; left: 0; right: 0; background-color: #2c3e50; border-radius: 12px 12px 0 0; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); padding: 15px; display: flex; flex-direction: row; align-items: flex-start; gap: 10px; max-height: 50%; overflow-y: auto;">
-      <div style="flex: 1; display: flex; flex-wrap: wrap; gap: 10px;">
-        <div style="width: 90%; max-width: 350px;">
-          <label for="name" style="color: aliceblue; font-size: 16px; font-family: 'Segoe UI', sans-serif;">Navn:</label>
-          <RadzenTextBox @bind-Value="_customerViewModel.Name"
-                         Style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #ddd; font-size: 14px; margin-top: 5px; font-family: 'Segoe UI', sans-serif;"
-                         ReadOnly="true" />
-        </div>
-
-        <div style="width: 90%; max-width: 350px;">
-          <label for="phone" style="color: #fff; font-size: 16px; font-family: 'Segoe UI', sans-serif;">Telefonnummer:</label>
-          <RadzenTextBox @bind-Value="_customerViewModel.Phone"
-                         Style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #ddd; font-size: 14px; margin-top: 5px; font-family: 'Segoe UI', sans-serif;"
-                         ReadOnly="true" />
-        </div>
-
-        <div style="width: 90%; max-width: 350px;">
-          <label for="address" style="color: #fff; font-size: 16px; font-family: 'Segoe UI', sans-serif;">Adresse:</label>
-          <RadzenTextBox @bind-Value="_customerViewModel.Address"
-                         Style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #ddd; font-size: 14px; margin-top: 5px; font-family: 'Segoe UI', sans-serif;"
-                         ReadOnly="true" />
-        </div>
-
-        <div style="width: 90%; max-width: 350px;">
-          <label for="total" style="color: #fff; font-size: 16px; font-family: 'Segoe UI', sans-serif;">Total:</label>
-          <RadzenTextBox Value="@TotalPrice.ToString(CultureInfo.CurrentCulture)"
-                         Style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #ddd; font-size: 14px; margin-top: 5px; font-family: 'Segoe UI', sans-serif;;"
-                         ReadOnly="true" />
-        </div>
-      </div>
-
-      <div style="display: flex; align-items: center; justify-content: flex-end; width: 200px; padding: 15px;">
-        <RadzenButton Text="Gå til betaling"
-                      Style="background-color: #2f6a2f; color: white; font-size: 18px; padding: 15px 25px; border-radius: 6px; width: 100%;"
-                      Click="OnCheckoutClickAsync" />
-      </div>
+    <!-- Checkout Section -->
+    <div style="display: flex; align-items: center; justify-content: flex-end; width: auto; padding: 15px; background-color: #2c3e50;">
+      <RadzenButton Text="Gå til betaling" Style="background-color: #2f6a2f; color: white; font-size: 18px; padding: 10px 25px; border-radius: 6px; width: auto;" Click="OnCheckoutClickAsync" />
     </div>
   </div>
 </RadzenContent>
