@@ -75,7 +75,7 @@
 
       if(!token.IsNullOrEmpty()) 
         await SessionStorage.SetItemAsStringAsync("ecommerce-login-token", token);
-        await SessionStorage.SetItemAsStringAsync("customer-email", _loginViewModel.Email);
+        await SessionStorage.SetItemAsStringAsync("user-email", _loginViewModel.Email);
 
       LoginNotification(token);
     }

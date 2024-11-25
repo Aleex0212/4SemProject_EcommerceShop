@@ -49,7 +49,7 @@
           Din Kurv
         </h3>
 
-        @if (_productLineViewModels == null || !_productLineViewModels.Any())
+        @if (!_productLineViewModels.Any())
         {
           <p style="color: #2c3e50; font-family: 'Segoe UI', sans-serif; font-size: 18px;">Din kurv er tom.</p>
         }
@@ -99,7 +99,7 @@
 
         <div style="width: 90%; max-width: 350px;">
           <label for="total" style="color: #fff; font-size: 16px; font-family: 'Segoe UI', sans-serif;">Total:</label>
-          <RadzenTextBox Value="@TotalPrice"
+          <RadzenTextBox Value="@TotalPrice.ToString(CultureInfo.CurrentCulture)"
                          Style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #ddd; font-size: 14px; margin-top: 5px; font-family: 'Segoe UI', sans-serif"
                          ReadOnly="true" />
         </div>
@@ -119,27 +119,24 @@
   private CustomerViewModel _customerViewModel = new();
   private List<ProductLineViewModel> _productLineViewModels = new();
 
-  private string TotalPrice
+  private decimal TotalPrice
   {
     get
     {
       return _productLineViewModels
-        .Sum(p => p.Product.Price * p.Quantity)
-        .ToString(CultureInfo.CurrentCulture);
+        .Sum(p => p.Product.Price * p.Quantity);
     }
   }
 
   protected override async Task OnInitializedAsync()
   {
-    var userEmail = await SessionStorage.GetItemAsync<string>("customer-email");
+    var userEmail = await SessionStorage.GetItemAsync<string>("user-email");
     var customer = await UserGatewayApi.GetCustomerByEmail(userEmail);
 
     _customerViewModel = Mapper.Map<CustomerViewModel>(customer);
 
     var basket = await SessionStorage.GetItemAsync<List<ProductLineViewModel>>("basket");
     if (basket != null && basket.Any()) _productLineViewModels = basket;
-
-
   }
 
   private async Task OnCheckoutClickAsync()
@@ -150,6 +147,7 @@
         Customer = Mapper.Map<UserDto>(_customerViewModel),
         ProductLines = Mapper.Map<List<ProductLineDto>>(_productLineViewModels),
         Status = OrderStatus.Received,
+        TotalPrice = TotalPrice
       };
 
     try
@@ -180,7 +178,7 @@
         {
           Severity = NotificationSeverity.Error,
           Summary = "Fejl",
-          Detail = $"Der opstod en uventet fejl: {ex.Message}",
+          Detail = $"Der opstod en uventet fejl",
           Duration = 4000
         });
     }
