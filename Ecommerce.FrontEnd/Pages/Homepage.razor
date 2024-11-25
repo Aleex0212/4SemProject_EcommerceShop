@@ -62,7 +62,7 @@
             <div style="display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 15px;">
               <RadzenNumeric TValue="int" Min="1" 
                              Style="width: 80px; border: 1px solid #ddd; border-radius: 6px; padding: 5px; text-align: center; font-size: 16px;"
-                             @bind-Value="_productLineViewModel.Quantity" />
+                             @bind-Value="_productLineViewModel!.Quantity" />
               <RadzenButton Text="Køb nu" 
                             Style="background-color: #3498db; color: white; padding: 10px 20px; border-radius: 8px; border: none; cursor: pointer; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); transition: all 0.3s ease;" 
                             Click="@(args => OnBuyClickAsync(args, product))" />
@@ -117,7 +117,7 @@
       {
         Severity = NotificationSeverity.Info,
         Summary = "Logget ud",
-        Detail = "Du blev logget ud",
+        Detail =  "Du blev logget ud",
         Duration = 4000
       });
     await Task.Delay(1000);

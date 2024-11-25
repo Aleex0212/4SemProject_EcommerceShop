@@ -170,14 +170,8 @@
           Detail = "Din ordre er blevet gennemført!",
           Duration = 4000
         });
-      Navigation.NavigateTo("/order/success");
-      NotificationService.Notify(new NotificationMessage
-        {
-          Severity = NotificationSeverity.Error,
-          Summary = "Fejl",
-          Detail = "Der opstod en fejl ved oprettelse af ordren.",
-          Duration = 4000
-        });
+
+      Navigation.NavigateTo("/Orders");
     }
     catch (Exception ex)
     {
