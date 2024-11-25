@@ -3,7 +3,7 @@ using EcommerceShop.Common.Enum;
 
 namespace Ecommerce.FrontEnd.ViewModels
 {
-  public class UserViewModel
+  public class CustomerViewModel
   {
     [Required(ErrorMessage = "Id er påkrævet")]
     public Guid Id { get; set; }

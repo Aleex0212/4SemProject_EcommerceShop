@@ -9,7 +9,7 @@ namespace Ecommerce.FrontEnd.ViewModels
     public Guid Id { get; set; }
 
     [Required(ErrorMessage = "Kunde er påkrævet")]
-    public UserViewModel Customer { get; set; }
+    public CustomerViewModel Customer { get; set; }
 
     [Required(ErrorMessage = "Produktlinje er påkrævet")]
     public required List<ProductLineViewModel> ProductLines { get; set; }

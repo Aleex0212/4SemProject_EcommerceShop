@@ -18,8 +18,8 @@ namespace Ecommerce.FrontEnd.IMapper
         .ForMember(dest => dest.Product, opt => opt.MapFrom(src => src.Product))
         .ForMember(dest => dest.Quantity, opt => opt.MapFrom(src => src.Quantity)).ReverseMap();
 
-      // Map UserDto && UserViewModel
-      CreateMap<UserDto, UserViewModel>()
+      // Map UserDto && CustomerViewModel
+      CreateMap<UserDto, CustomerViewModel>()
         .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
         .ForMember(dest => dest.Email, opt => opt.MapFrom(src => src.Email))
         .ForMember(dest => dest.Address, opt => opt.MapFrom(src => src.Address)).ReverseMap();
