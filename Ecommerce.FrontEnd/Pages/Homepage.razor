@@ -1,12 +1,5 @@
 ﻿@page "/homepage"
 
-@using AutoMapper
-@using Ecommerce.FrontEnd.Interfaces.Refit
-@using Ecommerce.FrontEnd.ViewModels
-@using Radzen
-@using Radzen.Blazor
-@using Refit
-
 @inject Blazored.SessionStorage.ISessionStorageService SessionStorage
 @inject IProductGatewayApi ProductGatewayApi
 @inject NotificationService NotificationService
@@ -25,24 +18,24 @@
   <div style="display: flex; padding-top: 80px; height: 100vh;">
     <div style="background-color: #1b242e; padding: 20px; width: 250px; box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1); height: 100%; position: fixed; left: 0; top: 80px;">
 
-      <RadzenButton Text="Ordre"
-                    Style="background-color: #2c3e50; color: white; width: 100%; padding: 15px; margin-bottom: 15px; border-radius: 6px; border: none; cursor: pointer; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); transition: all 0.3s ease; font-size: 18px;"
-                    />
-
       <RadzenButton Text="Produkter"
                     Style="background-color: #3498db; color: white; width: 100%; padding: 15px; margin-bottom: 15px; border-radius: 6px; border: none; cursor: pointer; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); transition: all 0.3s ease; font-size: 18px;" />
 
+      <RadzenButton Text="Kurv" Icon="shopping_cart"
+                    Style="background-color: #2c3e50; color: white; width: 100%; padding: 15px; margin-bottom: 20px;border-radius: 6px; border: none; cursor: pointer; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); transition: all 0.3s ease; font-size: 18px;"
+                    Click="@OnBasketClickAsync" />
+
+      <RadzenButton Text="Ordre"
+                    Style="background-color: #2c3e50; color: white; width: 100%; padding: 15px; margin-bottom: 15px; border-radius: 6px; border: none; cursor: pointer; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);  transition: all 0.3s ease; font-size: 18px;"
+                      Click="@OnOrdreClickAsync" />
+      
       <RadzenButton Text="Indstillinger"
                     Style="background-color: #2c3e50; color: white; width: 100%; padding: 15px; margin-bottom: 15px; border-radius: 6px; border: none; cursor: pointer; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); transition: all 0.3s ease; font-size: 18px;"
                     />
-                    
-      <RadzenButton Text="Kurv" Icon="shopping_cart"
-                    Style="background-color: #2c3e50; color: white; width: 100%; padding: 15px; margin-bottom: 20px; border-radius: 6px; border: none; cursor: pointer; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); transition: all 0.3s ease; font-size: 18px;"
-                    Click="OnBasketClickAsync" />
 
       <RadzenButton Text="Log ud" Icon="exit_to_app"
                     Style="background-color: #b30000; color: white; width: 100%; padding: 15px; margin-bottom: 15px; border-radius: 6px; border: none; cursor: pointer; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); transition: all 0.3s ease; font-size: 18px;"
-                    Click="OnLogOutClickAsync" />
+                    Click="@OnLogOutClickAsync" />
     </div>
 
     <div style="flex-grow: 1; margin-left: 270px; display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; padding: 20px 40px; background-color: #c0cad7; overflow-y: auto;">
@@ -87,9 +80,7 @@
     {
       var productDtos = await ProductGatewayApi.GetProductsAsync($"Bearer {token}");
       if (productDtos != null)
-      {
-        _products = Mapper.Map<IEnumerable<ProductViewModel>>(productDtos);
-      }
+      { _products = Mapper.Map<IEnumerable<ProductViewModel>>(productDtos); }
     }
     catch (ApiException)
     {
@@ -97,7 +88,7 @@
       (new NotificationMessage()
         {
           Severity = NotificationSeverity.Error,
-          Summary = "Authorisation fejl!",
+          Summary = "Autorisering fejl!",
           Detail = "Du har ikke adgang til denne side",
           Duration = 4000
         });
@@ -111,6 +102,7 @@
     await SessionStorage.RemoveItemAsync("ecommerce-login-token");
     await SessionStorage.RemoveItemAsync("basket");
     await SessionStorage.RemoveItemAsync("user-email");
+    await SessionStorage.RemoveItemAsync("assigned-order");
 
     NotificationService.Notify
     (new NotificationMessage()
@@ -152,5 +144,11 @@
   {
     Navigation.NavigateTo("/basket");
   }
+
+  private void OnOrdreClickAsync(MouseEventArgs obj)
+  {
+    Navigation.NavigateTo("/orders");
+  }
+
 }
 
