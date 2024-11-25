@@ -1,0 +1,72 @@
+﻿@page "/orders"
+@using AutoMapper
+@using Radzen
+@using Radzen.Blazor
+
+@inject Blazored.SessionStorage.ISessionStorageService SessionStorage
+@inject NotificationService NotificationService
+@inject NavigationManager Navigation
+
+<RadzenContent>
+  <div class="navbar-container" style="background-color: #1b242e; padding: 20px 40px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1); border-radius: 12px; width: 100%; position: fixed; top: 0; left: 0; z-index: 10;">
+    <div style="font-size: 24px; font-weight: bold; color: white; display: flex; align-items: center;">
+      <RadzenIcon Icon="home" Style="width: 40px; margin-right: 10px;" />
+      <span style="color: white;">Velkommen til EcommerceShop</span>
+    </div>
+    <RadzenButton Icon="account_circle" Style="background-color: transparent; color: white; border: none; font-size: 28px; padding: 0;" />
+  </div>
+
+  <div style="display: flex; padding-top: 80px; height: 100vh;">
+    <div style="background-color: #1b242e; padding: 20px; width: 250px; box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1); height: 100%; position: fixed; left: 0; top: 80px;">
+
+      <RadzenButton Text="Ordre"
+                    Style="background-color: #3498db; color: white; width: 100%; padding: 15px; margin-bottom: 15px; border-radius: 6px; border: none; cursor: pointer; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); transition: all 0.3s ease; font-size: 18px;" />
+
+      <RadzenButton Text="Produkter"
+                    Style="background-color: #2c3e50; color: white; width: 100%; padding: 15px; margin-bottom: 15px; border-radius: 6px; border: none; cursor: pointer; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); transition: all 0.3s ease; font-size: 18px;"
+                    Click ="OnProductsClickAsync"/>
+
+      <RadzenButton Text="Indstillinger"
+                    Style="background-color: #2c3e50; color: white; width: 100%; padding: 15px; margin-bottom: 15px; border-radius: 6px; border: none; cursor: pointer; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); transition: all 0.3s ease; font-size: 18px;" />
+
+      <RadzenButton Text="Kurv" Icon="shopping_cart"
+                    Style="background-color: #2c3e50; color: white; width: 100%; padding: 15px; margin-bottom: 20px; border-radius: 6px; border: none; cursor: pointer; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); transition: all 0.3s ease; font-size: 18px;"
+                    Click="OnBasketClickAsync" />
+
+      <RadzenButton Text="Log ud" Icon="exit_to_app"
+                    Style="background-color: #b30000; color: white; width: 100%; padding: 15px; margin-bottom: 15px; border-radius: 6px; border: none; cursor: pointer; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); transition: all 0.3s ease; font-size: 18px;"
+                    Click="OnLogOutClickAsync" />
+    </div>
+  </div>
+</RadzenContent>
+
+@code {
+
+  private void OnBasketClickAsync(MouseEventArgs obj)
+  {
+    Navigation.NavigateTo("/basket");
+  }
+
+  private async Task OnLogOutClickAsync(MouseEventArgs obj)
+  {
+    await SessionStorage.RemoveItemAsync("ecommerce-login-token");
+    await SessionStorage.RemoveItemAsync("basket");
+    await SessionStorage.RemoveItemAsync("user-email");
+
+    NotificationService.Notify
+    (new NotificationMessage()
+    {
+      Severity = NotificationSeverity.Info,
+      Summary = "Logget ud",
+      Detail = "Du blev logget ud",
+      Duration = 4000
+    });
+    await Task.Delay(1000);
+    Navigation.NavigateTo("login", true);
+  }
+
+  private void OnProductsClickAsync(MouseEventArgs obj)
+  {
+    Navigation.NavigateTo("/homepage");
+  }
+}

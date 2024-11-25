@@ -7,7 +7,6 @@ using UserService.Api.Db;
 
 namespace UserService.Api.Controllers
 {
-  [AllowAnonymous]
   [ApiController]
   public class UserController : ControllerBase
   {
@@ -57,6 +56,32 @@ namespace UserService.Api.Controllers
       {
         _logger.LogError(500, $"error while attempting to login: {login.Email}");
         return StatusCode(500, $"error while attempting to login: {login.Email}");
+      }
+    }
+
+    [HttpGet(Routes.UserRoutes.GetByEmail)]
+    [SwaggerOperation(
+      Summary = "Get a user by email",
+      Description = "Endpoint for retrieving a user based on the provided email",
+      Tags = new[] { "User" })]
+    public IActionResult GetUserByEmail(string email)
+    {
+      try
+      {
+        if (string.IsNullOrEmpty(email))
+          return BadRequest("Email is required.");
+
+        var existingUser = _userData.Users.FirstOrDefault(u => u.Email.Equals(email, StringComparison.OrdinalIgnoreCase));
+
+        if (existingUser is null)
+          return NotFound($"User with email: {email} not found");
+
+        return Ok(existingUser);
+      }
+      catch (Exception ex)
+      {
+        _logger.LogError(ex, $"Error retrieving user with email: {email}");
+        return StatusCode(500, "An unexpected error occurred while retrieving the user.");
       }
     }
   }
