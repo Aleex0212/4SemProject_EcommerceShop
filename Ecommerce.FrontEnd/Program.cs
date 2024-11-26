@@ -1,12 +1,12 @@
 using Blazored.SessionStorage;
 using Ecommerce.FrontEnd;
-using Ecommerce.FrontEnd.IMapper;
-using Ecommerce.FrontEnd.Interfaces.Refit;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Radzen;
 using Refit;
 using System.Text.Json.Serialization;
+using Ecommerce.FrontEnd.AutoMapper;
+using Ecommerce.FrontEnd.Refit;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
@@ -16,11 +16,13 @@ builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.
 
 #region Refit Interface Registration
 var serializer = SystemTextJsonContentSerializer.GetDefaultJsonSerializerOptions();
+
 serializer.Converters.Remove(serializer.Converters.Single(x => x.GetType().Equals(typeof(JsonStringEnumConverter))));
 var refitSettings = new RefitSettings
 {
   ContentSerializer = new SystemTextJsonContentSerializer(serializer)
 };
+
 builder.Services.AddRefitClient<IAuthGatewayApi>(refitSettings)
   .ConfigureHttpClient(c => c.BaseAddress = new Uri("https://localhost:7136/"));
 
@@ -37,13 +39,10 @@ builder.Services.AddRefitClient<IUserGatewayApi>(refitSettings)
 
 #region ServiceRegistration
 builder.Services.AddBlazoredSessionStorage();
-#endregion
-
-#region Radzen Components
 builder.Services.AddScoped<NotificationService>();
 #endregion
 
-#region AutoMapper
+#region AutoMapperProfile
 
 builder.Services.AddAutoMapper(config =>
 {

@@ -20,14 +20,15 @@
     <div style="background-color: #1b242e; padding: 20px; width: 250px; box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1); height: 100%; position: fixed; left: 0; top: 80px;">
 
       <RadzenButton Text="Produkter"
-                    Style="background-color: #2c3e50; color: white; width: 100%; padding: 15px; margin-bottom: 15px; border-radius: 6px; border: none; cursor: pointer; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); transition: all 0.3s ease; font-size: 18px;" />
+                    Style="background-color: #2c3e50; color: white; width: 100%; padding: 15px; margin-bottom: 15px; border-radius: 6px; border: none; cursor: pointer; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); transition: all 0.3s ease; font-size: 18px;"
+                    Click="OnProductsClickAsync" />
 
       <RadzenButton Text="Kurv" Icon="shopping_cart"
                     Style="background-color: #3498db; color: white; width: 100%; padding: 15px; margin-bottom: 20px;border-radius: 6px; border: none; cursor: pointer; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); transition: all 0.3s ease; font-size: 18px;" />
 
       <RadzenButton Text="Ordre"
                     Style="background-color: #2c3e50; color: white; width: 100%; padding: 15px; margin-bottom: 15px; border-radius: 6px; border: none; cursor: pointer; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);  transition: all 0.3s ease; font-size: 18px;"
-                      Click="@OnOrdreClickAsync" />
+                      Click="OnOrdreClickAsync" />
       
       <RadzenButton Text="Indstillinger"
                     Style="background-color: #2c3e50; color: white; width: 100%; padding: 15px; margin-bottom: 15px; border-radius: 6px; border: none; cursor: pointer; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); transition: all 0.3s ease; font-size: 18px;"
@@ -35,7 +36,7 @@
 
       <RadzenButton Text="Log ud" Icon="exit_to_app"
                     Style="background-color: #b30000; color: white; width: 100%; padding: 15px; margin-bottom: 15px; border-radius: 6px; border: none; cursor: pointer; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); transition: all 0.3s ease; font-size: 18px;"
-                    Click="@OnLogOutClickAsync" />
+                    Click="OnLogOutClickAsync" />
     </div>
 
     <div style="display: flex; flex-direction: column; justify-content: flex-start; padding: 20px 40px; background-color: #c0cad7; overflow-y: auto; border-radius: 12px; margin-left: 270px; width: calc(100% - 270px);">
@@ -63,7 +64,6 @@
           </ul>
         }
 
-        <!-- Total Price Section -->
         <div style="padding: 10px; background-color: #2c3e50; color: white; border-radius: 6px; display: flex; justify-content: space-between; margin-top: auto;">
           <span>Totalpris:</span>
           <span>@TotalPrice.ToString(CultureInfo.CurrentCulture)</span>
@@ -71,7 +71,6 @@
       </div>
     </div>
 
-    <!-- Checkout Section -->
     <div style="display: flex; align-items: center; justify-content: flex-end; width: auto; padding: 15px; background-color: #2c3e50;">
       <RadzenButton Text="Gå til betaling" Style="background-color: #2f6a2f; color: white; font-size: 18px; padding: 10px 25px; border-radius: 6px; width: auto;" Click="OnCheckoutClickAsync" />
     </div>
