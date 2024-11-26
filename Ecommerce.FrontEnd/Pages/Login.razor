@@ -1,11 +1,12 @@
 ﻿@page "/login"
 
-@inject IAuthGatewayApi AuthGatewayApi
+@inject IMapper Mapper
+@inject ILogger<Login> Logger
 @inject NavigationManager Navigation
 @inject NotificationService NotificationService
-@inject ILogger<Login> Logger
 @inject Blazored.SessionStorage.ISessionStorageService SessionStorage
-@inject IMapper Mapper
+@inject IAuthGatewayApi AuthGatewayApi
+
 
 <RadzenContent>
   <div class="login-container" style="display: flex; justify-content: center; align-items: center; min-height: 100vh; background-color: #1b242e; padding: 20px;">
@@ -103,7 +104,7 @@
     }
   }
 
-  private static string HashPassword(LoginViewModel loginViewModel)
+  private string HashPassword(LoginViewModel loginViewModel)
   {
     string passwordToHash = loginViewModel.Password;
     string saltValue = "super-secret-salt-value_xd";

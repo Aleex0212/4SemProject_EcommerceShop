@@ -1,11 +1,11 @@
 ﻿@page "/basket"
 
-@inject Blazored.SessionStorage.ISessionStorageService SessionStorage
+@inject IMapper Mapper
 @inject NotificationService NotificationService
 @inject NavigationManager Navigation
+@inject Blazored.SessionStorage.ISessionStorageService SessionStorage
 @inject IOrderGatewayApi OrderGatewayApi
 @inject IUserGatewayApi UserGatewayApi
-@inject IMapper Mapper
 
 <RadzenContent>
   <div class="navbar-container" style="background-color: #1b242e; padding: 20px 40px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1); border-radius: 12px; width: 100%; position: fixed; top: 0; left: 0; z-index: 10;">
