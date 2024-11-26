@@ -43,12 +43,10 @@ builder.Services.AddScoped<NotificationService>();
 #endregion
 
 #region AutoMapperProfile
-
 builder.Services.AddAutoMapper(config =>
 {
   config.AddProfile<MappingProfile>(); 
 }, typeof(MappingProfile).Assembly);
-
 #endregion
 
 await builder.Build().RunAsync();
