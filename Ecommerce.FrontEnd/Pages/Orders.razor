@@ -39,12 +39,10 @@
     {
       <RadzenPanel Style="background-color: #ffffff; padding: 20px; border-radius: 12px; box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);">
         <RadzenGrid Data="@_orderViewModel.ProductLines" TItem="ProductLineViewModel" Style="width: 100%;">
-          <Columns>
-            <RadzenGridColumn TItem="ProductLineViewModel" Property="ProductId" Title="Produkt ID" />
-            <RadzenGridColumn TItem="ProductLineViewModel" Property="ProductName" Title="Produkt Navn" />
-            <RadzenGridColumn TItem="ProductLineViewModel" Property="Quantity" Title="Antal" />
-            <RadzenGridColumn TItem="ProductLineViewModel" Property="Price" Title="Pris" />
-          </Columns>
+          <RadzenGridColumn TItem="ProductLineViewModel" Property="ProductId" Title="Produkt ID" />
+          <RadzenGridColumn TItem="ProductLineViewModel" Property="ProductName" Title="Produkt Navn" />
+          <RadzenGridColumn TItem="ProductLineViewModel" Property="Quantity" Title="Antal" />
+          <RadzenGridColumn TItem="ProductLineViewModel" Property="Price" Title="Pris" />
         </RadzenGrid>
 
         <div style="margin-top: 20px;">
