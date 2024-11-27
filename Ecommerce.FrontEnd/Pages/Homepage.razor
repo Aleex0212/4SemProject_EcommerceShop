@@ -29,23 +29,23 @@
       <RadzenButton Text="Log ud" Icon="exit_to_app" Class="sidebar-button sidebar-button-logout" Click="OnLogOutClickAsync" />
     </div>
 
-    <div class="main-content">
+    <div class="homepage-content">
       @if (_products == null)
       {
-        <p class="product-name">Indlæser produkter...</p>
+        <p class="homepage-product-name">Indlæser produkter...</p>
       }
       else
       {
         @foreach (var product in _products)
         {
-          <div class="product-card">
+          <div class="homepage-product-card">
             <img src="https://fakeimg.pl/600x400/cccccc/3b3d3d?text=Produkt" alt="@product.Name" />
-            <h3 class="product-name">@product.Name</h3>
-            <p class="product-price">Pris: @product.Price kr.</p>
-            <p class="product-quantity">Antal tilgængelig: @product.Amount</p>
-            <div class="product-actions">
-              <RadzenNumeric TValue="int" Min="1" Class="input-numeric" @bind-Value="_productLineViewModel!.Quantity" />
-              <RadzenButton Text="Køb nu" Class="button-buy-now" Click="@(args => OnBuyClickAsync(args, product))" />
+            <h3 class="homepage-product-name">@product.Name</h3>
+            <p class="homepage-product-price">Pris: @product.Price kr.</p>
+            <p class="homepage-product-quantity">Antal tilgængelig: @product.Amount</p>
+            <div class="homepage-product-actions">
+              <RadzenNumeric TValue="int" Min="1" Class="homepage-input-numeric" @bind-Value="_productLineViewModel!.Quantity" />
+              <RadzenButton Text="Tilføj til kruv" Class="homepage-button-buy-now" Click="@(args => OnBuyClickAsync(args, product))" />
             </div>
           </div>
         }
@@ -53,8 +53,6 @@
     </div>
   </div>
 </RadzenContent>
-
-
 
 
 @code {
@@ -119,6 +117,19 @@
         Quantity = _productLineViewModel?.Quantity ?? 0
       };
 
+    if (productLineViewModel.Quantity == 0)
+    {
+      NotificationService.Notify
+      (new NotificationMessage()
+      {
+        Severity = NotificationSeverity.Warning,
+        Summary = "Vælg antal",
+        Detail = $"Du skal angive hvor mange produkter du vil ligge i kurven",
+        Duration = 4000
+      });
+      return;
+    }
+
     var basket = await SessionStorage.GetItemAsync<List<ProductLineViewModel>>("basket") ?? new();
     basket.Add(productLineViewModel);
     await SessionStorage.SetItemAsync("basket", basket);
@@ -131,7 +142,6 @@
         Detail = $"{productLineViewModel.Quantity} stk. af {product.Name} er tilføjet til kurven",
         Duration = 4000
       });
-    Navigation.NavigateTo("/basket");
   }
 
   private void OnBasketClickAsync(MouseEventArgs obj)

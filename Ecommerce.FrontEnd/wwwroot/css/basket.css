@@ -1,0 +1,102 @@
+﻿/* Ensure body takes full height */
+html, body {
+  height: 100%;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Main content wrapper with full height */
+.basket-main-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: 100px 40px 20px; /* Justering af padding for at kompensere for navbarens højde */
+  background-color: #c0cad7 !important;
+  overflow-y: auto;
+  border-radius: 12px;
+  margin-left: 270px; /* Sidebar width */
+  width: calc(100% - 270px); /* Remaining space for main content */
+  height: 100vh; /* Brug hele viewportens højde */
+  box-sizing: border-box; /* Ensure padding does not overflow */
+  position: relative; /* Necessary for button positioning */
+  text-align : center;
+  font : bold;
+}
+
+
+/* Total Price */
+.basket-total-price {
+  padding: 10px;
+  background-color: #2c3e50;
+  color: white;
+  border-radius: 6px;
+  display: flex;
+  justify-content: space-between;
+  margin-top: auto;
+}
+
+/* Checkout Button Container */
+.basket-checkout-button-container {
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+  margin-top: 20px;
+}
+
+/* Checkout Button */
+.basket-checkout-button {
+  background-color: #2f6a2f !important;
+  color: white !important;
+  padding: 12px 20px;
+  font-size: 16px;
+  box-shadow: none;
+  transition: all 0.3s ease;
+  width: auto;
+}
+
+  .basket-checkout-button:hover {
+    background-color: #2f6a2f;
+    color: white;
+  }
+
+/* Basket Product List */
+.basket-product-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  flex-grow: 1;
+}
+
+/* Basket Product Item */
+.basket-product-item {
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  padding: 20px;
+  text-align: left;
+  margin-bottom: 15px;
+  transition: all 0.3s ease;
+}
+
+.empty-cart-message {
+  text-align : center
+}
+
+/* Remove Button (Red) */
+.basket-remove-button {
+  background-color: #b30000 !important;
+  color: white !important;
+  padding: 10px 20px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+  .basket-remove-button:hover {
+    background-color: #990000;
+    transform: scale(1.05);
+  }
+
