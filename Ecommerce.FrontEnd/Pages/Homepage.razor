@@ -8,62 +8,44 @@
 @inject IUserGatewayApi UserGatewayApi
 
 <RadzenContent>
-  <div class="navbar-container" style="background-color: #1b242e ; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1); border-radius: 12px; width: 100%; position: fixed; top: 0; left: 0; z-index: 10; min-height">
-    <div style="font-size: 24px; font-weight: bold; color: white; display: flex; align-items: center; gap: 10px;">
+  <div class="topnavbar-container">
+    <div class="topnavbar-content">
       <RadzenIcon Icon="home" Style="width: 40px;" />
-      <span style="color: white; margin-right: auto;">Velkommen til EcommerceShop</span>
-      <div style="display: flex; flex-direction: column; align-items: center">
-        <h3 style="color: #3498db; margin: 0;">Logget ind som</h3>
-        <h3 style="color: white;">@_customerViewModel?.Name</h3>
+      <span class="topnavbar-heading">Velkommen til EcommerceShop</span>
+      <div class="topnavbar-login">
+        <h3>Logget ind som</h3>
+        <h3>@_customerViewModel?.Name</h3>
       </div>
     </div>
-    <RadzenButton Icon="account_circle" Style="background-color: transparent; color: white; border: none; font-size: 28px; padding: 0;"/>
+    <RadzenButton Icon="account_circle" Class="topnavbar-button topnavbar-button-icon" />
   </div>
 
-  <div style="display: flex; padding-top: 80px; height: 100vh;">
-    <div style="background-color: #1b242e; padding: 20px; width: 250px; box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1); height: 100%; position: fixed; left: 0; top: 80px;">
-
-      <RadzenButton Text="Produkter"
-                    Style="background-color: #3498db; color: white; width: 100%; padding: 15px; margin-bottom: 15px; border-radius: 6px; border: none; cursor: pointer; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); transition: all 0.3s ease; font-size: 18px;" />
-
-      <RadzenButton Text="Kurv" Icon="shopping_cart"
-                    Style="background-color: #2c3e50; color: white; width: 100%; padding: 15px; margin-bottom: 20px;border-radius: 6px; border: none; cursor: pointer; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); transition: all 0.3s ease; font-size: 18px;"
-                    Click="OnBasketClickAsync" />
-
-      <RadzenButton Text="Ordre"
-                    Style="background-color: #2c3e50; color: white; width: 100%; padding: 15px; margin-bottom: 15px; border-radius: 6px; border: none; cursor: pointer; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);  transition: all 0.3s ease; font-size: 18px;"
-                      Click="OnOrdreClickAsync" />
-      
-      <RadzenButton Text="Indstillinger"
-                    Style="background-color: #2c3e50; color: white; width: 100%; padding: 15px; margin-bottom: 15px; border-radius: 6px; border: none; cursor: pointer; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); transition: all 0.3s ease; font-size: 18px;"
-                    />
-
-      <RadzenButton Text="Log ud" Icon="exit_to_app"
-                    Style="background-color: #b30000; color: white; width: 100%; padding: 15px; margin-bottom: 15px; border-radius: 6px; border: none; cursor: pointer; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); transition: all 0.3s ease; font-size: 18px;"
-                    Click="OnLogOutClickAsync" />
+  <div class="content-wrapper">
+    <div class="sidebar">
+      <RadzenButton Text="Produkter" Class="sidebar-button sidebar-button-primary" />
+      <RadzenButton Text="Kurv" Icon="shopping_cart" Class="sidebar-button sidebar-button-secondary" Click="OnBasketClickAsync" />
+      <RadzenButton Text="Ordre" Class="sidebar-button sidebar-button-secondary" Click="OnOrdreClickAsync" />
+      <RadzenButton Text="Indstillinger" Class="sidebar-button sidebar-button-secondary" />
+      <RadzenButton Text="Log ud" Icon="exit_to_app" Class="sidebar-button sidebar-button-logout" Click="OnLogOutClickAsync" />
     </div>
 
-    <div style="flex-grow: 1; margin-left: 270px; display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; padding: 20px 40px; background-color: #c0cad7; overflow-y: auto;">
+    <div class="main-content">
       @if (_products == null)
       {
-        <p style="color: #2c3e50; font-family: 'Segoe UI', sans-serif; font-size: 18px;">Indlæser produkter...</p>
+        <p class="product-name">Indlæser produkter...</p>
       }
       else
       {
         @foreach (var product in _products)
         {
-          <div style="background-color: #ffffff; border-radius: 12px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); padding: 20px; text-align: center; transition: all 0.3s ease; height: 400px;">
-            <img src="https://fakeimg.pl/600x400/cccccc/3b3d3d?text=Produkt" alt="@product.Name" style="width:100%; height: 200px; border-radius: 8px; margin-bottom: 15px; object-fit: cover;" />
-            <h3 style="color: #2c3e50; font-size: 22px; font-weight: bold;">@product.Name</h3>
-            <p style="color: #3498db; font-size: 18px; margin: 5px 0;">Pris: @product.Price kr.</p>
-            <p style="color: #95a5a6; font-size: 16px;">Antal tilgængelig: @product.Amount</p>
-            <div style="display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 15px;">
-              <RadzenNumeric TValue="int" Min="1" 
-                             Style="width: 80px; border: 1px solid #ddd; border-radius: 6px; padding: 5px; text-align: center; font-size: 16px;"
-                             @bind-Value="_productLineViewModel!.Quantity" />
-              <RadzenButton Text="Køb nu" 
-                            Style="background-color: #3498db; color: white; padding: 10px 20px; border-radius: 8px; border: none; cursor: pointer; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); transition: all 0.3s ease;" 
-                            Click="@(args => OnBuyClickAsync(args, product))" />
+          <div class="product-card">
+            <img src="https://fakeimg.pl/600x400/cccccc/3b3d3d?text=Produkt" alt="@product.Name" />
+            <h3 class="product-name">@product.Name</h3>
+            <p class="product-price">Pris: @product.Price kr.</p>
+            <p class="product-quantity">Antal tilgængelig: @product.Amount</p>
+            <div class="product-actions">
+              <RadzenNumeric TValue="int" Min="1" Class="input-numeric" @bind-Value="_productLineViewModel!.Quantity" />
+              <RadzenButton Text="Køb nu" Class="button-buy-now" Click="@(args => OnBuyClickAsync(args, product))" />
             </div>
           </div>
         }
@@ -71,6 +53,8 @@
     </div>
   </div>
 </RadzenContent>
+
+
 
 @code {
   private IEnumerable<ProductViewModel>? _products;

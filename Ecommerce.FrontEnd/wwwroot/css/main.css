@@ -1,0 +1,192 @@
+﻿/* Global Styles */
+body {
+  background-color: #c0cad7 !important; /* Light background color */
+  margin: 0; /* Remove default margin */
+  padding: 0; /* Remove default padding */
+}
+
+/* Top Navbar */
+.topnavbar-container {
+  background-color: #1b242e !important; /* Dark background color */
+  display: flex;
+  justify-content: flex-start; /* Align items to the left */
+  align-items: center;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+  border-radius: 12px 12px 0 0; /* Only round top-right and bottom-right corners */
+  width: 100%;
+  height: 60px; /* Fixed height for the navbar */
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  padding: 0 20px; /* Padding for navbar items */
+}
+
+/* Navbar Content */
+.topnavbar-content {
+  font-size: 24px;
+  font-weight: bold;
+  color: white;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.topnavbar-heading {
+  color: white;
+  margin-right: auto;
+}
+
+.topnavbar-login {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+  .topnavbar-login h3 {
+    margin: 0;
+  }
+
+    .topnavbar-login h3:first-child {
+      color: #3498db; /* Secondary blue */
+    }
+
+    .topnavbar-login h3:last-child {
+      color: white;
+    }
+
+.topnavbar-button {
+  background-color: transparent !important;
+  color: white !important;
+  border: none !important;
+  font-size: 28px !important;
+  padding: 0 !important;
+  margin-left: 20px; /* Adjust button position */
+}
+
+.topnavbar-button-icon {
+  font-size: 32px !important; /* Adjust icon size */
+  padding: 0 !important; /* Remove padding for better alignment */
+  display: flex; /* Ensure proper display */
+  align-items: center; /* Vertical centering */
+}
+
+/* Sidebar */
+.sidebar {
+  background-color: #1b242e !important; /* Dark background color */
+  padding: 20px;
+  width: 250px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+  height: 100%;
+  position: fixed;
+  top: 60px; /* Directly below the top navbar */
+  left: 0;
+  z-index: 5; /* Ensure it stays behind main content */
+}
+
+/* Sidebar Buttons */
+.sidebar-button {
+  width: 100%;
+  padding: 15px;
+  margin-bottom: 15px;
+  border-radius: 6px;
+  border: none !important;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+  font-size: 18px;
+}
+
+.sidebar-button-primary {
+  background-color: #3498db !important; /* Secondary blue */
+  color: white !important;
+}
+
+.sidebar-button-secondary {
+  background-color: #3498db !important; /* Secondary blue */
+  color: white !important;
+}
+
+.sidebar-button-logout {
+  background-color: #3498db !important; /* Secondary blue */
+  color: white !important;
+}
+
+/* Main Content */
+.main-content {
+  margin-left: 270px; /* Push content to the right of the sidebar */
+  margin-top: 60px; /* Start content below the top navbar */
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+  padding: 20px 40px;
+  background-color: #c0cad7 !important; /* Light background color */
+  overflow-y: auto;
+  position: relative; /* Ensure it's positioned correctly */
+  z-index: 1; /* Ensure it stays above the sidebar */
+}
+
+/* Product Cards */
+.product-card {
+  background-color: #ffffff !important; /* Panel background color */
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  padding: 20px;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+  .product-card img {
+    width: 100%;
+    height: 200px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    object-fit: cover;
+  }
+
+.product-name {
+  color: #2c3e50 !important; /* Main header text color */
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.product-price {
+  color: #3498db !important; /* Secondary blue */
+  font-size: 18px;
+  margin: 5px 0;
+}
+
+.product-quantity {
+  color: #95a5a6 !important; /* Lighter gray */
+  font-size: 16px;
+}
+
+.product-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+/* Numeric input */
+.input-numeric {
+  width: 80px;
+  border: 1px solid #ddd !important; /* Input field border color */
+  border-radius: 6px;
+  padding: 5px;
+  text-align: center;
+  font-size: 16px;
+}
+
+/* Buttons */
+.button-buy-now {
+  background-color: #3498db !important; /* Secondary blue */
+  color: white !important;
+  padding: 10px 20px !important;
+  border-radius: 8px !important;
+  border: none !important;
+  cursor: pointer !important;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1) !important;
+  transition: all 0.3s ease !important;
+}
