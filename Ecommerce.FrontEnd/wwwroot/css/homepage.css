@@ -1,50 +1,47 @@
-﻿/* Homepage Content */
-.homepage-content {
-  margin-left: 270px; /* Push content to the right of the sidebar */
-  margin-top: 60px; /* Start content below the top navbar */
+﻿.homepage-content {
+  margin-left: 270px;
+  margin-top: 60px;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Smaller box size */
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   gap: 20px;
   padding: 20px 40px;
-  background-color: #c0cad7 !important; /* Light background color */
+  background-color: #c0cad7 !important;
   overflow-y: auto;
-  position: relative; /* Ensure it's positioned correctly */
-  z-index: 1; /* Ensure it stays above the sidebar */
-  min-height: 100vh; /* Ensure it fills the entire viewport height */
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
 }
 
-/* Homepage Product Cards */
 .homepage-product-card {
   background-color: #ffffff;
   border-radius: 12px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
   padding: 20px;
   transition: all 0.3s ease;
-  height: min-content; /* Adjust this value to make the box shorter */
-  overflow: hidden; /* Ensures content doesn't overflow the box */
+  height: min-content;
+  overflow: hidden;
 }
 
-  /* Image inside Homepage Product Card */
   .homepage-product-card img {
     width: 100%;
-    height: 150px; /* Set a fixed height for the image */
+    height: 150px;
     object-fit: cover;
   }
 
 .homepage-product-name {
-  color: #2c3e50 !important; /* Main header text color */
+  color: #2c3e50 !important;
   font-size: 22px;
   font-weight: bold;
 }
 
 .homepage-product-price {
-  color: #3498db !important; /* Secondary blue */
+  color: #3498db !important;
   font-size: 18px;
   margin: 5px 0;
 }
 
 .homepage-product-quantity {
-  color: #95a5a6 !important; /* Lighter gray */
+  color: #95a5a6 !important;
   font-size: 16px;
 }
 
@@ -56,19 +53,17 @@
   margin-top: 15px;
 }
 
-/* Numeric input on Homepage */
 .homepage-input-numeric {
   width: 80px;
-  border: 1px solid #ddd !important; /* Input field border color */
+  border: 1px solid #ddd !important;
   border-radius: 6px;
   padding: 5px;
   text-align: center;
   font-size: 16px;
 }
 
-/* Homepage Buy Now Button */
 .homepage-button-buy-now {
-  background-color: #4CAF50 !important; /* Secondary blue */
+  background-color: #4CAF50 !important;
   color: white !important;
   padding: 10px 20px !important;
   border-radius: 8px !important;
