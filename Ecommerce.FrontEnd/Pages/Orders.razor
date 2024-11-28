@@ -11,41 +11,187 @@
 <RadzenContent>
   <TopNavbar CustomerName="@_customerViewModel?.Name" />
 
-  <div class="content-wrapper">
+  <div class="main-wrapper">
     <Sidebar OnProductsClick="OnProductsClickAsync"
              OnBasketClick="OnBasketClickAsync"
              OnOrdreClick="OnOrdreClickAsync"
              OnSettingsClick="OnSettingsClickAsync"
              OnLogOutClick="OnLogOutClickAsync" />
-  </div>
 
-  <div style="margin-left: 270px; padding: 20px; flex-grow: 1;">
-    <h1 style="color: #2c3e50;">Ordredetaljer</h1>
+    <div class="main-content">
+      <h1 class="page-title">Ordreoversigt</h1>
 
-    @if (_orderViewModels != null && _orderViewModels.Any())
-    {
-      @foreach (var order in _orderViewModels)
+      @if (_orderViewModels != null && _orderViewModels.Any())
       {
-        <RadzenPanel Style="background-color: #ffffff; padding: 20px; border-radius: 12px; box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);">
-          <RadzenGrid Data="@order.ProductLines" TItem="ProductLineViewModel" Style="width: 100%;">
-            <RadzenGridColumn TItem="ProductLineViewModel" Property="ProductId" Title="Produkt ID" />
-            <RadzenGridColumn TItem="ProductLineViewModel" Property="Product.Name" Title="Produkt Navn" />
-            <RadzenGridColumn TItem="ProductLineViewModel" Property="Quantity" Title="Antal" />
-            <RadzenGridColumn TItem="ProductLineViewModel" Property="TotalPrice" Title="Pris" />
-          </RadzenGrid>
+        @foreach (var order in _orderViewModels)
+        {
+          <RadzenPanel class="order-panel">
+            <h2 class="order-id">Ordre ID: @order.Id</h2>
+            <p class="order-status">Status: @order.Status</p>
+            <p class="order-total-price">Totalpris: @order.TotalPrice kr.</p>
 
-          <div style="margin-top: 20px;">
-            <h3 style="color: #3498db;">Samlet pris: @order.TotalPrice</h3>
-          </div>
-        </RadzenPanel>
+            <h3 class="customer-info-title">Kundeinfo</h3>
+            <p class="customer-info">Navn: @order.Customer.Name</p>
+            <p class="customer-info">Telefon: @order.Customer.Phone</p>
+            <p class="customer-info">Adresse: @order.Customer.Address</p>
+
+            <h3 class="product-lines-title">Produkter</h3>
+
+            @if (order.ProductLines.Any())
+            {
+              @foreach (var productLine in order.ProductLines)
+              {
+                <div class="product-line">
+                  <p class="product-line-text"><strong>Produkt ID:</strong> @productLine.Product.Id</p>
+                  <p class="product-line-text"><strong>Produkt Navn:</strong> @productLine.Product.Name</p>
+                  <p class="product-line-text"><strong>Antal:</strong> @productLine.Quantity</p>
+                  <p class="product-line-text"><strong>Pris:</strong> @($"{productLine.Product.Price:C}")</p>
+                </div>
+              }
+            }
+            else
+            {
+              <p class="no-product-lines">Ingen produktlinjer fundet.</p>
+            }
+          </RadzenPanel>
+        }
       }
-    }
-    else
-    {
-      <div style="color: #b30000;">Ingen ordre.</div>
-    }
+      else
+      {
+        <div class="no-orders">Ingen ordre fundet.</div>
+      }
+    </div>
   </div>
 </RadzenContent>
+
+<style>
+  body {
+    margin: 0;
+    padding: 0;
+    background-color: #c0cad7;
+    font-family: 'Segoe UI', sans-serif;
+  }
+
+  .topnavbar-container {
+    background-color: #1b242e;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+    padding: 0 20px;
+  }
+
+  .main-wrapper {
+    display: flex;
+    position: relative;
+    margin-top: 60px;
+    height: calc(100vh - 60px);
+  }
+
+  .sidebar {
+    background-color: #1b242e;
+    width: 220px;
+    height: 100%;
+    position: fixed;
+    top: 60px;
+    left: 0;
+    padding: 10px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    z-index: 5;
+    overflow-y: auto;
+  }
+
+  .main-content {
+    margin-left: 220px;
+    padding: 20px;
+    background-color: #c0cad7;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    flex-grow: 1;
+    overflow-y: auto;
+  }
+
+  .page-title {
+    color: #2c3e50;
+    font-size: 1.8rem;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #3498db;
+    padding-bottom: 10px;
+  }
+
+  .order-panel {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+  }
+
+  .order-id {
+    color: #2c3e50;
+    font-size: 1.3rem;
+    margin-bottom: 5px;
+  }
+
+  .order-status, .order-total-price {
+    color: #95a5a6;
+    font-size: 1rem;
+    margin-bottom: 3px;
+  }
+
+  .order-total-price {
+    color: #3498db;
+    font-weight: bold;
+  }
+
+  .customer-info-title {
+    color: #3498db;
+    font-size: 1.1rem;
+    margin-top: 15px;
+    margin-bottom: 10px;
+  }
+
+  .customer-info {
+    color: #2c3e50;
+    font-size: 1rem;
+    margin-bottom: 5px;
+  }
+
+  .product-lines-title {
+    color: #3498db;
+    font-size: 1.1rem;
+    margin-top: 15px;
+    margin-bottom: 10px;
+  }
+
+  .product-line {
+    margin-bottom: 10px;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+  }
+
+  .product-line-text {
+    color: #2c3e50;
+    font-size: 0.95rem;
+    margin-bottom: 3px;
+  }
+
+  .no-product-lines, .no-orders {
+    color: #b30000;
+    font-size: 1.1rem;
+    margin-top: 15px;
+    text-align: center;
+  }
+</style>
 
 @code {
   private List<OrderViewModel>? _orderViewModels;
