@@ -1,4 +1,4 @@
-﻿@page "/homepage"
+﻿@page "/products"
 
 @inject IMapper Mapper
 @inject NotificationService NotificationService
@@ -39,13 +39,13 @@
         @foreach (var product in _products)
         {
           <div class="homepage-product-card">
-            <img src="https://fakeimg.pl/600x400/cccccc/3b3d3d?text=Produkt" alt="@product.Name" />
+            <img src="https://fakeimg.pl/600x400/cccccc/3b3d3d?text=Produkt" alt="@product.Name" class="homepage-product-image" />
             <h3 class="homepage-product-name">@product.Name</h3>
             <p class="homepage-product-price">Pris: @product.Price kr.</p>
             <p class="homepage-product-quantity">Antal tilgængelig: @product.Amount</p>
             <div class="homepage-product-actions">
               <RadzenNumeric TValue="int" Min="1" Class="homepage-input-numeric" @bind-Value="_productLineViewModel!.Quantity" />
-              <RadzenButton Text="Tilføj til kruv" Class="homepage-button-buy-now" Click="@(args => OnBuyClickAsync(args, product))" />
+              <RadzenButton Text="Tilføj til kurv" Class="homepage-button-buy-now" Click="@(args => OnBuyClickAsync(args, product))" />
             </div>
           </div>
         }
