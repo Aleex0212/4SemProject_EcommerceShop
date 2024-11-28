@@ -1,0 +1,18 @@
+﻿<RadzenContent>
+  <div class="topnavbar-container">
+    <div class="topnavbar-content">
+      <RadzenIcon Icon="home" Style="width: 40px;" />
+      <span class="topnavbar-heading">Velkommen til EcommerceShop</span>
+      <div class="topnavbar-login">
+        <h3 style="color: #3498db; margin: 0;">Logget ind som</h3>
+        <h3>@CustomerName</h3>
+      </div>
+    </div>
+    <RadzenButton Icon="account_circle" class="topnavbar-button" />
+  </div>
+</RadzenContent>
+
+@code {
+  [Parameter]
+  public string CustomerName { get; set; } = "Bruger";
+}

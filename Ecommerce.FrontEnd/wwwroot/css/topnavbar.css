@@ -1,0 +1,68 @@
+﻿body {
+  background-color: #c0cad7 !important;
+  margin: 0;
+  padding: 0;
+}
+
+.topnavbar-container {
+  background-color: #1b242e !important;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  height: 60px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  padding: 0 20px;
+}
+
+.topnavbar-content {
+  font-size: 24px;
+  font-weight: bold;
+  color: white;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.topnavbar-heading {
+  color: white;
+  margin-right: auto;
+}
+
+.topnavbar-login {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+  .topnavbar-login h3 {
+    margin: 0;
+  }
+
+    .topnavbar-login h3:first-child {
+      color: #3498db;
+    }
+
+    .topnavbar-login h3:last-child {
+      color: white;
+    }
+
+.topnavbar-button {
+  background-color: transparent !important;
+  color: white !important;
+  border: none !important;
+  font-size: 28px !important;
+  padding: 0 !important;
+  margin-left: 20px;
+}
+
+.topnavbar-button-icon {
+  font-size: 32px !important;
+  padding: 0 !important;
+  display: flex;
+  align-items: center;
+}
