@@ -4,8 +4,8 @@ namespace Ecommerce.FrontEnd.ViewModels
 {
   public class LoginViewModel
   {
-    [Required(ErrorMessage = "Email is required")]
-    [EmailAddress(ErrorMessage = "Email Address is not in correct format")]
+    [Required(ErrorMessage = "Email er påkrævet")]
+    [EmailAddress(ErrorMessage = "Email er ikke i korrekt format")]
     public string Email { get; set; } = string.Empty;
 
     [Required(ErrorMessage = "Adgangskode er påkrævet")]
