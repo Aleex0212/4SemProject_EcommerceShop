@@ -2,7 +2,7 @@
 {
   public class Customer
   {
-    public Guid? Id { get; private set; }
+    public Guid Id { get; private set; }
     public string Name { get; private set; }
     public string Email { get; private set; }
     public string Phone { get; private set; }
@@ -10,6 +10,7 @@
 
     private Customer(Guid id, string name, string email, string phone, string address)
     {
+      Id = id;
       Name = name;
       Email = email;
       Phone = phone;
@@ -18,7 +19,7 @@
 
     public static Customer Crate(Guid id, string name, string email, string phone, string address)
     {
-      return new Customer(id = Guid.NewGuid(), name, email, phone, address);
+      return new Customer(id = id, name, email, phone, address);
     }
   }
 }

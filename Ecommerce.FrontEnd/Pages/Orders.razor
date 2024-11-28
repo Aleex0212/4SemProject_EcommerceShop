@@ -12,12 +12,11 @@
   <TopNavbar CustomerName="@_customerViewModel?.Name" />
 
   <div class="content-wrapper">
-    <Sidebar
-      OnProductsClick="OnProductsClickAsync"
-      OnBasketClick="OnBasketClickAsync"
-      OnOrdreClick="OnOrdreClickAsync"
-      OnSettingsClick="OnSettingsClickAsync"
-      OnLogOutClick="OnLogOutClickAsync" />
+    <Sidebar OnProductsClick="OnProductsClickAsync"
+             OnBasketClick="OnBasketClickAsync"
+             OnOrdreClick="OnOrdreClickAsync"
+             OnSettingsClick="OnSettingsClickAsync"
+             OnLogOutClick="OnLogOutClickAsync" />
   </div>
 
   <div style="margin-left: 270px; padding: 20px; flex-grow: 1;">
@@ -49,7 +48,7 @@
 </RadzenContent>
 
 @code {
-  private List<OrderViewModel>? _orderViewModels; 
+  private List<OrderViewModel>? _orderViewModels;
   private CustomerViewModel? _customerViewModel;
 
   protected override async Task OnInitializedAsync()
@@ -58,9 +57,11 @@
     if (string.IsNullOrEmpty(token)) Navigation.NavigateTo("login", true);
 
     var userEmail = await SessionStorage.GetItemAsync<string>("user-email");
-
     var customer = await UserGatewayApi.GetCustomerByEmail(userEmail);
     _customerViewModel = Mapper.Map<CustomerViewModel>(customer);
+
+    var orderDtos = await OrderGatewayApi.GetOrdersByCustomerEmail(userEmail, $"Bearer {token}");
+    _orderViewModels = Mapper.Map<List<OrderViewModel>?>(orderDtos);
   }
 
   private void OnProductsClickAsync()
@@ -82,7 +83,7 @@
   {
     Navigation.NavigateTo("/settings");
   }
-  
+
   private async Task OnLogOutClickAsync()
   {
     await SessionStorage.RemoveItemAsync("ecommerce-login-token");
@@ -92,12 +93,12 @@
 
     NotificationService.Notify
     (new NotificationMessage()
-    {
-      Severity = NotificationSeverity.Info,
-      Summary = "Logget ud",
-      Detail =  "Du blev logget ud",
-      Duration = 4000
-    });
+      {
+        Severity = NotificationSeverity.Info,
+        Summary = "Logget ud",
+        Detail = "Du blev logget ud",
+        Duration = 4000
+      });
     await Task.Delay(1000);
     Navigation.NavigateTo("login", true);
   }

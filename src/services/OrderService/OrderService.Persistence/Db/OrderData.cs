@@ -38,14 +38,14 @@ namespace OrderService.Persistence.Db
         productLines2,
         OrderStatus.Completed));
 
-      var productLines3 = new List<ProductLine>
+      var productLines = new List<ProductLine>
       {
         ProductLine.Create(Guid.NewGuid(), _products.Products[3], 2),
       };
       Orders.Add(Order.Create(
         new Guid("33333333-3333-3333-3333-333333333333"),
-        _customers.Customers[3],
-        productLines3,
+        _customers.Customers[2],
+        productLines,
         OrderStatus.Completed));
     }
   }

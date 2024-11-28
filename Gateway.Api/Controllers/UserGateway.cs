@@ -21,7 +21,7 @@ namespace Gateway.Api.Controllers
       _logger = logger;
     }
 
-    [HttpGet("{email}")]
+    [HttpGet(Routes.GatewayRoutes.UserGatewayRoutes.GetByEmail)]
     [SwaggerOperation(
       Summary = "Get user by email",
       Description = "Retrieves a single user by their email address",
