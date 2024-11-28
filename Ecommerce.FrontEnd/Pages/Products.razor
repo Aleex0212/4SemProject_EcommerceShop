@@ -20,23 +20,23 @@
       OnLogOutClick="OnLogOutClickAsync" />
   </div>
 
-  <div class="homepage-content">
+  <div class="product-content">
     @if (_products == null)
     {
-      <p class="homepage-product-name">Indlæser produkter...</p>
+      <p class="product-name">Indlæser produkter...</p>
     }
     else
     {
       @foreach (var product in _products)
       {
-        <div class="homepage-product-card">
-          <img src="https://fakeimg.pl/600x400/cccccc/3b3d3d?text=Produkt" alt="@product.Name" class="homepage-product-image" />
-          <h3 class="homepage-product-name">@product.Name</h3>
-          <p class="homepage-product-price">Pris: @product.Price kr.</p>
-          <p class="homepage-product-quantity">Antal tilgængelig: @product.Amount</p>
-          <div class="homepage-product-actions">
-            <RadzenNumeric TValue="int" Min="1" Class="homepage-input-numeric" @bind-Value="_productLineViewModel!.Quantity" />
-            <RadzenButton Text="Tilføj til kurv" Class="homepage-button-buy-now" Click="@(args => OnBuyClickAsync(product))" />
+        <div class="product-card">
+          <img src="https://fakeimg.pl/600x400/cccccc/3b3d3d?text=Produkt" alt="@product.Name" class="product-image" />
+          <h3 class="product-name">@product.Name</h3>
+          <p class="product-price">Pris: @product.Price kr.</p>
+          <p class="product-quantity">Antal tilgængelig: @product.Amount</p>
+          <div class="product-actions">
+            <RadzenNumeric TValue="int" Min="1" Class="input-numeric" @bind-Value="_productLineViewModel!.Quantity" />
+            <RadzenButton Text="Tilføj til kurv" Class="button-buy-now" Click="@(args => OnBuyClickAsync(product))" />
           </div>
         </div>
       }
