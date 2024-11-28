@@ -7,48 +7,25 @@
 @inject Blazored.SessionStorage.ISessionStorageService SessionStorage
 @inject IAuthGatewayApi AuthGatewayApi
 
-
 <RadzenContent>
-  <div class="login-container" style="display: flex; justify-content: center; align-items: center; min-height: 100vh; background-color: #1b242e; padding: 20px;">
-    <RadzenPanel Style="max-width: 450px; margin: 0 auto; padding: 30px; background-color: #2c3e50; border-radius: 12px; box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);">
+  <div class="login-container">
+    <RadzenPanel class="login-panel">
+      <h1 class="login-header main-header">Ecommerce-Shop</h1>
+      <h2 class="login-header welcome-header">Velkommen</h2>
+      <h3 class="login-header instruction-header">Log ind for at fortsætte</h3>
 
-      <h1 class="login-header" style="text-align: center; color: white; font-size: 36px; margin-bottom: 5px; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
-       font-weight: bold;">Ecommerce-Shop</h1>
-
-      <h2 class="login-header" style="text-align: center; color: #3498db; font-size: 34px; margin-bottom: 15px; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
-       font-weight: 600;">Velkommen</h2>
+      <RadzenTextBox @bind-Value="_loginViewModel.Email" Placeholder="Brugernavn" Type="email" class="login-input" />
+      <RadzenTextBox @bind-Value="_loginViewModel.Password" Placeholder="Adgangskode" Type="password" class="login-input" />
       
-      <h3 class="login-header" style="text-align: center; color: #95a5a6; font-size: 20px; margin-bottom: 40px; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
-       font-style: italic;">Log ind for at fortsætte</h3>
-
-      <RadzenTextBox @bind-Value="_loginViewModel.Email"
-                     Placeholder="Brugernavn"
-                     Type="email"
-                     Style="margin-bottom: 20px; width: 100%; padding: 14px 18px; border-radius: 8px; border: 1px solid #ddd; font-size: 16px; box-sizing: border-box; transition: all 0.3s ease;"
-                     onfocus="this.style.borderColor='#4CAF50'; this.style.boxShadow='0 0 5px rgba(76, 175, 80, 0.4)';"
-                     onblur="this.style.borderColor='#ddd'; this.style.boxShadow='none';"/>
-
-      <RadzenTextBox @bind-Value="_loginViewModel.Password"
-                     Placeholder="Adgangskode"
-                     Type="password"
-                     Style="margin-bottom: 30px; width: 100%; padding: 14px 18px; border-radius: 8px; border: 1px solid #ddd; font-size: 16px; box-sizing: border-box; transition: all 0.3s ease;"
-                     onfocus="this.style.borderColor='#4CAF50'; this.style.boxShadow='0 0 5px rgba(76, 175, 80, 0.4)';"
-                     onblur="this.style.borderColor='#ddd'; this.style.boxShadow='none';"/>
-
       <RadzenButton ButtonType="ButtonType.Button"
                     Icon="lock"
                     Text="Log ind"
                     Click="@(async args => await HandleLogin())"
-                    Style="width: 100%; background-color: #4CAF50; color: white; padding: 16px; font-size: 16px; border-radius: 8px; border: none; cursor: pointer; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); transition: all 0.3s ease;"
-                    onmouseover="this.style.backgroundColor='#2f6a2f';"
-                    onmouseout="this.style.backgroundColor='#4CAF50';"/>
+                    class="login-button" />
 
       <RadzenLink class="forgot-password-link"
                   Text="Glemt adgangskode?"
-                  Url="/forgot-password"
-                  Style="display: block; text-align: center; margin-top: 20px; color: #007BFF; font-size: 14px; text-decoration: none; transition: color 0.3s ease;"
-                  onmouseover="this.style.color='#0056b3';"
-                  onmouseout="this.style.color='#007BFF';"/>
+                  Url="/forgot-password" />
     </RadzenPanel>
   </div>
 </RadzenContent>
