@@ -68,16 +68,6 @@
     _customerViewModel = Mapper.Map<CustomerViewModel>(customer);
 
     var token = await SessionStorage.GetItemAsStringAsync("ecommerce-login-token");
-
-    try
-    {
-      var orders = await OrderGatewayApi.GetOrdersByEmailAsync(userEmail, $"Bearer {token}");
-      _orderViewModels = Mapper.Map<List<OrderViewModel>>(orders);
-    }
-    catch (Exception ex)
-    {
-      Console.WriteLine(ex.Message);
-    }
   }
 
 
