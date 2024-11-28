@@ -1,11 +1,11 @@
 ﻿<div class="sidebar">
-  <RadzenButton Text="Produkter" class="sidebar-button sidebar-button-primary"
+  <RadzenButton Text="Produkter" Icon="storefront" class="sidebar-button sidebar-button-primary"
                 Click="@(() => OnProductsClick.InvokeAsync())" />
   <RadzenButton Text="Kurv" Icon="shopping_cart" class="sidebar-button sidebar-button-secondary" 
                 Click="@(() => OnBasketClick.InvokeAsync())" />
-  <RadzenButton Text="Ordre" class="sidebar-button sidebar-button-primary" 
+  <RadzenButton Text="Ordre" Icon="assignment" class="sidebar-button sidebar-button-primary" 
                 Click="@(() => OnOrdreClick.InvokeAsync())" />
-  <RadzenButton Text="Indstillinger" class="sidebar-button sidebar-button-secondary" 
+  <RadzenButton Text="Indstillinger" Icon="settings" class="sidebar-button sidebar-button-secondary" 
                 Click="@(() => OnSettingsClick.InvokeAsync())" />
   <RadzenButton Text="Log ud" Icon="exit_to_app" class="sidebar-button sidebar-button-logout" 
                 Click="@(() => OnLogOutClick.InvokeAsync())" />
