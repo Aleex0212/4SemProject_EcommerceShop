@@ -17,5 +17,7 @@ namespace OrderService.Application.Interfaces
     /// </summary>
     /// <returns>The task Retrieves a collection of all orders</returns>
     IEnumerable<Order> GetAllOrders();
+
+    IEnumerable<Order> GetOrdersByCustomerEmail(string customerEmail);
   }
 }

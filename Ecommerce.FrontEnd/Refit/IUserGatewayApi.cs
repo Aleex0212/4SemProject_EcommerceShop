@@ -6,7 +6,7 @@ namespace Ecommerce.FrontEnd.Refit
 {
     public interface IUserGatewayApi
     {
-        [Get(Routes.GatewayRoutes.UserGatewayRoutes.User + "/{email}")]
+        [Get(Routes.GatewayRoutes.UserGatewayRoutes.GetByEmail)]
         Task<UserDto> GetCustomerByEmail(string email);
     }
 }

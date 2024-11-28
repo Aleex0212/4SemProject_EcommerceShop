@@ -16,6 +16,7 @@ namespace OrderService.Api.ServiceCollectionExtensions
 
       // Api Services
       services.AddScoped<DomainMapper>();
+      services.AddScoped<DtoMapper>();
 
       //Repository services
       services.AddScoped<ICommandRepository, CommandRepository>();

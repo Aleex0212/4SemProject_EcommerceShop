@@ -101,6 +101,37 @@ namespace Gateway.Api.Controllers
       }
     }
 
+    [HttpGet(Routes.GatewayRoutes.OrderGatewayRoutes.GetByEmail)]
+    [Authorize(Policy = UserPolicies.CustomerPolicy)]
+    [SwaggerOperation(
+      Summary = "Get order by customer CustomerEmail",
+      Description = "Retrieves a collection of orders by customer CustomerEmail",
+      Tags = new[] { "Gateway_Order" })]
+    public async Task<IActionResult> Get(string customerEmail)
+    {
+      try
+      {
+        var request = _daprClient.CreateInvokeMethodRequest(
+          httpMethod: HttpMethod.Get,
+          appId: "orderservice-api",
+          methodName: $"{Routes.OrderRoutes.GetByEmail.Replace("{customerEmail}", customerEmail)}");
+
+        var responseJson = await _daprClient.InvokeMethodWithResponseAsync(request);
+        responseJson.EnsureSuccessStatusCode();
+
+        var order = await responseJson.Content.ReadFromJsonAsync<IEnumerable<OrderDto>>();
+
+        if (order == null) return NotFound($"order with customer CustomerEmail {customerEmail} was not found");
+
+        return Ok(order);
+      }
+      catch (Exception ex)
+      {
+        _logger.LogError($"Error retrieving order for customer CustomerEmail {customerEmail}: {ex.Message}");
+        return StatusCode(500, "Internal server error while fetching the product");
+      }
+    }
+
     [HttpPut]
     [Authorize(Policy = UserPolicies.AdminPolicy)]
     [SwaggerOperation(
