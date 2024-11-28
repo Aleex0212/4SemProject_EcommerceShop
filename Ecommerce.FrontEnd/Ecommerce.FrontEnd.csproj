@@ -22,8 +22,4 @@
     <ProjectReference Include="..\src\EcommerceShop.Common\EcommerceShop.Common.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Components\" />
-  </ItemGroup>
-
 </Project>

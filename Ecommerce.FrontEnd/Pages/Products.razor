@@ -1,4 +1,5 @@
 ﻿@page "/products"
+@using Ecommerce.FrontEnd.Components
 
 @inject IMapper Mapper
 @inject NotificationService NotificationService
@@ -8,52 +9,40 @@
 @inject IUserGatewayApi UserGatewayApi
 
 <RadzenContent>
-  <div class="topnavbar-container">
-    <div class="topnavbar-content">
-      <RadzenIcon Icon="home" Style="width: 40px;" />
-      <span class="topnavbar-heading">Velkommen til EcommerceShop</span>
-      <div class="topnavbar-login">
-        <h3>Logget ind som</h3>
-        <h3>@_customerViewModel?.Name</h3>
-      </div>
-    </div>
-    <RadzenButton Icon="account_circle" Class="topnavbar-button topnavbar-button-icon" />
-  </div>
+  <TopNavbar CustomerName="@_customerViewModel?.Name" />
 
   <div class="content-wrapper">
-    <div class="sidebar">
-      <RadzenButton Text="Produkter" Class="sidebar-button sidebar-button-primary" />
-      <RadzenButton Text="Kurv" Icon="shopping_cart" Class="sidebar-button sidebar-button-secondary" Click="OnBasketClickAsync" />
-      <RadzenButton Text="Ordre" Class="sidebar-button sidebar-button-secondary" Click="OnOrdreClickAsync" />
-      <RadzenButton Text="Indstillinger" Class="sidebar-button sidebar-button-secondary" />
-      <RadzenButton Text="Log ud" Icon="exit_to_app" Class="sidebar-button sidebar-button-logout" Click="OnLogOutClickAsync" />
-    </div>
+    <Sidebar
+      OnProductsClick="OnProductsClickAsync"
+      OnBasketClick="OnBasketClickAsync"
+      OnOrdreClick="OnOrdreClickAsync"
+      OnSettingsClick="OnSettingsClickAsync"
+      OnLogOutClick="OnLogOutClickAsync" />
+  </div>
 
-    <div class="homepage-content">
-      @if (_products == null)
+  <div class="homepage-content">
+    @if (_products == null)
+    {
+      <p class="homepage-product-name">Indlæser produkter...</p>
+    }
+    else
+    {
+      @foreach (var product in _products)
       {
-        <p class="homepage-product-name">Indlæser produkter...</p>
-      }
-      else
-      {
-        @foreach (var product in _products)
-        {
-          <div class="homepage-product-card">
-            <img src="https://fakeimg.pl/600x400/cccccc/3b3d3d?text=Produkt" alt="@product.Name" class="homepage-product-image" />
-            <h3 class="homepage-product-name">@product.Name</h3>
-            <p class="homepage-product-price">Pris: @product.Price kr.</p>
-            <p class="homepage-product-quantity">Antal tilgængelig: @product.Amount</p>
-            <div class="homepage-product-actions">
-              <RadzenNumeric TValue="int" Min="1" Class="homepage-input-numeric" @bind-Value="_productLineViewModel!.Quantity" />
-              <RadzenButton Text="Tilføj til kurv" Class="homepage-button-buy-now" Click="@(args => OnBuyClickAsync(args, product))" />
-            </div>
+        <div class="homepage-product-card">
+          <img src="https://fakeimg.pl/600x400/cccccc/3b3d3d?text=Produkt" alt="@product.Name" class="homepage-product-image" />
+          <h3 class="homepage-product-name">@product.Name</h3>
+          <p class="homepage-product-price">Pris: @product.Price kr.</p>
+          <p class="homepage-product-quantity">Antal tilgængelig: @product.Amount</p>
+          <div class="homepage-product-actions">
+            <RadzenNumeric TValue="int" Min="1" Class="homepage-input-numeric" @bind-Value="_productLineViewModel!.Quantity" />
+            <RadzenButton Text="Tilføj til kurv" Class="homepage-button-buy-now" Click="@(args => OnBuyClickAsync(product))" />
           </div>
-        }
+        </div>
       }
-    </div>
+    }
   </div>
 </RadzenContent>
-
 
 @code {
   private IEnumerable<ProductViewModel>? _products;
@@ -78,44 +67,25 @@
     {
       NotificationService.Notify
       (new NotificationMessage()
-        {
-          Severity = NotificationSeverity.Error,
-          Summary = "Autorisering fejl!",
-          Detail = "Du har ikke adgang til denne side",
-          Duration = 4000
-        });
+      {
+        Severity = NotificationSeverity.Error,
+        Summary = "Autorisering fejl!",
+        Detail = "Du har ikke adgang til denne side",
+        Duration = 4000
+      });
       await SessionStorage.RemoveItemAsync("ecommerce-login-token");
       Navigation.NavigateTo("/login");
     }
   }
 
-  private async Task OnLogOutClickAsync(MouseEventArgs obj)
-  {
-    await SessionStorage.RemoveItemAsync("ecommerce-login-token");
-    await SessionStorage.RemoveItemAsync("basket");
-    await SessionStorage.RemoveItemAsync("user-email");
-    await SessionStorage.RemoveItemAsync("assigned-order");
-
-    NotificationService.Notify
-    (new NotificationMessage()
-      {
-        Severity = NotificationSeverity.Info,
-        Summary = "Logget ud",
-        Detail =  "Du blev logget ud",
-        Duration = 4000
-      });
-    await Task.Delay(1000);
-    Navigation.NavigateTo("login", true);
-  }
-
-  private async Task OnBuyClickAsync(MouseEventArgs obj, ProductViewModel product)
+  private async Task OnBuyClickAsync(ProductViewModel product)
   {
     var productLineViewModel = new ProductLineViewModel
-      {
-        Id = Guid.NewGuid(),
-        Product = product,
-        Quantity = _productLineViewModel?.Quantity ?? 0
-      };
+    {
+      Id = Guid.NewGuid(),
+      Product = product,
+      Quantity = _productLineViewModel?.Quantity ?? 0
+    };
 
     if (productLineViewModel.Quantity == 0)
     {
@@ -136,23 +106,50 @@
 
     NotificationService.Notify
     (new NotificationMessage()
-      {
-        Severity = NotificationSeverity.Info,
-        Summary = "Tilføjet til Kurv",
-        Detail = $"{productLineViewModel.Quantity} stk. af {product.Name} er tilføjet til kurven",
-        Duration = 4000
-      });
+    {
+      Severity = NotificationSeverity.Info,
+      Summary = "Tilføjet til Kurv",
+      Detail = $"{productLineViewModel.Quantity} stk. af {product.Name} er tilføjet til kurven",
+      Duration = 4000
+    });
   }
 
-  private void OnBasketClickAsync(MouseEventArgs obj)
+  private void OnProductsClickAsync()
+  {
+    Navigation.NavigateTo("/products");
+  }
+
+  private void OnBasketClickAsync()
   {
     Navigation.NavigateTo("/basket");
   }
 
-  private void OnOrdreClickAsync(MouseEventArgs obj)
+  private void OnOrdreClickAsync()
   {
     Navigation.NavigateTo("/orders");
   }
 
-}
+  private void OnSettingsClickAsync()
+  {
+    Navigation.NavigateTo("/settings");
+  }
+  
+  private async Task OnLogOutClickAsync()
+  {
+    await SessionStorage.RemoveItemAsync("ecommerce-login-token");
+    await SessionStorage.RemoveItemAsync("basket");
+    await SessionStorage.RemoveItemAsync("user-email");
+    await SessionStorage.RemoveItemAsync("assigned-order");
 
+    NotificationService.Notify
+    (new NotificationMessage()
+    {
+      Severity = NotificationSeverity.Info,
+      Summary = "Logget ud",
+      Detail =  "Du blev logget ud",
+      Duration = 4000
+    });
+    await Task.Delay(1000);
+    Navigation.NavigateTo("login", true);
+  }
+}

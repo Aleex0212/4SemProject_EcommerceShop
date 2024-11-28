@@ -1,4 +1,5 @@
 ﻿@page "/orders"
+@using Ecommerce.FrontEnd.Components
 
 @inject IMapper Mapper
 @inject NavigationManager Navigation
@@ -8,24 +9,15 @@
 @inject IOrderGatewayApi OrderGatewayApi
 
 <RadzenContent>
-  <div class="topnavbar-container">
-    <div class="topnavbar-content">
-      <RadzenIcon Icon="home" Style="width: 40px;" />
-      <span class="topnavbar-heading">Velkommen til EcommerceShop</span>
-      <div class="topnavbar-login">
-        <h3 style="color: #3498db; margin: 0;">Logget ind som</h3>
-        <h3>@_customerViewModel?.Name</h3>
-      </div>
-    </div>
-    <RadzenButton Icon="account_circle" class="topnavbar-button" />
-  </div>
+  <TopNavbar CustomerName="@_customerViewModel?.Name" />
 
-  <div class="sidebar">
-    <RadzenButton Text="Produkter" class="sidebar-button sidebar-button-primary" Click="OnProductsClickAsync" />
-    <RadzenButton Text="Kurv" Icon="shopping_cart" class="sidebar-button sidebar-button-secondary" Click="OnBasketClickAsync" />
-    <RadzenButton Text="Ordre" class="sidebar-button sidebar-button-primary" />
-    <RadzenButton Text="Indstillinger" class="sidebar-button sidebar-button-secondary" />
-    <RadzenButton Text="Log ud" Icon="exit_to_app" class="sidebar-button sidebar-button-logout" Click="OnLogOutClickAsync" />
+  <div class="content-wrapper">
+    <Sidebar
+      OnProductsClick="OnProductsClickAsync"
+      OnBasketClick="OnBasketClickAsync"
+      OnOrdreClick="OnOrdreClickAsync"
+      OnSettingsClick="OnSettingsClickAsync"
+      OnLogOutClick="OnLogOutClickAsync" />
   </div>
 
   <div style="margin-left: 270px; padding: 20px; flex-grow: 1;">
@@ -70,38 +62,42 @@
     var token = await SessionStorage.GetItemAsStringAsync("ecommerce-login-token");
   }
 
+  private void OnProductsClickAsync()
+  {
+    Navigation.NavigateTo("/products");
+  }
 
-  private void OnBasketClickAsync(MouseEventArgs obj)
+  private void OnBasketClickAsync()
   {
     Navigation.NavigateTo("/basket");
   }
 
-  private async Task OnLogOutClickAsync(MouseEventArgs obj)
+  private void OnOrdreClickAsync()
+  {
+    Navigation.NavigateTo("/orders");
+  }
+
+  private void OnSettingsClickAsync()
+  {
+    Navigation.NavigateTo("/settings");
+  }
+  
+  private async Task OnLogOutClickAsync()
   {
     await SessionStorage.RemoveItemAsync("ecommerce-login-token");
     await SessionStorage.RemoveItemAsync("basket");
     await SessionStorage.RemoveItemAsync("user-email");
     await SessionStorage.RemoveItemAsync("assigned-order");
 
-    NotificationService.Notify(new NotificationMessage
+    NotificationService.Notify
+    (new NotificationMessage()
     {
       Severity = NotificationSeverity.Info,
       Summary = "Logget ud",
-      Detail = "Du blev logget ud",
+      Detail =  "Du blev logget ud",
       Duration = 4000
     });
-
     await Task.Delay(1000);
     Navigation.NavigateTo("login", true);
-  }
-
-  private void OnProductsClickAsync(MouseEventArgs obj)
-  {
-    Navigation.NavigateTo("/products");
-  }
-
-  private void OnSettingsClickAsync(MouseEventArgs obj)
-  {
-    Navigation.NavigateTo("/settings");
   }
 }

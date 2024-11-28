@@ -1,0 +1,24 @@
+﻿<div class="sidebar">
+  <RadzenButton Text="Produkter" class="sidebar-button sidebar-button-primary" Click="@(() => OnProductsClick.InvokeAsync())" />
+  <RadzenButton Text="Kurv" Icon="shopping_cart" class="sidebar-button sidebar-button-secondary" Click="@(() => OnBasketClick.InvokeAsync())" />
+  <RadzenButton Text="Ordre" class="sidebar-button sidebar-button-primary" Click="@(() => OnOrdreClick.InvokeAsync())" />
+  <RadzenButton Text="Indstillinger" class="sidebar-button sidebar-button-secondary" Click="@(() => OnSettingsClick.InvokeAsync())" />
+  <RadzenButton Text="Log ud" Icon="exit_to_app" class="sidebar-button sidebar-button-logout" Click="@(() => OnLogOutClick.InvokeAsync())" />
+</div>
+
+@code {
+  [Parameter]
+  public EventCallback OnProductsClick { get; set; }
+
+  [Parameter]
+  public EventCallback OnBasketClick { get; set; }
+
+  [Parameter]
+  public EventCallback OnOrdreClick { get; set; }
+
+  [Parameter]
+  public EventCallback OnSettingsClick { get; set; }
+
+  [Parameter]
+  public EventCallback OnLogOutClick { get; set; }
+}
