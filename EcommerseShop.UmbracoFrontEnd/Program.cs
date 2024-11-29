@@ -1,7 +1,7 @@
-using EcommerceShop.Umraco.Refit;
-using EcommerceShop.Umraco.Controllers;
+using EcommerceShop.UmbracoFrontEnd.Refit;
+using EcommerceShop.UmbracoFrontEnd.Controllers;
+using EcommerceShop.UmbracoFrontEnd;
 using Refit;
-using EcommerceShop.Umraco;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 

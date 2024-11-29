@@ -1,6 +1,9 @@
-﻿@using EcommerceShop.Umraco.Refit
+﻿@using EcommerceShop.Common.Dto
+@using EcommerceShop.Umraco
+@using EcommerceShop.Umraco.Refit
 @using Umbraco.Cms.Web.Common.PublishedModels;
 @inject IProductApi productApi;
+@inject SessionStore sessionStore;
 @inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
 @{
   Layout = "master.cshtml";
@@ -12,11 +15,6 @@
 
 <!-- Main container -->
 <div class="container">
-  <div class="row section">
-    <div class="col-md-12">
-      @Model.Value("content")
-    </div>
-  </div>
 
   <!-- Products -->
   <div class="row section">
@@ -24,24 +22,25 @@
       <h3>Products</h3>
 
       @{
-        var products = await productApi.GetProducts();
-        var selection = Umbraco.Content(Guid.Parse("aabd056f-138a-43e6-9fed-fb1b0b2666f7"))
-        .ChildrenOfType("product")
-        .Where(x => x.IsVisible());
-      }
-      <ul>
-        @{
-          if (selection.Any())
-          {
-            foreach (var item in selection)
-            {
-              <li>
-                <a href="@item.Url()">@item.Name()</a>
-              </li>
-            }
-          }
+        List<ProductDto> products = new ();
+        var token = sessionStore.GetSessionToken();
+        if (String.IsNullOrEmpty(token))
+        {
+          @await Html.PartialAsync("partials/Login")
         }
-      </ul>
+        else
+        {
+          var tmp = await productApi.GetProducts(token);
+          products = tmp.ToList();
+        }
+      }
+      @if (products.Any())
+      {
+        @foreach (var product in products)
+        {
+          @await Html.PartialAsync("partials/DisplayProduct", product)
+        }
+      }
     </div>
   </div>
 </div>
