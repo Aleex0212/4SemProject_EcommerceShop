@@ -1,5 +1,5 @@
 ﻿using EcommerceShop.Common.Dto;
-using EcommerceShop.Umraco.Refit;
+using EcommerceShop.UmbracoFrontEnd.Refit;
 using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 using Microsoft.AspNetCore.Mvc;
 using System.Text;
@@ -12,7 +12,7 @@ using Umbraco.Cms.Infrastructure.Persistence;
 using Umbraco.Cms.Web.Common.Models;
 using Umbraco.Cms.Web.Website.Controllers;
 
-namespace EcommerceShop.Umraco.Controllers
+namespace EcommerceShop.UmbracoFrontEnd.Controllers
 {
   public class LoginController : SurfaceController
   {

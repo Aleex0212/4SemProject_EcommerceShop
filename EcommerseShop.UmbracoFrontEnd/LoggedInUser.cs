@@ -1,6 +1,6 @@
 ﻿using EcommerceShop.Common.Dto;
 
-namespace EcommerceShop.Umraco
+namespace EcommerceShop.UmbracoFrontEnd
 {
   public class LoggedInUser
   {

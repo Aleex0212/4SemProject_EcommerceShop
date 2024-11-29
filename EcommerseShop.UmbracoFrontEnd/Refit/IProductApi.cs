@@ -3,7 +3,7 @@ using EcommerceShop.Common.Routes;
 using Microsoft.AspNetCore.Mvc;
 using Refit;
 
-namespace EcommerceShop.Umraco.Refit
+namespace EcommerceShop.UmbracoFrontEnd.Refit
 {
   public interface IProductApi
   {

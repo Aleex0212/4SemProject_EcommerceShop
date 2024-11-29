@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.DataProtection;
 
-namespace EcommerceShop.Umraco
+namespace EcommerceShop.UmbracoFrontEnd
 {
   public class SessionStore
   {
