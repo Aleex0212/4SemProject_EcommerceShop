@@ -22,5 +22,10 @@ namespace OrderService.Persistence.Repositories
     {
       return _orders.Orders.First(o => o.Id == id);
     }
+
+    public IEnumerable<Order> GetByCustomerEmail(string customerEmail)
+    {
+      return _orders.Orders.Where(o => o.Customer.Email == customerEmail);
+    }
   }
 }

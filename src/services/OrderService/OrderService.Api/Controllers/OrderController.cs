@@ -19,15 +19,17 @@ namespace OrderService.Api.Controllers
     private readonly ICommandService _commandService;
     private readonly IQueryService _queryService;
     private readonly DomainMapper _domainMapper;
+    private readonly DtoMapper _dtoMapper;
 
     public OrderController(DaprWorkflowClient daprWorkflowClient, ILogger<OrderController> logger,
-      ICommandService commandService, DomainMapper domainMapper, IQueryService queryService)
+      ICommandService commandService, DomainMapper domainMapper, IQueryService queryService, DtoMapper dtoMapper)
     {
       _daprWorkflowClient = daprWorkflowClient;
       _logger = logger;
       _commandService = commandService;
       _domainMapper = domainMapper;
       _queryService = queryService;
+      _dtoMapper = dtoMapper;
     }
 
     [HttpPost(Routes.OrderRoutes.Create)]
@@ -95,6 +97,34 @@ namespace OrderService.Api.Controllers
       {
         _logger.LogError(500, $"something went wrong during fetching productId : {id}");
         return StatusCode(500, $"something went wrong during fetching productId : {id}");
+      }
+    }
+
+    [HttpGet(Routes.OrderRoutes.GetByEmail)]
+    [SwaggerOperation(
+      Summary = "Gets an collection of orders by customer email",
+      Description = "Retrieves all orders by customer email",
+      Tags = ["Orders"])]
+    public IActionResult Get(string customerEmail)
+    {
+      try
+      {
+        var orderDtos = new List<OrderDto>();
+
+        var orders = _queryService.GetOrdersByCustomerEmail(customerEmail);
+        if (!orders.Any()) return NoContent();
+
+        foreach (var order in orders)
+        {
+          var orderDto = _dtoMapper.MapOrderToDto(order);
+          orderDtos.Add(orderDto);
+        }
+        return Ok(orderDtos);
+      }
+      catch (Exception)
+      {
+        _logger.LogError(500, $"something went wrong during fetching order by customerEmail : {customerEmail}");
+        return StatusCode(500, $"something went wrong during fetching order by customerEmail : {customerEmail}");
       }
     }
 

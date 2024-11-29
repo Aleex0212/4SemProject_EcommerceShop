@@ -1,0 +1,101 @@
+﻿@page "/login"
+
+@inject IMapper Mapper
+@inject ILogger<Login> Logger
+@inject NavigationManager Navigation
+@inject NotificationService NotificationService
+@inject Blazored.SessionStorage.ISessionStorageService SessionStorage
+@inject IAuthGatewayApi AuthGatewayApi
+
+<RadzenContent>
+  <div class="login-container">
+    <RadzenPanel class="login-panel">
+      <h1 class="login-header main-header">Ecommerce-Shop</h1>
+      <h2 class="login-header welcome-header">Velkommen</h2>
+      <h3 class="login-header instruction-header">Log ind for at fortsætte</h3>
+
+      <RadzenTextBox @bind-Value="_loginViewModel.Email" Placeholder="Brugernavn" Type="email" class="login-input" />
+      <RadzenTextBox @bind-Value="_loginViewModel.Password" Placeholder="Adgangskode" Type="password" class="login-input" />
+      
+      <RadzenButton ButtonType="ButtonType.Button"
+                    Icon="lock"
+                    Text="Log ind"
+                    Click="@(async args => await HandleLogin())"
+                    class="login-button" />
+
+      <RadzenLink class="forgot-password-link"
+                  Text="Glemt adgangskode?"
+                  Url="/forgot-password" />
+    </RadzenPanel>
+  </div>
+</RadzenContent>
+
+@code {
+  private readonly LoginViewModel _loginViewModel = new();
+
+  private async Task HandleLogin()
+  {
+    try
+    {
+      var hashedPasswordSalt = HashPassword(_loginViewModel);
+
+      var loginDto = Mapper.Map<LoginDto>(_loginViewModel);
+
+      loginDto.HashedPassword = hashedPasswordSalt;
+
+      var token = await AuthGatewayApi.Login(loginDto);
+
+      if(!token.IsNullOrEmpty()) 
+        await SessionStorage.SetItemAsStringAsync("ecommerce-login-token", token);
+        await SessionStorage.SetItemAsStringAsync("user-email", _loginViewModel.Email);
+
+      LoginNotification(token);
+    }
+    catch (ApiException ex)
+    {
+      Logger.LogError($"Login failed: {ex.Message}");
+    }
+  }
+
+  private void LoginNotification(string token)
+  {
+    if (string.IsNullOrEmpty(token)) 
+    { 
+      NotificationService.Notify
+      (new NotificationMessage() { 
+        Severity = NotificationSeverity.Error, 
+        Summary = "Login Fejlede", 
+        Detail = "Forkert Email eller Adgangskode", 
+        Duration = 2000 });
+    }
+    else 
+    { 
+      NotificationService.Notify
+      (new NotificationMessage() { 
+        Severity = NotificationSeverity.Success, 
+        Summary = "Login gennemført", 
+        Detail = "Du er logget ind", 
+        Duration = 4000 });
+        
+      Navigation.NavigateTo("/products");
+    }
+  }
+
+  private string HashPassword(LoginViewModel loginViewModel)
+  {
+    string passwordToHash = loginViewModel.Password;
+    string saltValue = "super-secret-salt-value_xd";
+    byte[] salt = Encoding.UTF8.GetBytes(saltValue!);
+
+    string hashedPasswordSalt = Convert.ToBase64String
+    (KeyDerivation.Pbkdf2
+      (
+        password: passwordToHash,
+        salt: salt,
+        prf: KeyDerivationPrf.HMACSHA256,
+        iterationCount: 10,
+        numBytesRequested: 256 / 8)
+    );
+    return hashedPasswordSalt;
+  }
+}

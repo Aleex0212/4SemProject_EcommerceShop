@@ -17,6 +17,11 @@ namespace OrderService.Application.Services
       return _repository.GetAllOrders();
     }
 
+    public IEnumerable<Order> GetOrdersByCustomerEmail(string customerEmail)
+    {
+      return _repository.GetByCustomerEmail(customerEmail);
+    }
+
     public Order GetOrder(Guid orderId)
     {
       return _repository.GetOrder(orderId);

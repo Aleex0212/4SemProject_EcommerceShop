@@ -13,38 +13,28 @@ namespace UserService.Api.Db
 
       var user1 = new UserDto()
       {
-        Id = Guid.NewGuid(),
+        Id = new Guid("11111111-1111-1111-1111-111111111111"),
         Name = "User1",
-        Email = "Customer@Mail.dk",
-        Password = "3HMfKV5eMAsi7f/UlFnWVgd34dJYEsVZbUV4Em1qe1U=", //UserPassword1! + salt : "super-secret-salt-value_xd"
-        UserType = UserTypes.Customer,
-        Phone = "11111111",
-        Address = "User1Address"
-      };
-      var user2 = new UserDto()
-      {
-        Id = Guid.NewGuid(),
-        Name = "User2",
         Email = "Customer@Mail.dk",
         Password = "3HMfKV5eMAsi7f/UlFnWVgd34dJYEsVZbUV4Em1qe1U=", //UserPassword1! + salt : "super-secret-salt-value_xd"
         UserType = UserTypes.Customer,
         Phone = "22222222",
         Address = "User2Address"
       };
-      var user3 = new UserDto()
+      var user2 = new UserDto()
       {
-        Id = Guid.NewGuid(),
-        Name = "User3",
+        Id = new Guid("22222222-2222-2222-2222-222222222222"),
+        Name = "User2",
         Email = "Admin@Mail.dk",
         Password = "3HMfKV5eMAsi7f/UlFnWVgd34dJYEsVZbUV4Em1qe1U=", //UserPassword1! + salt : "super-secret-salt-value_xd"
         UserType = UserTypes.Admin,
         Phone = "33333333",
         Address = "User3Address"
       };
-      var user4 = new UserDto()
+      var user3 = new UserDto()
       {
-        Id = Guid.NewGuid(),
-        Name = "User4",
+        Id = new Guid("33333333-3333-3333-3333-333333333333"),
+        Name = "User3",
         Email = "User@Mail.dk",
         Password = "3HMfKV5eMAsi7f/UlFnWVgd34dJYEsVZbUV4Em1qe1U=", //UserPassword1! + salt : "super-secret-salt-value_xd"
         UserType = UserTypes.User,
@@ -54,7 +44,6 @@ namespace UserService.Api.Db
       Users.Add(user1);
       Users.Add(user2);
       Users.Add(user3);
-      Users.Add(user4);
     }
   }
 }

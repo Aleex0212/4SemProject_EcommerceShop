@@ -17,5 +17,7 @@ namespace OrderService.Application.Interfaces
     /// <param name="id"></param>
     /// <returns></returns>
     Order GetOrder(Guid id);
+
+    IEnumerable<Order> GetByCustomerEmail(string customerEmail);
   }
 }

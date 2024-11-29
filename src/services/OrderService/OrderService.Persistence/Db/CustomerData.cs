@@ -4,36 +4,28 @@ namespace OrderService.Persistence.Db
 {
   public class CustomerData
   {
-    public List<Customer> Customers { get; }
+    public List<Customer> Customers { get; } = new();
 
     public CustomerData()
     {
-      Customers = new List<Customer>();
       Customers.Add(Customer.Crate(
-        Guid.NewGuid(),
-        "Customer1",
-        "Customer1Email@Mail.dk",
-        "11111111",
-        "Customer1Address"));
-
-      Customers.Add(Customer.Crate(
-      Guid.NewGuid(),
-      "Customer2",
-      "Customer2Email@Mail.dk",
+      new Guid("11111111-1111-1111-1111-111111111111"),
+      "Customer1",
+      "Customer@Mail.dk",
       "22222222",
       "Customer2Address"));
 
       Customers.Add(Customer.Crate(
-      Guid.NewGuid(),
-      "Customer3",
-      "Customer3Email@Mail.dk",
+      new Guid("22222222-2222-2222-2222-222222222222"),
+      "Admin",
+      "Admin@Mail.dk",
       "33333333",
       "Customer3Address"));
 
       Customers.Add(Customer.Crate(
-      Guid.NewGuid(),
-      "Customer4",
-      "Customer4Email@Mail.dk",
+      new Guid("33333333-3333-3333-3333-333333333333"),
+      "User",
+      "User@Mail.dk",
       "44444444",
       "Customer4Address"));
     }
