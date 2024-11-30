@@ -1,6 +1,5 @@
 ﻿
 using EcommerceShop.UmbracoFrontEnd.ViewModels;
-using EcommerseShop.UmbracoFrontEnd.SessionStores;
 using Microsoft.AspNetCore.Mvc;
 using Umbraco.Cms.Core.Cache;
 using Umbraco.Cms.Core.Logging;
@@ -27,7 +26,7 @@ namespace EcommerceShop.UmbracoFrontEnd.Controllers
     [HttpPost]
     public IActionResult Submit(ContactForm contact)
     {
-      if (!ModelState.IsValid)
+      if (!ModelState.IsValid) // some validation error
       {
         return CurrentUmbracoPage();
       }

@@ -1,0 +1,24 @@
+﻿@using EcommerceShop.Common.Dto
+@using EcommerseShop.UmbracoFrontEnd.Controllers
+@model ProductLineDto
+
+<div class="card" style="width: 18rem;">
+  <div class="card-body">
+    <h5 class="card-title">@Model.Product.Name</h5>
+    <p class="card-text">@Model.Product.Price dkk</p>
+    <p class="card-text">Amount left - @Model.Product.Amount</p>
+    <div class="form-group">
+      @using (Html.BeginUmbracoForm<BasketController>(nameof(BasketController.AddProduct)))
+      {
+        <input asp-for="Product.Id" type="hidden" />
+        <input type="submit" value="+" class="btn btn-primary" />
+      }
+      <p>@Model.Quantity</p>
+      @using (Html.BeginUmbracoForm<BasketController>(nameof(BasketController.SubtractProduct)))
+      {
+        <input asp-for="Product.Id" type="hidden" />
+        <input type="submit" value="-" class="btn btn-primary" />
+      }
+    </div>
+  </div>
+</div>

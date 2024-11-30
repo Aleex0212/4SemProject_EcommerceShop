@@ -1,12 +1,11 @@
 ﻿@using EcommerceShop.Common.Dto
 @using EcommerceShop.UmbracoFrontEnd
 @using EcommerceShop.UmbracoFrontEnd.Refit
-@using EcommerseShop.UmbracoFrontEnd.Controllers
-@using EcommerseShop.UmbracoFrontEnd.SessionStores
+@using EcommerceShop.UmbracoFrontEnd.Controllers
 @using Umbraco.Cms.Web.Common.PublishedModels;
 @inject IProductApi productApi;
-@inject ProductController productController
 @inject SessionStore sessionStore;
+@inject ProductController productController
 @inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
 @{
   Layout = "master.cshtml";
@@ -24,13 +23,8 @@
     <div class="row section">
       <div class="col-md-12">
         <h3>Products</h3>
+
         @{
-          var selection = Umbraco.Content(Guid.Parse("c3a29565-4f5f-49ee-8b96-0711cea904f5"))
-            .ChildrenOfType("product")
-            .Where(x => x.IsVisible());
-
-          var names = selection.Select(x => x.Name);
-
           List<ProductDto> products = new();
           var token = sessionStore.GetSessionToken();
           if (String.IsNullOrEmpty(token))
@@ -39,11 +33,13 @@
           }
           else
           {
+            var selection = Umbraco.Content(Guid.Parse("c3a29565-4f5f-49ee-8b96-0711cea904f5"))
+            .ChildrenOfType("product")
+            .Where(x => x.IsVisible());
             var tmp = await productApi.GetProducts(token);
-
-            // productController.SetProducts(tmp, names); kan ikke få til at virke
-
             products = tmp.ToList();
+            productController.SetProducts(tmp, selection);
+
           }
         }
         @if (products.Any())
