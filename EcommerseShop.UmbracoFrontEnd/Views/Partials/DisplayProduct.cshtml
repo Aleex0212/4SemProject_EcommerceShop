@@ -1,11 +1,24 @@
 ﻿@using EcommerceShop.Common.Dto
+@using EcommerseShop.UmbracoFrontEnd.Controllers
 @model ProductDto
 
-<div class="card" style="width: 18rem;">
-  <div class="card-body">
-    <h5 class="card-title">@Model.Name</h5>
-    <p class="card-text">@Model.Price dkk</p>
-    <p class="card-text">Amount left - @Model.Amount</p>
-    <a href="#" class="btn btn-primary">Go somewhere</a>
+@using (Html.BeginUmbracoForm<ProductController>(nameof(ProductController.AddToCart)))
+
+{
+  <div class="card" style="width: 18rem;">
+    <div class="card-body">
+      <h5 class="card-title">@Model.Name</h5>
+      <p class="card-text">@Model.Price dkk</p>
+      <p class="card-text">Amount left - @Model.Amount</p>
+
+      <input asp-for="Id" type="hidden" />
+      <input asp-for="Name" type="hidden" />
+      <input asp-for="Price" type="hidden" />
+      <input asp-for="Amount" type="hidden" />
+
+      <div class="form-group">
+        <input type="submit" value="Add" class="btn btn-primary" />
+      </div>
+    </div>
   </div>
-</div>
+}

@@ -1,6 +1,6 @@
 ﻿using EcommerceShop.Common.Dto;
 using EcommerceShop.UmbracoFrontEnd.Refit;
-using EcommerseShop.UmbracoFrontEnd.SessionStores;
+using EcommerceShop.UmbracoFrontEnd.Refit;
 using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 using Microsoft.AspNetCore.Mvc;
 using System.Text;

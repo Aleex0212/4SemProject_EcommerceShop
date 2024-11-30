@@ -1,0 +1,64 @@
+﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+@inject IPublishedValueFallback publishedValueFallback;
+@{
+  Layout = null;
+  IPublishedContent root = Model.Root();
+}
+<!DOCTYPE HTML>
+<html>
+<head>
+  <title>@root.Name</title>
+  <link rel="icon" type="image/svg+xml" href="/umbraco/backoffice/0fb7e46dc407d24273c46a47756aff0ac8b1f537/assets/favicon.svg">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/main.css" />
+</head>
+
+<body>
+
+  <!-- Navigation -->
+  <div class="container">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand fw-bold" href="@root.Url()">@root.Name</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          @foreach (var item in root.Children().Where(x => x.IsVisible(publishedValueFallback)).ToArray())
+          {
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="@item.Url()">@item.Name</a>
+            </li>
+          }
+        </ul>
+      </div>
+    </nav>
+  </div>
+  <!-- Jumbotron, with title -->
+  <div class="jumbotron text-center jumbotron-fluid">
+    <div class="container">
+      <h1 class="display-1">@Model.Name</h1>
+    </div>
+  </div>
+
+  @RenderBody()
+
+  <!-- Footer -->
+  <div class="container-fluid fixed-bottom footer mt-5">
+    <div class="container">
+      <div class="row section py-4">
+        <div class="col-md-4">
+          @root.Value("footer")
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

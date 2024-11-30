@@ -1,0 +1,45 @@
+﻿@using EcommerceShop.UmbracoFrontEnd.Controllers
+@using EcommerceShop.UmbracoFrontEnd.ViewModels
+@model ContactForm
+
+
+@{
+  ViewData["Title"] = "ContactForm";
+}
+<div class="container">
+
+  <h1>ContactForm</h1>
+
+  <h4>ContactForm</h4>
+  <hr />
+  <div class="row">
+    <div class="col-md-4">
+      @using (Html.BeginUmbracoForm<ContactController>(nameof(ContactController.Submit)))
+      {
+        <div class="form-group">
+          <label asp-for="Message" class="control-label"></label>
+          <input asp-for="Message" class="form-control" />
+          <span asp-validation-for="Message" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+          <input type="submit" value="Create" class="btn btn-primary" />
+        </div>
+      }
+      @if (TempData["success"] == null)
+      {
+        // display the form - put all the normal form code here
+      }
+      else
+      {
+        <p>Thank you for contacting us. We’ll be in touch soon!</p>
+      }
+
+    </div>
+  </div>
+</div>
+
+@section Scripts {
+  @{
+    await Html.RenderPartialAsync("_ValidationScriptsPartial");
+  }
+}
