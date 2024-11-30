@@ -1,0 +1,16 @@
+﻿@using EcommerceShop.Umraco
+@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+@inject LoggedInUser loggedInUser;
+@{
+  Layout = "master.cshtml";
+}
+
+@if (loggedInUser.User is not null)
+{
+  @await Html.PartialAsync("partials/LoginStatus")
+}
+else
+{
+  @await Html.PartialAsync("partials/Login")
+}

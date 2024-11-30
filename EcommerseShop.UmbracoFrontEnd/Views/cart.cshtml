@@ -1,0 +1,43 @@
+﻿@using EcommerceShop.Common.Enum
+@using EcommerseShop.UmbracoFrontEnd.Controllers
+@using EcommerseShop.UmbracoFrontEnd.SessionStores
+@using Umbraco.Cms.Web.Common.PublishedModels;
+@inject LoggedInUser loggedInUser
+@inject Basket cart
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+@{
+  Layout = "master.cshtml";
+    string redirectUrl = Model.Root().Url();
+}
+
+@if (loggedInUser.User is null)
+{
+  @await Html.PartialAsync("partials/Login")
+}
+else
+{
+  if (loggedInUser.User.UserType is not UserTypes.Customer)
+  {
+    @await Html.PartialAsync("partials/NoAccess")
+  }
+  else
+  {
+    <div class="container">
+    @foreach(var product in cart.Products)
+    {
+      @await Html.PartialAsync("partials/CartProduct", product)
+    }
+    @{
+      var prices = cart.Products.Select(x => x.Product.Price * x.Quantity);
+      var totalPrice = prices.Sum();
+    <h5>Total price: @totalPrice</h5>
+}
+
+@using (Html.BeginUmbracoForm<BasketController>(nameof(BasketController.PlaceOrder)))
+  {
+      <input type="hidden" asp-for="@redirectUrl" />
+    <input type="submit" value="Place order" class="btn btn-primary btn-lg"/>
+  }
+      </div>
+  }
+}

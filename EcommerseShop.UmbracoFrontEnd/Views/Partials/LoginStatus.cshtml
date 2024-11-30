@@ -1,0 +1,32 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+
+@using EcommerceShop.UmbracoFrontEnd
+@using EcommerceShop.UmbracoFrontEnd.Controllers
+@using EcommerseShop.UmbracoFrontEnd.SessionStores
+@using Microsoft.AspNetCore.Http.Extensions
+@using Umbraco.Cms.Web.Common.Models
+@using Umbraco.Cms.Web.Website.Controllers
+@using Umbraco.Extensions
+@inject LoggedInUser loggedInUser;
+
+@{
+  var logoutModel = new PostRedirectModel();
+  // You can modify this to redirect to a different URL instead of the current one
+  logoutModel.RedirectUrl = Model.Root().Url();
+}
+
+@if (loggedInUser is not null)
+{
+  <div class="container">
+    <div class="login-status">
+
+      <p>Welcome back <strong>@loggedInUser.User.Email</strong>!</p>
+
+      @using (Html.BeginUmbracoForm<LoginController>(nameof(LoginController.LogOut), new { RedirectUrl = logoutModel.RedirectUrl }))
+      {
+        <button type="submit" class="btn btn-primary">Log out</button>
+      }
+
+    </div>
+  </div>
+}

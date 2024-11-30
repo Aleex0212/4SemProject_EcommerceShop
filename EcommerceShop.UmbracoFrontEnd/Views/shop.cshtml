@@ -1,0 +1,59 @@
+﻿@using EcommerceShop.Common.Dto
+@using EcommerceShop.UmbracoFrontEnd
+@using EcommerceShop.UmbracoFrontEnd.Refit
+@using EcommerceShop.UmbracoFrontEnd.Controllers
+@using Umbraco.Cms.Web.Common.PublishedModels;
+@inject IProductApi productApi;
+@inject SessionStore sessionStore;
+@inject ProductController productController
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+@{
+  Layout = "master.cshtml";
+}
+
+<!DOCTYPE HTML>
+
+
+
+<!-- Main container -->
+<div class="container">
+  @try
+  {
+    <!-- Products -->
+    <div class="row section">
+      <div class="col-md-12">
+        <h3>Products</h3>
+
+        @{
+          List<ProductDto> products = new();
+          var token = sessionStore.GetSessionToken();
+          if (String.IsNullOrEmpty(token))
+          {
+            @await Html.PartialAsync("partials/Login")
+          }
+          else
+          {
+            var selection = Umbraco.Content(Guid.Parse("c3a29565-4f5f-49ee-8b96-0711cea904f5"))
+            .ChildrenOfType("product")
+            .Where(x => x.IsVisible());
+            var tmp = await productApi.GetProducts(token);
+            products = tmp.ToList();
+            productController.SetProducts(tmp, selection);
+
+          }
+        }
+        @if (products.Any())
+        {
+          @foreach (var product in products)
+          {
+            @await Html.PartialAsync("partials/DisplayProduct", product)
+          }
+        }
+      </div>
+    </div>
+  }
+  catch
+  {
+    @await Html.PartialAsync("partials/NoAccess")
+  }
+</div>

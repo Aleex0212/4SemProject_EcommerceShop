@@ -1,0 +1,20 @@
+﻿@using EcommerceShop.UmbracoFrontEnd
+@using EcommerceShop.UmbracoFrontEnd.ViewModels
+@using EcommerseShop.UmbracoFrontEnd.SessionStores
+@using Umbraco.Cms.Web.Common.PublishedModels;
+@inject LoggedInUser loggedInUser
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+@{
+	Layout = "master.cshtml";
+}
+
+@{
+  @if (loggedInUser.User is null)
+  {
+    @await Html.PartialAsync("partials/Login")
+  }
+  else
+  {
+  Html.RenderPartial("Partials/ContactForm.cshtml", new ContactForm());
+  }
+}

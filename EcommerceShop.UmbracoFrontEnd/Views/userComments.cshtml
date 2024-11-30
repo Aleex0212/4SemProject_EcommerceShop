@@ -1,0 +1,43 @@
+﻿@using EcommerceShop.Common.Enum
+@using EcommerceShop.UmbracoFrontEnd
+@using Umbraco.Cms.Web.Common.PublishedModels;
+@inject LoggedInUser loggedInUser
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+@{
+  Layout = "master.cshtml";
+}
+
+
+@{
+	var selection = Umbraco.Content(Guid.Parse("3af77d96-cf65-4f05-bbd6-4bcac4677cac"))
+    .ChildrenOfType("comment")
+    .Where(x => x.IsVisible())
+    .OrderBy(x => x.CreateDate);
+}
+
+@if (loggedInUser.User is null)
+{
+  @await Html.PartialAsync("partials/Login")
+}
+else
+{
+  if (loggedInUser.User.UserType is UserTypes.Admin)
+  {
+    <div class="container">
+      <ul>
+        @foreach (var item in selection)
+        {
+          <li>
+            <p><strong>@item.Value("username")</strong> wrote</p>
+            <p>@item.Value("message")</p>
+          </li>
+        }
+      </ul>
+    </div>
+  }
+  else
+  {
+    @await Html.PartialAsync("partials/NoAccess")
+  }
+}
+

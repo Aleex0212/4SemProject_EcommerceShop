@@ -1,7 +1,9 @@
-using EcommerceShop.Umraco.Refit;
-using EcommerceShop.Umraco.Controllers;
+using EcommerceShop.UmbracoFrontEnd.Refit;
+using EcommerceShop.UmbracoFrontEnd.Controllers;
+using EcommerceShop.UmbracoFrontEnd;
 using Refit;
-using EcommerceShop.Umraco;
+using EcommerceShop.UmbracoFrontEnd.Controllers;
+using EcommerceShop.UmbracoFrontEnd.Refit;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
@@ -27,6 +29,7 @@ builder.Services.AddRefitClient<IUserApi>()
 
 builder.Services.AddDataProtection();
 
+builder.Services.AddScoped<ProductController>();
 builder.Services.AddScoped<LoginController>();
 builder.Services.AddScoped<ContactController>();
 builder.Services.AddSingleton<SessionStore>();

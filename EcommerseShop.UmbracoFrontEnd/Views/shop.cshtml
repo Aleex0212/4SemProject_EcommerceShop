@@ -1,0 +1,63 @@
+﻿@using EcommerceShop.Common.Dto
+@using EcommerceShop.UmbracoFrontEnd
+@using EcommerceShop.UmbracoFrontEnd.Refit
+@using EcommerseShop.UmbracoFrontEnd.Controllers
+@using EcommerseShop.UmbracoFrontEnd.SessionStores
+@using Umbraco.Cms.Web.Common.PublishedModels;
+@inject IProductApi productApi;
+@inject ProductController productController
+@inject SessionStore sessionStore;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+@{
+  Layout = "master.cshtml";
+}
+
+<!DOCTYPE HTML>
+
+
+
+<!-- Main container -->
+<div class="container">
+  @try
+  {
+    <!-- Products -->
+    <div class="row section">
+      <div class="col-md-12">
+        <h3>Products</h3>
+        @{
+          var selection = Umbraco.Content(Guid.Parse("c3a29565-4f5f-49ee-8b96-0711cea904f5"))
+            .ChildrenOfType("product")
+            .Where(x => x.IsVisible());
+
+          var names = selection.Select(x => x.Name);
+
+          List<ProductDto> products = new();
+          var token = sessionStore.GetSessionToken();
+          if (String.IsNullOrEmpty(token))
+          {
+            @await Html.PartialAsync("partials/Login")
+          }
+          else
+          {
+            var tmp = await productApi.GetProducts(token);
+
+            // productController.SetProducts(tmp, names); kan ikke få til at virke
+
+            products = tmp.ToList();
+          }
+        }
+        @if (products.Any())
+        {
+          @foreach (var product in products)
+          {
+            @await Html.PartialAsync("partials/DisplayProduct", product)
+          }
+        }
+      </div>
+    </div>
+  }
+  catch
+  {
+    @await Html.PartialAsync("partials/NoAccess")
+  }
+</div>

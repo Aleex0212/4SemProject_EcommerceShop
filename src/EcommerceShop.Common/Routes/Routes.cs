@@ -14,7 +14,7 @@
       public static class OrderGatewayRoutes
       {
         public const string Order = BaseUrl + "/order";
-        public const string GetByEmail = BaseUrl + "/GetByEmail{customerEmail}";
+        public const string GetByEmail = BaseUrl + "/GetByEmail/{customerEmail}";
       }
       public static class ProductGatewayRoutes
       {
@@ -27,7 +27,7 @@
       public static class UserGatewayRoutes
       {
         public const string User = BaseUrl + "/user";
-        public const string GetByEmail = User + "/GetByEmail{email}";
+        public const string GetByEmail = User + "/GetByEmail/{email}";
       }
     }
 
