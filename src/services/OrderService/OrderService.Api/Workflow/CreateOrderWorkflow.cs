@@ -50,6 +50,7 @@ namespace OrderService.Api.Workflow
           order.Status = OrderStatus.Failed;
           activityResults.Add("AuthorizePaymentActivity failed");
           await context.CallActivityAsync(nameof(ReleaseProductActivity), productLines);
+          throw new PaymentFailedException($"Payment for orderId: {order.Id}");
         }
         activityResults.Add("AuthorizePaymentActivity succeed");
         #endregion
@@ -60,6 +61,7 @@ namespace OrderService.Api.Workflow
         {
           activityResults.Add("ConfirmOrderActivity failed");
           await context.CallActivityAsync(nameof(ReleaseProductActivity));
+          throw new ConfirmOrderException($"Failed to complete order with orderId: {order.Id}");
         }
         activityResults.Add($"OrderCreate succeed with OrderId: {order.Id}");
         await context.CallActivityAsync(nameof(NotificationActivity), activityResults);

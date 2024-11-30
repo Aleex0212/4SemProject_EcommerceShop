@@ -1,8 +1,10 @@
 ﻿using EcommerceShop.Common.Dto;
 using EcommerceShop.Common.Enum;
 using EcommerseShop.UmbracoFrontEnd.Refit;
+using EcommerseShop.UmbracoFrontEnd.Refit.RestSharp;
 using EcommerseShop.UmbracoFrontEnd.SessionStores;
 using Microsoft.AspNetCore.Mvc;
+using System.Text.Json;
 using Umbraco.Cms.Core.Cache;
 using Umbraco.Cms.Core.Logging;
 using Umbraco.Cms.Core.Routing;
@@ -15,19 +17,22 @@ namespace EcommerseShop.UmbracoFrontEnd.Controllers
 {
   public class BasketController : SurfaceController
   {
+    private readonly OrderApi orderApi1;
     private readonly SessionStore _sessionStore;
     private readonly IOrderApi _orderApi;
     private readonly Basket _basket;
     private readonly LoggedInUser _loggedInUser;
     public BasketController(IUmbracoContextAccessor umbracoContextAccessor, IUmbracoDatabaseFactory databaseFactory,
       ServiceContext services, AppCaches appCaches, IProfilingLogger profilingLogger,
-      IPublishedUrlProvider publishedUrlProvider, Basket basket, LoggedInUser loggedInUser, IOrderApi orderApi, SessionStore sessionStore)
+      IPublishedUrlProvider publishedUrlProvider, Basket basket, LoggedInUser loggedInUser, IOrderApi orderApi,
+      SessionStore sessionStore, OrderApi orderApi1)
       : base(umbracoContextAccessor, databaseFactory, services, appCaches, profilingLogger, publishedUrlProvider)
     {
       _basket = basket;
       _loggedInUser = loggedInUser;
       _orderApi = orderApi;
       _sessionStore = sessionStore;
+      this.orderApi1 = orderApi1;
     }
 
     [HttpPost]
@@ -68,7 +73,9 @@ namespace EcommerseShop.UmbracoFrontEnd.Controllers
         };
         var token = _sessionStore.GetSessionToken();
 
-        await _orderApi.CreateOrderAsync(order, token);
+        await orderApi1.CreateOrder(order);
+
+        //await _orderApi.CreateOrderAsync(order, token);
 
         return Redirect(redirectUrl);
       }

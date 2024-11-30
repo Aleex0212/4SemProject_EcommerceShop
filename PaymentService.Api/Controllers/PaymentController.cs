@@ -21,16 +21,16 @@ namespace PaymentService.Api.Controllers
       Summary = "Create a product",
       Description = "Endpoint for Creating a payment",
       Tags = new[] { "Payment" })]
-    public IActionResult Post([FromBody] PaymentDto payment)
+    public IActionResult Post([FromBody] OrderDto order)
     {
       try
       {
-        return Ok($"payment successful for paymentId {payment.Id}");
+        return Ok($"payment successful for orderId {order.Id}");
       }
       catch (Exception ex)
       {
-        _logger.LogError(ex, $"Payment failed for payment with Id {payment.Id}");
-        return StatusCode(500, $"Payment failed for payment with Id {payment.Id}");
+        _logger.LogError(ex, $"Payment failed for order with Id {order.Id}");
+        return StatusCode(500, $"Payment failed for order with Id {order.Id}");
       }
     }
   }
