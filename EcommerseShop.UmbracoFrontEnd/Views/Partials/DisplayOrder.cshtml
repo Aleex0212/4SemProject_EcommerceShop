@@ -1,0 +1,15 @@
+﻿@using EcommerceShop.Common.Dto
+@model OrderDto 
+
+<div class="card" style="width: 18rem;">
+  <div class="card-body">
+    <h5 class="card-title">@Model.Status.ToString()</h5>
+    <p class="card-text">Total price: @Model.TotalPrice dkk.</p>
+    <p class="card-text" style="font-weight: bold;">Products</p>
+    <p> </p>
+    @foreach(var productLine in Model.ProductLines)
+    {
+      <p>@productLine.Quantity x @productLine.Product.Name at @productLine.Product.Price dkk.</p>
+    }
+  </div>
+</div>
