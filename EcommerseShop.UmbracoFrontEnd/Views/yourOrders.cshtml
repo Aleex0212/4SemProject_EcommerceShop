@@ -1,0 +1,45 @@
+﻿@using EcommerceShop.Common.Enum
+@using EcommerseShop.UmbracoFrontEnd.Refit
+@using EcommerseShop.UmbracoFrontEnd.SessionStores
+@using Umbraco.Cms.Web.Common.PublishedModels;
+@inject LoggedInUser loggedInUser
+@inject IOrderApi orderApi
+@inject LoggedInUser loggedInUser
+@inject SessionStore sessionStore
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+@{
+
+  Layout = "master.cshtml";
+
+}
+
+@if (loggedInUser.User is null)
+{
+  @await Html.PartialAsync("partials/Login")
+}
+else
+{
+  if (loggedInUser.User.UserType is not UserTypes.Customer)
+  {
+    @await Html.PartialAsync("partials/NoAccess")
+  }
+  else
+  {
+    <div class="container">
+      @{
+        var orders = await orderApi.GetOrdersByCustomerEmail(loggedInUser.User.Email, sessionStore.GetSessionToken());
+        if(orders is not null)
+        {
+          foreach(var order in orders)
+          {
+            @await Html.PartialAsync("partials/DisplayOrder", order)
+          }
+        }
+        else
+        {
+          <p>You have not yet placed any orders with us.</p>
+        }
+      }
+    </div>
+  }
+}

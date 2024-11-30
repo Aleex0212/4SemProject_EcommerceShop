@@ -28,6 +28,7 @@ namespace EcommerseShop.UmbracoFrontEnd.Controllers
     /// </summary>
     /// <param name="products"></param>
     /// <param name="existingProducts"></param>
+    [HttpPost]
     public void SetProducts(IEnumerable<ProductDto> products, IEnumerable<string> existingProducts)
     {
 
