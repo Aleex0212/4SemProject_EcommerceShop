@@ -1,6 +1,4 @@
 ﻿@page "/orders"
-@using Ecommerce.FrontEnd.Components
-@using Microsoft.EntityFrameworkCore.Migrations.Operations
 
 @inject IMapper Mapper
 @inject NavigationManager Navigation
@@ -98,9 +96,12 @@
     }
     var userEmail = await SessionStorage.GetItemAsync<string>("user-email");
     var customer = await UserGatewayApi.GetCustomerByEmail(userEmail);
-    
-    if (customer.UserType != UserTypes.Customer) Navigation.NavigateTo("/login", true);
-    RemoveCachedSession();
+
+    if (customer.UserType != UserTypes.Customer)
+    {
+      RemoveCachedSession();
+      Navigation.NavigateTo("/login", true);
+    }
     return customer;
   }
 
