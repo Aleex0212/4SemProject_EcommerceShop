@@ -1,7 +1,5 @@
 ﻿@page "/basket"
 
-@using Ecommerce.FrontEnd.Components
-
 @inject NotificationService NotificationService
 @inject NavigationManager Navigation
 @inject ISessionStorageService SessionStorage
@@ -15,7 +13,7 @@
   <div class="content-wrapper">
     <Sidebar OnProductsClick="OnProductsClickAsync"
              OnBasketClick="OnBasketClickAsync"
-             OnOrdreClick="OnOrdreClickAsync"
+             OnOrdreClick="OnOrderClickAsync"
              OnSettingsClick="OnSettingsClickAsync"
              OnLogOutClick="OnLogOutClickAsync" />
   </div>
@@ -237,7 +235,7 @@
     Navigation.NavigateTo("/basket");
   }
 
-  private void OnOrdreClickAsync()
+  private void OnOrderClickAsync()
   {
     Navigation.NavigateTo("/orders");
   }
