@@ -35,7 +35,6 @@
           <p class="product-price">Pris: @product.Price kr.</p>
           <p class="product-quantity">Antal tilgængelig: @product.Amount</p>
           <div class="product-actions">
-            <RadzenNumeric TValue="int" Min="1" Class="input-numeric" @bind-Value="_productLineViewModel!.Quantity" />
             <RadzenButton Text="Tilføj til kurv" Class="button-buy-now" Click="@(args => OnBuyClickAsync(product))" />
           </div>
         </div>
@@ -49,10 +48,15 @@
   private readonly ProductLineViewModel? _productLineViewModel = new();
   private CustomerViewModel? _customerViewModel = new();
 
+
   protected override async Task OnInitializedAsync()
   {
     var token = await SessionStorage.GetItemAsync<string>("ecommerce-login-token");
-    if (string.IsNullOrEmpty(token)) Navigation.NavigateTo("login", true);
+    if (string.IsNullOrEmpty(token))
+    {
+      RemoveCachedSession();
+      Navigation.NavigateTo("login", true);
+    }
 
     var userEmail = await SessionStorage.GetItemAsync<string>("user-email");
     var customer = await UserGatewayApi.GetCustomerByEmail(userEmail);
@@ -87,19 +91,6 @@
       Quantity = _productLineViewModel?.Quantity ?? 0
     };
 
-    if (productLineViewModel.Quantity == 0)
-    {
-      NotificationService.Notify
-      (new NotificationMessage()
-      {
-        Severity = NotificationSeverity.Warning,
-        Summary = "Vælg antal",
-        Detail = $"Du skal angive hvor mange produkter du vil ligge i kurven",
-        Duration = 4000
-      });
-      return;
-    }
-
     var basket = await SessionStorage.GetItemAsync<List<ProductLineViewModel>>("basket") ?? new();
     basket.Add(productLineViewModel);
     await SessionStorage.SetItemAsync("basket", basket);
@@ -109,10 +100,35 @@
     {
       Severity = NotificationSeverity.Info,
       Summary = "Tilføjet til Kurv",
-      Detail = $"{productLineViewModel.Quantity} stk. af {product.Name} er tilføjet til kurven",
+      Detail = $"{product.Name} er tilføjet til kurven",
       Duration = 4000
     });
   }
+  
+  private async Task OnLogOutClickAsync()
+  {
+    RemoveCachedSession();
+
+    NotificationService.Notify
+    (new NotificationMessage()
+    {
+      Severity = NotificationSeverity.Info,
+      Summary = "Logget ud",
+      Detail =  "Du blev logget ud",
+      Duration = 4000
+    });
+    await Task.Delay(1000);
+    Navigation.NavigateTo("login", true);
+  }
+
+  private void RemoveCachedSession()
+  {
+    SessionStorage.RemoveItemAsync("ecommerce-login-token");
+    SessionStorage.RemoveItemAsync("basket");
+    SessionStorage.RemoveItemAsync("user-email");
+    SessionStorage.RemoveItemAsync("assigned-order");
+  }
+
 
   private void OnProductsClickAsync()
   {
@@ -132,24 +148,5 @@
   private void OnSettingsClickAsync()
   {
     Navigation.NavigateTo("/settings");
-  }
-  
-  private async Task OnLogOutClickAsync()
-  {
-    await SessionStorage.RemoveItemAsync("ecommerce-login-token");
-    await SessionStorage.RemoveItemAsync("basket");
-    await SessionStorage.RemoveItemAsync("user-email");
-    await SessionStorage.RemoveItemAsync("assigned-order");
-
-    NotificationService.Notify
-    (new NotificationMessage()
-    {
-      Severity = NotificationSeverity.Info,
-      Summary = "Logget ud",
-      Detail =  "Du blev logget ud",
-      Duration = 4000
-    });
-    await Task.Delay(1000);
-    Navigation.NavigateTo("login", true);
   }
 }
