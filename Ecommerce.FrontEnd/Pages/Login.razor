@@ -1,10 +1,11 @@
 ﻿@page "/login"
+@using Microsoft.AspNetCore.Components.Forms
 
 @inject IMapper Mapper
 @inject ILogger<Login> Logger
 @inject NavigationManager Navigation
 @inject NotificationService NotificationService
-@inject Blazored.SessionStorage.ISessionStorageService SessionStorage
+@inject ISessionStorageService SessionStorage
 @inject IAuthGatewayApi AuthGatewayApi
 
 <RadzenContent>
@@ -14,14 +15,25 @@
       <h2 class="login-header welcome-header">Velkommen</h2>
       <h3 class="login-header instruction-header">Log ind for at fortsætte</h3>
 
-      <RadzenTextBox @bind-Value="_loginViewModel.Email" Placeholder="Brugernavn" Type="email" class="login-input" />
-      <RadzenTextBox @bind-Value="_loginViewModel.Password" Placeholder="Adgangskode" Type="password" class="login-input" />
-      
-      <RadzenButton ButtonType="ButtonType.Button"
-                    Icon="lock"
-                    Text="Log ind"
-                    Click="@(async args => await HandleLogin())"
-                    class="login-button" />
+      <EditForm Model="_loginViewModel" OnValidSubmit="HandleLogin">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+
+        <RadzenTextBox @bind-Value="_loginViewModel.Email"
+                       Placeholder="Brugernavn"
+                       Type="email"
+                       class="login-input" />
+
+        <RadzenTextBox @bind-Value="_loginViewModel.Password"
+                       Placeholder="Adgangskode"
+                       Type="password"
+                       class="login-input" />
+
+        <RadzenButton ButtonType="ButtonType.Submit"
+                      Icon="lock"
+                      Text="Log ind"
+                      class="login-button" />
+      </EditForm>
 
       <RadzenLink class="forgot-password-link"
                   Text="Glemt adgangskode?"
@@ -30,24 +42,38 @@
   </div>
 </RadzenContent>
 
+
 @code {
   private readonly LoginViewModel _loginViewModel = new();
 
   private async Task HandleLogin()
   {
+    if (!ValidateForm()) 
+    {
+      NotificationService.Notify(new NotificationMessage
+      {
+        Severity = NotificationSeverity.Error,
+        Summary = "Input Valideringsfejl",
+        Detail = "Venligst udfyld alle felter korrekt.",
+        Duration = 2000
+      });
+      return;
+    }
+
     try
     {
       var hashedPasswordSalt = HashPassword(_loginViewModel);
 
       var loginDto = Mapper.Map<LoginDto>(_loginViewModel);
-
       loginDto.HashedPassword = hashedPasswordSalt;
 
       var token = await AuthGatewayApi.Login(loginDto);
 
-      if(!token.IsNullOrEmpty()) 
+      if (!token.IsNullOrEmpty())
+      {
         await SessionStorage.SetItemAsStringAsync("ecommerce-login-token", token);
         await SessionStorage.SetItemAsStringAsync("user-email", _loginViewModel.Email);
+      }
 
       LoginNotification(token);
     }
@@ -59,24 +85,26 @@
 
   private void LoginNotification(string token)
   {
-    if (string.IsNullOrEmpty(token)) 
-    { 
-      NotificationService.Notify
-      (new NotificationMessage() { 
-        Severity = NotificationSeverity.Error, 
-        Summary = "Login Fejlede", 
-        Detail = "Forkert Email eller Adgangskode", 
-        Duration = 2000 });
+    if (string.IsNullOrEmpty(token))
+    {
+      NotificationService.Notify(new NotificationMessage
+      {
+        Severity = NotificationSeverity.Error,
+        Summary = "Login Fejlede",
+        Detail = "Forkert Email eller Adgangskode",
+        Duration = 2000
+      });
     }
-    else 
-    { 
-      NotificationService.Notify
-      (new NotificationMessage() { 
-        Severity = NotificationSeverity.Success, 
-        Summary = "Login gennemført", 
-        Detail = "Du er logget ind", 
-        Duration = 4000 });
-        
+    else
+    {
+      NotificationService.Notify(new NotificationMessage
+      {
+        Severity = NotificationSeverity.Success,
+        Summary = "Login gennemført",
+        Detail = "Du er logget ind",
+        Duration = 4000
+      });
+
       Navigation.NavigateTo("/products");
     }
   }
@@ -97,5 +125,11 @@
         numBytesRequested: 256 / 8)
     );
     return hashedPasswordSalt;
+  }
+
+  private bool ValidateForm()
+  {
+    return !string.IsNullOrWhiteSpace(_loginViewModel.Email) &&
+           !string.IsNullOrWhiteSpace(_loginViewModel.Password);
   }
 }
