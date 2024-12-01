@@ -67,24 +67,11 @@
       RemoveCachedSession();
       Navigation.NavigateTo("/login", true);
     }
-
     var userEmail = await SessionStorage.GetItemAsync<string>("user-email");
     var customer = await UserGatewayApi.GetCustomerByEmail(userEmail);
 
-    if (customer.UserType != UserTypes.Customer)
-    {
-      RemoveCachedSession();
-      NotificationService.Notify
-      (new NotificationMessage()
-        {
-          Severity = NotificationSeverity.Error,
-          Summary = "Adgang nægtet",
-          Detail = "Du har ikke adgang til denne side",
-          Duration = 4000
-        });
-      await Task.Delay(1000);
-      Navigation.NavigateTo("/login", true);
-    }
+    if (customer.UserType != UserTypes.Customer) Navigation.NavigateTo("/login", true); 
+    RemoveCachedSession();
     return customer;
   }
 

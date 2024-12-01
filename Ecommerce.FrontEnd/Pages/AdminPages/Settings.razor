@@ -31,21 +31,8 @@
     var userEmail = await SessionStorage.GetItemAsync<string>("user-email");
     var customer = await UserGatewayApi.GetCustomerByEmail(userEmail);
 
-    if (customer.UserType != UserTypes.Admin)
-    {
-      RemoveCachedSession();
-      NotificationService.Notify
-      (new NotificationMessage()
-        {
-          Severity = NotificationSeverity.Error,
-          Summary = "Adgang nægtet",
-          Detail = "Du har ikke adgang til denne side",
-          Duration = 4000
-        });
-      await Task.Delay(1000);
-      RemoveCachedSession();
-      Navigation.NavigateTo("/login", true);
-    }
+    if (customer.UserType != UserTypes.Admin) Navigation.NavigateTo("/login", true);
+    RemoveCachedSession();
     return customer;
   }
 
