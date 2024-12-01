@@ -39,6 +39,38 @@ namespace ProductService.Api.Db
         Price = 400,
         Amount = 1000
       });
+
+      Products.Add(new ProductDto
+      {
+        Id = new Guid("55555555-5555-5555-5555-555555555555"),
+        Name = "Product5",
+        Price = 500,
+        Amount = 1000
+      });
+
+      Products.Add(new ProductDto
+      {
+        Id = new Guid("66666666-6666-6666-6666-666666666666"),
+        Name = "Product6",
+        Price = 600,
+        Amount = 1000
+      });
+
+      Products.Add(new ProductDto
+      {
+        Id = new Guid("77777777-7777-7777-7777-777777777777"),
+        Name = "Product7",
+        Price = 700,
+        Amount = 1000
+      });
+
+      Products.Add(new ProductDto
+      {
+        Id = new Guid("88888888-8888-8888-8888-888888888888"),
+        Name = "Product8",
+        Price = 800,
+        Amount = 1000
+      });
     }
   }
 }

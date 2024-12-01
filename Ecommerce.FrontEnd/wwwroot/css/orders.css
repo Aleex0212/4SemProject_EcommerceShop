@@ -13,7 +13,7 @@
 
 
 .order-content {
-  background-color: #c0cad7 !important;
+  background: linear-gradient(135deg, #1b242e, #243447, #2c3e50);
   display: grid;
   grid-template-columns: min-content auto;
   gap: 20px;
@@ -89,4 +89,8 @@
   font-size: 1.1rem;
   text-align: center;
   margin-top: 15px;
+}
+
+.white-text{
+  color: white;
 }
