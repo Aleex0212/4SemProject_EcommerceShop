@@ -70,7 +70,7 @@ namespace OrderService.Api.Workflow
 
         return order.Status = OrderStatus.Completed;
       }
-      catch (Exception)
+      catch (Exception ex)
       {
         await context.CallActivityAsync(nameof(NotificationActivity), activityResults);
         return OrderStatus.Failed;

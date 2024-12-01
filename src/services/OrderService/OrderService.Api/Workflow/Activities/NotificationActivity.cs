@@ -2,15 +2,23 @@
 
 namespace OrderService.Api.Workflow.Activities
 {
-  public class NotificationActivity : WorkflowActivity<IEnumerable<string>, object?>
+  public class NotificationActivity : WorkflowActivity<IEnumerable<string>, bool>
   {
-    public override Task<object?> RunAsync(WorkflowActivityContext context, IEnumerable<string> inputs)
+    public override async Task<bool> RunAsync(WorkflowActivityContext context, IEnumerable<string> inputs)
     {
-      foreach (var result in inputs)
+      try
       {
-        Console.WriteLine(result);
+        foreach (var result in inputs)
+        {
+          Console.WriteLine(result);
+        }
+        await Task.Delay(1);
+        return true;
       }
-      return null!;
+      catch(Exception ex)
+      {
+        return false;
+      }
     }
   }
 }
