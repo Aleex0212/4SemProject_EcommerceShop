@@ -18,7 +18,7 @@
              OnSettingsClick="OnSettingsClickAsync"
              OnLogOutClick="OnLogOutClickAsync" />
 
-    <div class="main-content">
+    <div class="order-content">
       <h1 class="page-title">Ordreoversigt</h1>
 
       @if (_orderViewModels != null && _orderViewModels.Any())
@@ -31,7 +31,7 @@
                 <h2 class="order-id">Ordre ID: @order.Id</h2>
                 <span class="order-status">Status: @order.Status</span>
               </div>
-              <p class="order-total-price">Totalpris: @order.TotalPrice kr.</p>
+              <p class="order-total-price">Totalpris (DKK): @order.TotalPrice</p>
 
               <div class="customer-info">
                 <h3>Kundeinfo</h3>
@@ -52,7 +52,7 @@
                         <p><strong>Produkt ID:</strong> @productLine.Product.Id</p>
                         <p><strong>Produkt Navn:</strong> @productLine.Product.Name</p>
                         <p><strong>Antal:</strong> @productLine.Quantity</p>
-                        <p><strong>Pris:</strong> @($"{productLine.Product.Price:C}")</p>
+                        <p><strong>Pris (DKK):</strong> @($"{productLine.Product.Price}")</p>
                       </li>
                     }
                   </ul>

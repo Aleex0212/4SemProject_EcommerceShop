@@ -1,4 +1,13 @@
-﻿.orders-list {
+﻿.order-content {
+  background-color: #c0cad7 !important;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+  padding-top: 80px;
+  padding-left: 30px;
+}
+
+.orders-list {
   list-style-type: none;
   padding: 0;
   margin: 0;
@@ -25,12 +34,14 @@
 }
 
 .order-id {
+  padding-top: 10px;
+  font-size: 1.1rem;
   color: #2c3e50;
-  font-size: 1.3rem;
+  font-size: 1 rem;
 }
 
 .order-status {
-  background-color: #3498db;
+  background-color: #4CAF50 !important;
   color: #fff;
   padding: 5px 10px;
   border-radius: 5px;
