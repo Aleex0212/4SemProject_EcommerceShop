@@ -4,9 +4,10 @@
 @inject NavigationManager Navigation
 @inject IUserGatewayApi UserGatewayApi
 @inject NotificationService NotificationService
+@inject IMapper Mapper
 
   <RadzenContent>
-    <TopNavbar CustomerName="@_customerViewModel?.Name" />
+    <TopNavbar CustomerName="@_customerViewModel?.UserType.ToString()" />
   </RadzenContent>
 
 
@@ -17,6 +18,7 @@
   {
     var token = await SessionStorage.GetItemAsync<string>("ecommerce-login-token");
     var user = await HandleAuth(token);
+    _customerViewModel = Mapper.Map<CustomerViewModel>(user);
   }
 
   private async Task<UserDto> HandleAuth(string token)
