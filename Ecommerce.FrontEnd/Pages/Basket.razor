@@ -123,11 +123,8 @@
 
   private async Task OnLogOutClickAsync()
   {
-    await SessionStorage.RemoveItemAsync("ecommerce-login-token");
-    await SessionStorage.RemoveItemAsync("basket");
-    await SessionStorage.RemoveItemAsync("user-email");
-    await SessionStorage.RemoveItemAsync("assigned-order");
-
+    RemoveCachedSession();
+    
     NotificationService.Notify(new NotificationMessage()
       {
         Severity = NotificationSeverity.Info,
