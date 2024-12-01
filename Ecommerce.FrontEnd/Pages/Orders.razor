@@ -28,7 +28,7 @@
           {
             <li class="order-item">
               <div class="order-header">
-                <h2 class="order-id">Ordre ID: @order.Id</h2>
+                <h2 class="order-id">Ordre reference: @order.Id</h2>
                 <span class="order-status">Status: @order.Status</span>
               </div>
               <p class="order-total-price">Totalpris (DKK): @order.TotalPrice</p>
@@ -49,7 +49,7 @@
                     @foreach (var productLine in order.ProductLines)
                     {
                       <li class="product-line">
-                        <p><strong>Produkt ID:</strong> @productLine.Product.Id</p>
+                        <p><strong>Produkt reference:</strong> @productLine.Product.Id</p>
                         <p><strong>Produkt Navn:</strong> @productLine.Product.Name</p>
                         <p><strong>Antal:</strong> @productLine.Quantity</p>
                         <p><strong>Pris (DKK):</strong> @($"{productLine.Product.Price}")</p>

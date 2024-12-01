@@ -1,10 +1,27 @@
-﻿.order-content {
+﻿html, body {
+  height: 100%;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  background-color: #c0cad7 !important;
+}
+
+.main-wrapper {
+  display: flex;
+  flex-grow: 1;
+}
+
+
+.order-content {
   background-color: #c0cad7 !important;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  grid-template-columns: min-content auto;
   gap: 20px;
   padding-top: 80px;
-  padding-left: 30px;
+  padding-left: 300px;
+  padding-right: 30px;
+  flex-grow: 1;
+  min-height: 100vh;
 }
 
 .orders-list {
@@ -37,7 +54,6 @@
   padding-top: 10px;
   font-size: 1.1rem;
   color: #2c3e50;
-  font-size: 1 rem;
 }
 
 .order-status {
