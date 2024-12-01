@@ -6,6 +6,7 @@
 @inject NotificationService NotificationService
 @inject ISessionStorageService SessionStorage
 @inject IAuthGatewayApi AuthGatewayApi
+@inject IUserGatewayApi UserGatewayApi
 
 <RadzenContent>
   <div class="login-container">
@@ -46,15 +47,15 @@
 
   private async Task HandleLogin()
   {
-    if (!ValidateForm()) 
+    if (!ValidateForm())
     {
       NotificationService.Notify(new NotificationMessage
-      {
-        Severity = NotificationSeverity.Error,
-        Summary = "Input Valideringsfejl",
-        Detail = "Venligst udfyld alle felter korrekt.",
-        Duration = 2000
-      });
+        {
+          Severity = NotificationSeverity.Error,
+          Summary = "Input Valideringsfejl",
+          Detail = "Venligst udfyld alle felter korrekt.",
+          Duration = 2000
+        });
       return;
     }
 
@@ -67,43 +68,55 @@
 
       var token = await AuthGatewayApi.Login(loginDto);
 
-      if (!token.IsNullOrEmpty())
+      if (string.IsNullOrEmpty(token))
       {
-        await SessionStorage.SetItemAsStringAsync("ecommerce-login-token", token);
-        await SessionStorage.SetItemAsStringAsync("user-email", _loginViewModel.Email);
+        NotificationService.Notify(new NotificationMessage
+          {
+            Severity = NotificationSeverity.Error,
+            Summary = "Login Fejlede",
+            Detail = "Forkert Email eller Adgangskode",
+            Duration = 2000
+          });
+        return;
       }
 
-      LoginNotification(token);
+      await SessionStorage.SetItemAsStringAsync("ecommerce-login-token", token);
+      await SessionStorage.SetItemAsStringAsync("user-email", _loginViewModel.Email);
+
+      var user = await UserGatewayApi.GetCustomerByEmail(loginDto.Email);
+      var customer = Mapper.Map<CustomerViewModel>(user);
+
+      NotificationService.Notify(new NotificationMessage
+        {
+          Severity = NotificationSeverity.Success,
+          Summary = "Login gennemført",
+          Detail = "Du er logget ind",
+          Duration = 4000
+        });
+
+      Navigation.NavigateTo(customer.UserType == UserTypes.Admin ? "/admin/settings" : "/products");
     }
     catch (ApiException ex)
     {
       Logger.LogError($"Login failed: {ex.Message}");
-    }
-  }
-
-  private void LoginNotification(string token)
-  {
-    if (string.IsNullOrEmpty(token))
-    {
       NotificationService.Notify(new NotificationMessage
-      {
-        Severity = NotificationSeverity.Error,
-        Summary = "Login Fejlede",
-        Detail = "Forkert Email eller Adgangskode",
-        Duration = 2000
-      });
+        {
+          Severity = NotificationSeverity.Error,
+          Summary = "Login Fejlede",
+          Detail = "Noget gik galt. Prøv igen.",
+          Duration = 2000
+        });
     }
-    else
+    catch (Exception ex)
     {
+      Logger.LogError($"Der opstod en uventet: {ex.Message}");
       NotificationService.Notify(new NotificationMessage
-      {
-        Severity = NotificationSeverity.Success,
-        Summary = "Login gennemført",
-        Detail = "Du er logget ind",
-        Duration = 4000
-      });
-
-      Navigation.NavigateTo("/products");
+        {
+          Severity = NotificationSeverity.Error,
+          Summary = "Login Fejlede",
+          Detail = "En uventet fejl opstod.",
+          Duration = 2000
+        });
     }
   }
 
@@ -113,16 +126,15 @@
     string saltValue = "super-secret-salt-value_xd";
     byte[] salt = Encoding.UTF8.GetBytes(saltValue!);
 
-    string hashedPasswordSalt = Convert.ToBase64String
-    (KeyDerivation.Pbkdf2
-      (
+    return Convert.ToBase64String(
+      KeyDerivation.Pbkdf2(
         password: passwordToHash,
         salt: salt,
         prf: KeyDerivationPrf.HMACSHA256,
         iterationCount: 10,
-        numBytesRequested: 256 / 8)
+        numBytesRequested: 256 / 8
+      )
     );
-    return hashedPasswordSalt;
   }
 
   private bool ValidateForm()
