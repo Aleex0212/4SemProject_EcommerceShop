@@ -40,22 +40,6 @@
     return customer;
   }
 
-  private async Task OnLogOutClickAsync()
-  {
-    RemoveCachedSession();
-
-    NotificationService.Notify
-    (new NotificationMessage()
-      {
-        Severity = NotificationSeverity.Info,
-        Summary = "Logget ud",
-        Detail = "Du blev logget ud",
-        Duration = 4000
-      });
-    await Task.Delay(1000);
-    Navigation.NavigateTo("login", true);
-  }
-
   private void RemoveCachedSession()
   {
     SessionStorage.RemoveItemAsync("ecommerce-login-token");
