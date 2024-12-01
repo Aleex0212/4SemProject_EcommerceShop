@@ -105,9 +105,7 @@
           Detail = "Din ordre er blevet gennemført!",
           Duration = 4000
         });
-
-      await SessionStorage.SetItemAsync("assigned-order", orderDto);
-      Navigation.NavigateTo("/orders");
+      Navigation.NavigateTo("/orders", forceLoad: true);
     }
     catch (Exception ex)
     {

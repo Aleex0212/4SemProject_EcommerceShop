@@ -1,5 +1,6 @@
 ﻿@page "/orders"
 @using Ecommerce.FrontEnd.Components
+@using Microsoft.EntityFrameworkCore.Migrations.Operations
 
 @inject IMapper Mapper
 @inject NavigationManager Navigation
@@ -89,6 +90,7 @@
 
     var orderDtos = await OrderGatewayApi.GetOrdersByCustomerEmail(userEmail, $"Bearer {token}");
     _orderViewModels = Mapper.Map<List<OrderViewModel>?>(orderDtos);
+    StateHasChanged();
   }
 
   private void OnProductsClickAsync()
