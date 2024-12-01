@@ -5,7 +5,7 @@
 @inject LoggedInUser loggedInUser
 @inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
 @{
-	Layout = "master.cshtml";
+  Layout = "master.cshtml";
 }
 
 @{
@@ -15,6 +15,6 @@
   }
   else
   {
-  Html.RenderPartial("Partials/ContactForm.cshtml", new ContactForm());
+    Html.RenderPartial("Partials/ContactForm.cshtml", new ContactForm());
   }
 }

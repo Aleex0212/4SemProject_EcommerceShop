@@ -19,8 +19,8 @@ namespace OrderService.Api.Workflow.Activities.ExternalActivities
       try
       {
         var request = _daprClient.CreateInvokeMethodRequest(
-          "UserService-api",
-          Routes.UserRoutes.BaseUrl,
+          "userservice-api",
+          Routes.UserRoutes.Verify,
           customer);
 
         var responseJson = await _daprClient.InvokeMethodWithResponseAsync(request);

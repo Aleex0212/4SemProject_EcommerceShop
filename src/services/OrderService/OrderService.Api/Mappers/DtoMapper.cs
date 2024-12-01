@@ -13,6 +13,7 @@ namespace OrderService.Api.Mappers
         ProductLines = MapProductLinesToDto(order.ProductLines).ToList(),
         Id = order.Id,
         Status = order.Status,
+        TotalPrice = order.TotalPrice,
       };
     }
 

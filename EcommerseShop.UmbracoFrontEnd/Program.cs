@@ -4,6 +4,9 @@ using Refit;
 using EcommerseShop.UmbracoFrontEnd.Controllers;
 using EcommerseShop.UmbracoFrontEnd.SessionStores;
 using EcommerseShop.UmbracoFrontEnd.Refit;
+using System.Text.Json.Serialization;
+using EcommerseShop.UmbracoFrontEnd.Refit.RestSharp;
+using Newtonsoft.Json;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
@@ -16,6 +19,15 @@ builder.CreateUmbracoBuilder()
 
 #region Refit Interface Registration
 
+var serializer = SystemTextJsonContentSerializer.GetDefaultJsonSerializerOptions();
+
+serializer.Converters.Remove(serializer.Converters.Single(x => x.GetType().Equals(typeof(JsonStringEnumConverter))));
+var refitSettings = new RefitSettings
+{
+  ContentSerializer = new SystemTextJsonContentSerializer(serializer)
+};
+
+
 builder.Services.AddRefitClient<IAuthApi>()
   .ConfigureHttpClient(c => c.BaseAddress = new Uri("https://localhost:7136/"));
 builder.Services.AddRefitClient<IProductApi>()
@@ -24,6 +36,9 @@ builder.Services.AddRefitClient<IUserApi>()
   .ConfigureHttpClient(c => c.BaseAddress = new Uri("https://localhost:7136/"));
 builder.Services.AddRefitClient<IOrderApi>()
   .ConfigureHttpClient(c => c.BaseAddress = new Uri("https://localhost:7136/"));
+
+//not so refit
+builder.Services.AddScoped<OrderApi>();
 
 #endregion
 
