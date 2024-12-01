@@ -40,4 +40,5 @@
 - **16.11:** Tilføjelse af JWT implementering på Gateway Api'en. Udfordring: Hvorfor er vores Beere token ikke valid?? Løst i dag.
 - **18.11:** Man kan nu lave claims baseret på hvilken usertype man logger ind med samt policies til at sikre det med.
 - **20.11:** read på orders og tilføjelse af Hashing på Passwords og Inputvalidering.
-- **21.11:** Ryde op i koden, Tilføj test orderservice, ændringer af domænemodeller. 
+- **21.11:** Ryde op i koden, Tilføj test orderservice, ændringer af domænemodeller.
+- **01.11:** Påbegynd Rapport.  
