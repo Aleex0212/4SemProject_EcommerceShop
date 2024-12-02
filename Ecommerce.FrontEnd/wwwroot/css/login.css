@@ -3,19 +3,19 @@
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background: linear-gradient(135deg, #1b242e, #2c3e50);
+  background: linear-gradient(135deg, #1b242e, #2c3e50, #4a6b8a);
   padding: 20px;
 }
 
 .login-panel {
-  max-width: 450px;
+  max-width: 23%; 
   width: 100%;
   margin: 0 auto;
-  padding: 30px;
-  background: rgba(44, 62, 80, 0.9);
+  padding: 40px;
+  background: rgba(0, 0, 0, 0.6);
   border-radius: 12px;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
-  backdrop-filter: blur(8px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(10px); 
 }
 
 .login-header {
@@ -25,22 +25,22 @@
 
 .main-header {
   color: white;
-  font-size: 36px;
-  margin-bottom: 10px;
+  font-size: 40px; 
+  margin-bottom: 15px;
   font-weight: bold;
   letter-spacing: 1px;
 }
 
 .welcome-header {
   color: #4CAF50;
-  font-size: 34px;
+  font-size: 36px; 
   margin-bottom: 20px;
   font-weight: 600;
 }
 
 .instruction-header {
   color: #95a5a6;
-  font-size: 18px;
+  font-size: 20px;
   margin-bottom: 30px;
   font-style: italic;
 }
@@ -52,7 +52,7 @@
   border-radius: 8px;
   border: 1px solid #ddd;
   font-size: 16px;
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.15);
   color: #ecf0f1;
   box-sizing: border-box;
   transition: all 0.3s ease;
@@ -62,7 +62,7 @@
     border-color: #4CAF50;
     box-shadow: 0 0 5px rgba(76, 175, 80, 0.4);
     outline: none;
-    background: rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.25); 
   }
 
 .login-button {
@@ -70,7 +70,7 @@
   background: linear-gradient(45deg, #4CAF50, #3a9043) !important;
   color: white;
   padding: 16px;
-  font-size: 16px;
+  font-size: 18px; 
   border-radius: 8px;
   border: none;
   cursor: pointer;
@@ -108,4 +108,3 @@
   padding-right: 10px;
   transition: all 0.3s ease;
 }
-

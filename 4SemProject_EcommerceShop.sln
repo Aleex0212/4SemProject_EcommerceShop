@@ -43,7 +43,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PaymentService.Api", "Payme
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ecommerce.FrontEnd", "Ecommerce.FrontEnd\Ecommerce.FrontEnd.csproj", "{127375C7-39DF-4FA8-828D-6E52524C7E63}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EcommerseShop.UmbracoFrontEnd", "EcommerseShop.UmbracoFrontEnd\EcommerseShop.UmbracoFrontEnd.csproj", "{B992B80B-FBD7-49E2-9F49-91F518EF7403}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EcommerseShop.UmbracoFrontEnd", "EcommerseShop.UmbracoFrontEnd\EcommerseShop.UmbracoFrontEnd.csproj", "{B992B80B-FBD7-49E2-9F49-91F518EF7403}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

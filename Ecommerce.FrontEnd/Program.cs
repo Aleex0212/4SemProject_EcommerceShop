@@ -40,6 +40,7 @@ builder.Services.AddRefitClient<IUserGatewayApi>(refitSettings)
 #region ServiceRegistration
 builder.Services.AddBlazoredSessionStorage();
 builder.Services.AddScoped<NotificationService>();
+builder.Services.AddScoped<DialogService>();
 #endregion
 
 #region AutoMapperProfile

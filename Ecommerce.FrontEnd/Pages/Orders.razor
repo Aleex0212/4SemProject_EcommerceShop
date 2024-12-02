@@ -1,11 +1,9 @@
 ﻿@page "/orders"
-@using Ecommerce.FrontEnd.Components
-@using Microsoft.EntityFrameworkCore.Migrations.Operations
 
 @inject IMapper Mapper
 @inject NavigationManager Navigation
 @inject NotificationService NotificationService
-@inject Blazored.SessionStorage.ISessionStorageService SessionStorage
+@inject ISessionStorageService SessionStorage
 @inject IUserGatewayApi UserGatewayApi
 @inject IOrderGatewayApi OrderGatewayApi
 
@@ -20,7 +18,7 @@
              OnLogOutClick="OnLogOutClickAsync" />
 
     <div class="order-content">
-      <h1 class="page-title">Ordreoversigt</h1>
+      <h1 class="white-text">Ordreoversigt</h1>
 
       @if (_orderViewModels != null && _orderViewModels.Any())
       {
@@ -82,19 +80,30 @@
   protected override async Task OnInitializedAsync()
   {
     var token = await SessionStorage.GetItemAsync<string>("ecommerce-login-token");
+    var customer = await HandleAuth(token);
+    _customerViewModel = Mapper.Map<CustomerViewModel>(customer);
+
+    var orderDtos = await OrderGatewayApi.GetOrdersByCustomerEmail(customer.Email, $"Bearer {token}");
+    _orderViewModels = Mapper.Map<List<OrderViewModel>?>(orderDtos);
+    StateHasChanged();
+  }
+
+  private async Task<UserDto> HandleAuth(string token)
+  {
     if (string.IsNullOrEmpty(token))
     {
       RemoveCachedSession();
       Navigation.NavigateTo("login", true);
     }
-
     var userEmail = await SessionStorage.GetItemAsync<string>("user-email");
     var customer = await UserGatewayApi.GetCustomerByEmail(userEmail);
-    _customerViewModel = Mapper.Map<CustomerViewModel>(customer);
 
-    var orderDtos = await OrderGatewayApi.GetOrdersByCustomerEmail(userEmail, $"Bearer {token}");
-    _orderViewModels = Mapper.Map<List<OrderViewModel>?>(orderDtos);
-    StateHasChanged();
+    if (customer.UserType != UserTypes.Customer)
+    {
+      RemoveCachedSession();
+      Navigation.NavigateTo("/login", true);
+    }
+    return customer;
   }
 
   private async Task OnLogOutClickAsync()
@@ -139,6 +148,6 @@
 
   private void OnSettingsClickAsync()
   {
-    Navigation.NavigateTo("/settings");
+    Navigation.NavigateTo("/admin/settings");
   }
 }

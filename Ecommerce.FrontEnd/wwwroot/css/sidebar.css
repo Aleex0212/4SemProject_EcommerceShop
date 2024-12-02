@@ -4,7 +4,7 @@
   padding: 0;
 }
 .sidebar {
-  background-color: #1b242e !important;
+  background: linear-gradient(135deg, #1b242e, #2e4057, #3a526b) !important;
   padding: 20px;
   width: 250px;
   box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);

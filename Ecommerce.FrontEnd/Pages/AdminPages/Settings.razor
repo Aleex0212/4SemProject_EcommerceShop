@@ -1,0 +1,108 @@
+﻿@page "/admin/settings"
+
+@inject NavigationManager Navigation
+@inject IMapper Mapper
+@inject ISessionStorageService SessionStorage
+@inject IUserGatewayApi UserGatewayApi
+@inject IProductGatewayApi ProductGatewayApi
+@inject DialogService DialogService
+
+<RadzenContent>
+  <div class="content-wrapper">
+    <TopNavbar CustomerName="@_customerViewModel?.UserType.ToString()" />
+    <div class="create-product-container">
+      <h3>
+        Velkommen, @_customerViewModel?.UserType.ToString()
+      </h3>
+      <h3 class="product-heading">
+        Opret et Produkt
+      </h3>
+
+      <EditForm Model="_productViewModel" OnValidSubmit="CreateProduct">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+
+        <div class="form-group">
+          <span class="form-control-static">
+            Product ID: @_productViewModel.Id.ToString()
+          </span>
+        </div>
+
+        <div class="form-group">
+          <InputText id="Name" class="form-control" @bind-Value="_productViewModel.Name" placeholder="Produktnavn" />
+          <ValidationMessage For="@(() => _productViewModel.Name)" />
+        </div>
+
+        <div class="form-group">
+          <label for="Price" class="form-label">Pris</label>
+          <InputNumber id="Price" class="form-control" @bind-Value="_productViewModel.Price" Min="0.01" />
+          <ValidationMessage For="@(() => _productViewModel.Price)" />
+        </div>
+
+        <div class="form-group">
+          <label for="Amount" class="form-label">Antal</label>
+          <InputNumber id="Amount" class="form-control" @bind-Value="_productViewModel.Amount" Min="1" />
+          <ValidationMessage For="@(() => _productViewModel.Amount)" />
+        </div>
+
+        <div class="product-actions">
+          <button type="submit" class="button-create">
+            Opret Produkt
+          </button>
+        </div>
+      </EditForm>
+    </div>
+  </div>
+</RadzenContent>
+
+@code {
+  private CustomerViewModel _customerViewModel = new();
+  private ProductViewModel _productViewModel = new();
+
+  protected override async Task OnInitializedAsync()
+  {
+    var token = await SessionStorage.GetItemAsync<string>("ecommerce-login-token");
+    var user = await HandleAuth(token);
+    if (user != null) _customerViewModel = Mapper.Map<CustomerViewModel>(user);
+  }
+
+  private async Task CreateProduct()
+  {
+    _productViewModel.Id = Guid.NewGuid();
+    var productDto = Mapper.Map<ProductDto>(_productViewModel);
+    var token = await SessionStorage.GetItemAsync<string>("ecommerce-login-token");
+    var result = await ProductGatewayApi.CreateProductAsync(productDto, $"Bearer {token}");
+    await DialogService.Confirm(result);
+    Navigation.NavigateTo("/products", true);
+  }
+
+  private async Task<UserDto?> HandleAuth(string token)
+  {
+    if (string.IsNullOrEmpty(token))
+    {
+      RemoveCachedSession();
+      Navigation.NavigateTo("login", true);
+      return null;
+    }
+
+    var userEmail = await SessionStorage.GetItemAsync<string>("user-email");
+    var customer = await UserGatewayApi.GetCustomerByEmail(userEmail);
+
+    if (customer.UserType != UserTypes.Admin)
+    {
+      RemoveCachedSession();
+      Navigation.NavigateTo("/login", true);
+      return null;
+    }
+
+    return customer;
+  }
+
+  private void RemoveCachedSession()
+  {
+    SessionStorage.RemoveItemAsync("ecommerce-login-token");
+    SessionStorage.RemoveItemAsync("basket");
+    SessionStorage.RemoveItemAsync("user-email");
+    SessionStorage.RemoveItemAsync("assigned-order");
+  }
+}

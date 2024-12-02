@@ -9,7 +9,7 @@ namespace Ecommerce.FrontEnd.ViewModels
 
     [Required(ErrorMessage = "Navn er påkrævet")]
     [StringLength(50, ErrorMessage = "Navn må ikke være længere end 50 tegn.")]
-    public required string Name { get; set; }
+    public string Name { get; set; }
 
     [Required(ErrorMessage = "Pris er påkrævet")]
     [Range(0.01, double.MaxValue, ErrorMessage = "Prisen skal være større end nul.")]
